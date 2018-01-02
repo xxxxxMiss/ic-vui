@@ -1,0 +1,112 @@
+@import 'common/var.styl'
+
+.xm-btn
+  position relative
+  display inline-block
+  text-align center
+  outline none
+  border 0
+  -webkit-appearance none
+  user-select none
+  border-radius $border-radius
+  &:after
+    content ''
+    position absolute
+    left 0
+    top 0
+    width 200%
+    height 200%
+    border $border
+    transform scale(.5)
+    transform-origin left top
+    border-radius inherit
+
+  &__text
+    display flex
+    align-items center
+    justify-content center
+
+  .van-icon
+    margin: 0 5px
+
+  &--default
+    background-color $white
+    color $black
+    &:after
+      border $border
+    &:active
+      background-color darken($white, 10%)
+    &[disabled]
+      background-color darken($white, 10%)
+      color #999
+
+  &--primary
+    background-color $primary
+    color $white
+    &:after
+      border $border-primary
+    &:active, &[disabled]
+      background-color lighten($primary, 30%)
+
+  &--success
+    background-color $success
+    color $white
+    &:after
+      border $border-success
+    &:active, &[disabled]
+      background-color lighten($success, 30%)
+
+  &--warning
+    background-color $warning
+    color $white
+    &:after
+      border $border-warning
+    &:active, &[disabled]
+      background-color lighten($warning, 30%)
+
+  &--danger
+    background-color $danger
+    color $white
+    &:after
+      border $border-danger
+    &:active, &[disabled]
+      background-color lighten($danger, 30%)
+
+  &--info
+    background-color $info
+    color $white
+    &:after
+      border $border-info
+    &:active, &[disabled]
+      background-color lighten($info, 30%)
+
+  &--large
+    padding 12px 24px
+
+  &--normal
+    padding 8px 20px
+
+  &--small
+    padding 4px 8px
+
+  &--mini
+    padding 2px 4px
+
+  &--round
+    border-radius $round = 16px
+    &:after
+      border-radius $round * 2
+
+  &--block
+    width 100%
+
+  &--fixed
+    position fixed
+    left 0
+    bottom 0
+    width 100%
+    border-radius 0
+    height 50px
+    lige-height 50px
+    font-size 17px
+

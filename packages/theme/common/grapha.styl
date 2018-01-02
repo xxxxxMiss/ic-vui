@@ -1,0 +1,26 @@
+@import 'var.styl'
+
+$arrow-small-border-width = 3px
+.xm-arrow
+  postion relative
+  width 0
+  height 0
+  &:after
+    content: ''
+    postion: absolute
+  &--down:after
+    border-left $arrow-small-border-width solid transparent
+    border-right $arrow-small-border-width solid transparent
+    border-top $arrow-small-border-width solid $gray-dark
+  &--up:after
+    border-left $arrow-small-border-width solid transparent
+    border-right $arrow-small-border-width solid transparent
+    border-bottom $arrow-small-border-width solid $gray-dark
+  &--left:after
+    border-top $arrow-small-border-width solid transparent
+    border-bottom $arrow-small-border-width solid transparent
+    border-right $arrow-small-border-width solid $gray-dark
+  &--right:after
+    border-top $arrow-small-border-width solid transparent
+    border-bottom $arrow-small-border-width solid transparent
+    border-left $arrow-small-border-width solid $gray-dark

@@ -1,11 +1,11 @@
 <template>
-  <div class="xm-switch">
+  <div class="ic-switch">
 
   </div>
 </template>
 
 <script>
   export default {
-    name: 'xm-switch'
+    name: 'ic-switch'
   }
 </script>

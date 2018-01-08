@@ -1,17 +1,19 @@
 <template>
-  <header class="xm-header">
-    <div class="xm-header__left">
-      <xm-icon :name="leftIcon"></xm-icon>
+  <header class="ic-header">
+    <div class="ic-header__left">
+      <ic-icon :name="leftIcon"></ic-icon>
       <span v-if="leftText">{{leftText}}</span>
     </div>
-    <div class="xm-header__title">
+    <div class="ic-header__title">
       {{title}}
     </div>
-    <div class="xm-header__right">
+    <div class="ic-header__right">
       <template v-if="rightIcon">
-        <xm-icon v-for="(val, index) in rightOption"
+        <ic-icon
+          v-for="(val, index) in rightOption"
           :key="index"
-          :name="val"></xm-icon>
+          :name="val"
+        ></ic-icon>
       </template>
       <span v-if="rightText">{{rightText}}</span>
     </div>
@@ -20,7 +22,7 @@
 
 <script>
   export default {
-    name: 'xm-header',
+    name: 'ic-header',
 
     props: {
       title: String,
@@ -38,7 +40,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/header.styl'
-</style>

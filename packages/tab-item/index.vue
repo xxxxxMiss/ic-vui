@@ -1,7 +1,7 @@
 <template>
-  <div class="xm-tab__panel"
+  <div class="ic-tab__panel"
     :class="{
-      'xm-tab__panel--active': index === parentGroup.currentActive
+      'ic-tab__panel--active': index == parentGroup.currentActive
     }">
     <slot></slot>
   </div>
@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: 'xm-tab-item',
+    name: 'ic-tab-item',
 
     props: {
       title: {
@@ -25,22 +25,21 @@
     },
     methods: {
       findParentByName () {
-        let parent = this.$parent
-        while (parent) {
-          if (parent.$options.name === 'xm-tab') {
-            this.parentGroup = parent
-            break
+        if (!this.parentGroup) {
+          let parent = this.$parent
+          while (parent) {
+            if (parent.$options.name === 'ic-tab') {
+              this.parentGroup = parent
+              break
+            }
+            parent = parent.$parent
           }
-          parent = parent.$parent
         }
       }
     },
     created () {
-      this.findParentByName('xm-tab')
+      this.findParentByName('ic-tab')
       this.parentGroup.items.push(this)
-    },
-    destroyed () {
-      this.parentGroup.items.splice(this.index, 1)
     }
   }
 </script>

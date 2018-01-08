@@ -1,17 +1,17 @@
 <template>
-  <div class="xm-tag"
+  <div class="ic-tag"
     :class="[
-      'xm-tag--' + type,
-      'xm-tag--' + size
+      'ic-tag--' + type,
+      'ic-tag--' + size
     ]">
     <slot></slot>
-    <xm-icon v-if="closable"></xm-icon>
+    <ic-icon v-if="closable"></ic-icon>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'xm-tag',
+    name: 'ic-tag',
 
     props: {
       type: {
@@ -29,7 +29,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/tag.styl'
-</style>

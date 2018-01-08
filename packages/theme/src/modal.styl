@@ -1,0 +1,91 @@
+@import 'common/var'
+@import 'mixin/center'
+
++prefix-classes($prefix-classes)
+  .modal
+    position absolute
+    z-index: $z-index['modal']
+    left 0
+    top 0
+    width 100%
+    height 100%
+    background-color rgba(0, 0, 0, .4)
+    text-align center
+
+    &__inner
+      center()
+      margin 0 auto
+      background-color $white
+      border-radius 8px
+      padding 30px
+      width 80%
+      overflow hidden
+
+    &__title
+      position relative
+      font-size $font-size-large
+      font-weight 500
+      color $black
+    &__close
+      display inline-block
+      position absolute
+      right 22px
+      top 16px
+      width 15px
+      height 15px
+      &:before, &:after
+        content: ''
+        position absolute
+        width (@width / sin(45deg))
+        height 2px
+        background-color #999
+        bottom 0
+      &:before
+        left 0
+        transform-origin left bottom
+        transform rotate(-45deg)
+      &:after
+        right 0
+        transform-origin right bottom
+        transform rotate(45deg)
+
+    &__content
+      text-align center
+      margin 35px auto 45px
+
+    &__footer
+      text-align right
+      .xm-btn + .xm-btn
+        margin-left 12px
+
+    &--center &__title, &__content, &__footer
+      text-align center
+
+    .xm-input
+      padding-top 15px
+    .xm-input__input
+      background-color $white
+      border 1px solid #ccc
+
+  .modal-fade-enter-active
+    animation: modal-fade-in .3s
+
+  .modal-fade-leave-active
+    animation: modal-fade-out .3s
+
+@keyframes modal-fade-in
+  0%
+    transform: translate3d(0, -20px, 0)
+    opacity: 0
+  100%
+    transform: translate3d(0, 0, 0)
+    opacity: 1
+
+@keyframes modal-fade-out
+  0%
+    transform: translate3d(0, 0, 0)
+    opacity: 1
+  100%
+    transform: translate3d(0, -20px, 0)
+    opacity: 0
+

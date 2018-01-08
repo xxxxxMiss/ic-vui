@@ -1,17 +1,18 @@
 <template>
-  <div class="xm-loading">
-    <div class="xm-loading__inner">
-      <xm-spinner
+  <div class="ic-loading">
+    <div class="ic-loading__inner">
+      <ic-spinner
         :color="color"
-        :type="spinnerType"></xm-spinner>
-      <span class="xm-loading__text" v-if="text">{{text}}</span>
+        :type="spinnerType"
+      ></ic-spinner>
+      <span class="ic-loading__text" v-if="text">{{text}}</span>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'xm-loading',
+    name: 'ic-loading',
 
     props: {
       text: String,
@@ -26,7 +27,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/loading.styl'
-</style>

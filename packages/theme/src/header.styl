@@ -1,0 +1,38 @@
+@import 'common/var'
+@import 'mixin/ellipsis'
+@import 'mixin/border'
+
++prefix-classes($prefix-classes)
+  .header
+    position relative
+    display flex
+    align-items center
+    background-color $white
+    height $header-height
+    padding 0 $padding-x
+    &:after
+      border-retina()
+
+    &__left
+      flex 1
+      display flex
+      align-items center
+
+    &__title
+      flex 3
+      font-size $font-size-xlarge
+      font-weight bold
+      text-align center
+      ellipsis()
+
+    &__right
+      flex 1
+      display flex
+      justify-content flex-end
+      align-items center
+      text-align right
+      font-size $font-size-medium
+
+      & .van-icon
+        margin-left 25px
+

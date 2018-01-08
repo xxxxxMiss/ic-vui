@@ -1,11 +1,11 @@
 <template>
-  <div class="xm-dialog">
+  <div class="ic-dialog">
 
   </div>
 </template>
 
 <script>
   export default {
-    name: 'xm-dialog'
+    name: 'ic-dialog'
   }
 </script>

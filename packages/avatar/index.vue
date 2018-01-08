@@ -6,6 +6,6 @@
 
 <script>
   export default {
-    name: 'xm-avatar'
+    name: 'ic-avatar'
   }
 </script>

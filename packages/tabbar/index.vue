@@ -1,14 +1,24 @@
 <template>
-  <div class="xm-tabbar">
-  </div>
+  <ul class="ic-tabbar">
+    <slot></slot>
+  </ul>
 </template>
 
 <script>
   export default {
-    name: 'xm-tabbar'
+    name: 'ic-tabbar',
+
+    props: {
+      defaultActive: {
+        type: [String, Number],
+        default: 0
+      }
+    },
+    data () {
+      return {
+        currentActive: this.defaultActive,
+        bars: []
+      }
+    }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/tabbar.styl'
-</style>

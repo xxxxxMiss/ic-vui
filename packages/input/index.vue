@@ -1,50 +1,71 @@
 <template>
-  <div class="xm-input"
+  <div class="ic-input"
     :class="[
-      'xm-input--' + size,
+      'ic-input--' + size,
       {
-        'xm-input--round': round,
-        'xm-input--prefix': prefixIcon,
-        'xm-input--suffix': suffixIcon || clearable,
-        'xm-input--timer': timer
+        'ic-input--round': round,
+        'ic-input--prefix': prefixIcon,
+        'ic-input--suffix': suffixIcon || clearable,
+        'ic-input--timer': timer
       }
     ]">
     <slot name="prepend"></slot>
-    <div class="xm-input__inner">
-      <xm-icon v-if="prefixIcon"
-        class="icon-prefix"
-        :name="prefixIcon"></xm-icon>
-      <input class="xm-input__input"
-        v-model="currentValue"
-        :readonly="readonly"
-        :placeholder="placeholder"
-        :type="type"
-        :name="name"
-        :autofocus="autofocus"
-        @input="onChange"
-        @blur="onBlur"
-        @focus="onFocus">
-      <xm-icon v-if="suffixIcon"
-        :name="suffixIcon"
-        class="icon-suffix"
-        @click="clickSuffix"></xm-icon>
-      <xm-icon v-show="!suffixIcon && clearable && this.currentValue"
-        name="clear"
-        class="icon-suffix"
-        @click="onClear"></xm-icon>
-      <xm-button v-if="timer"
-        size="small"
-        type="text">重新获取</xm-button>
+    <div class="ic-input__inner">
+      <template v-if="type !== 'textarea'">
+        <ic-icon v-if="prefixIcon"
+          class="ic-icon-prefix"
+          :name="prefixIcon"></ic-icon>
+        <input class="ic-input__input"
+          v-model="currentValue"
+          :readonly="readonly"
+          :placeholder="placeholder"
+          :type="type"
+          :name="name"
+          :autofocus="autofocus"
+          @blur="onBlur"
+          @focus="onFocus">
+        <ic-icon v-if="suffixIcon"
+          :name="suffixIcon"
+          class="ic-icon-suffix"
+          @click="clickSuffix"></ic-icon>
+        <ic-icon v-show="!suffixIcon && clearable && value"
+          name="clean"
+          class="ic-icon-suffix"
+          @click="onClear"></ic-icon>
+        <ic-button v-if="timer"
+          timer
+          text
+          @click="timerClick"></ic-button>
+      </template>
+
+      <template v-else>
+        <textarea
+          class="ic-input__textarea"
+          v-model="currentValue"
+          :readonly="readonly"
+          :placeholder="placeholder"
+          :name="name"
+          :rows="rows"
+          :autofocus="autofocus"
+          @blur="onBlur"
+          @focus="onFocus"
+          ref="textarea"
+          :style="textareaStyle"
+        ></textarea>
+        <div
+          ref="mirror"
+          class="ic-input__textarea ic-textarea--mirror"
+          contenteditable
+        >{{currentValue}}</div>
+      </template>
     </div>
     <slot name="append"></slot>
   </div>
 </template>
 
 <script>
-  import debounce from 'debounce'
-
   export default {
-    name: 'xm-input',
+    name: 'ic-input',
 
     props: {
       prefixIcon: String,
@@ -65,11 +86,7 @@
         type: Boolean,
         default: false
       },
-      debounce: {
-        type: Number,
-        default: 500
-      },
-      value: String,
+      value: [String, Number],
       autofocus: {
         type: Boolean,
         default: false
@@ -83,19 +100,48 @@
         type: String,
         default: 'text'
       },
-      name: String
+      timer: {
+        type: Boolean,
+        default: false
+      },
+      to: [String, Object],
+      name: String,
+      rows: {
+        type: [String, Number],
+        default: 3
+      },
+      autosize: {
+        type: [Boolean, Object],
+        default: false
+      }
+    },
+    computed: {
+      currentValue: {
+        set (v) {
+          this.resizeTextarea()
+          this.$emit('input', v)
+        },
+        get () {
+          return this.value
+        }
+      }
     },
     data () {
       return {
-        currentValue: this.value
-      }
-    },
-    watch: {
-      currentValue (newVal) {
-        this.$emit('input', newVal)
+        textareaStyle: {}
       }
     },
     methods: {
+      resizeTextarea () {
+        if (this.type === 'textarea') {
+          const { mirror, textarea } = this.$refs
+          const mHeight = mirror.getBoundingClientRect().height
+          const tHeight = textarea.getBoundingClientRect().height
+          if (mHeight >= tHeight) {
+            this.textareaStyle.height = `${mHeight}px`
+          }
+        }
+      },
       onClear () {
         this.currentValue = ''
       },
@@ -107,14 +153,13 @@
       },
       clickSuffix (e) {
         this.$emit('click-suffix', e)
+        if (this.to) {
+          this.$router.push(this.to)
+        }
       },
-      onChange: debounce(function () {
-        this.$emit('change', this.currentValue)
-      }, this.debounce)
+      timerClick (e) {
+        this.$emit('timer-click', e)
+      }
     }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/input.styl'
-</style>

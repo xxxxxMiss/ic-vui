@@ -1,0 +1,29 @@
+@import 'common/var'
+@import 'mixin/border'
+
++prefix-classes($prefix-classes)
+  .cell
+    padding 10px $padding-x
+    position relative
+    &__inner
+      display flex
+      align-items center
+    &:after
+      border-retina()
+    &__left
+      display flex
+      align-items center
+      flex 3
+      .van-icon
+        margin-right 5px
+
+    &__right
+      display flex
+      justify-content flex-end
+      align-items center
+      flex 2
+      text-align right
+      .van-icon
+        margin-left 5px
+
+

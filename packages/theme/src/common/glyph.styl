@@ -1,0 +1,134 @@
+@import 'var'
+@import '../mixin/center'
+
+$arrow-small-border-width = 3px
+$add = 20px
+$circle = 10px
+
+.glyph__arrow--right
+  display inline-block
+  width 8px
+  height 8px
+  border-bottom 2px solid $gray-dark
+  border-right 2px solid $gray-dark
+  transform rotate(-45deg)
+
+.glyph__arrow--left
+  @extends .glyph__arrow--right
+  transform rotate(135deg)
+
+.glyph__checkbox--primary
+  position relative
+  display inline-block
+  width $checkbox-with
+  height $checkbox-with
+  border-radius 50%
+  background-color $primary
+  &:after
+    content: ''
+    position absolute
+    top 50%
+    left 50%
+    width 13px
+    height (@width / 2)
+    border-left 3px solid $white
+    border-bottom 3px solid $white
+    transform translate3d(-50%, -50%, 0) rotate(-45deg)
+    margin-top -2px
+
+.glyph__checkbox--success
+  @extends .glyph__checkbox--primary
+  width 40px
+  height 40px
+  background-color green
+  &:after
+    width 24px
+    height (@width / 2)
+    border-left-width 5px
+    border-bottom-width @border-left-width
+
+
+.glyph__add
+  display inline-block
+  position relative
+  width $add
+  height $add
+  color $black
+  &:before
+    content ''
+    position absolute
+    top 50%
+    margin-top -1px
+    width $add
+    height 2px
+    background-color currentColor
+  &:after
+    content ''
+    position absolute
+    left 50%
+    margin-left -1px
+    width 2px
+    height $add
+    background-color currentColor
+
+.glyph__close
+  @extends .glyph__add
+  transform rotate(45deg)
+
+.glyph__add--primary
+  @extends .glyph__add
+  background-color $primary
+  color $white
+  border-radius 50%
+  &:before
+    width ($add / 2)
+    margin 0
+    center()
+  &:after
+    height ($add / 2)
+    center()
+    margin 0
+
+.glyph__close--gray
+  @extends .glyph__add--primary
+  background-color $gray-dark
+  transform rotate(45deg)
+
+// ======== timeline ========
+.glyph__circle
+  display inline-block
+  position relative
+  width $circle
+  height $circle
+  border-radius 50%
+  color $primary
+  background-color $primary
+  &:after
+    display inline-block
+    content ''
+    width ($circle + 8)
+    height @width
+    border-radius 50%
+    background-color currentColor
+    opacity .6
+    center()
+
+.glyph__success
+  @extends .glyph__checkbox--primary
+  width 14px
+  height @width
+  &:after
+    width (@width / 2)
+    height (@width / 2)
+    border-width 2px
+    margin-top -1px
+
+.glyph__fail
+  @extends .glyph__close--gray
+  width 14px
+  height @width
+  &:before
+    width 8px
+  &:after
+    height 8px
+// =========== timeline ==========

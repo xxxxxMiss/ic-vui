@@ -1,27 +1,13 @@
 <template>
-  <div class="xm-filter">
-    <div class="xm-filter__title">
-      <div class="xm-filter__cell">
-        <span class="xm-filter__text">智能排序</span>
-        <i class="arrow"></i>
-      </div>
-      <div class="xm-filter__cell">
-        <span class="xm-filter__text">全部地点</span>
-        <i class="arrow"></i>
-      </div>
-      <div class="xm-filter__cell is-active">
-        <span class="xm-filter__text">奖品名称很长的时候</span>
-        <i class="arrow"></i>
-      </div>
-    </div>
-    <div class="xm-filter__panel">
-      <div class="xm-filter__mask">
-        <div class="xm-filter__item" v-for="i in 20" :key="i">
-          <div class="xm-filter__row">
-            小牛电动车小牛电动车小牛电动车小牛电动车小牛电动车小牛电动车
-          </div>
-          <xm-checkbox v-model="test" round></xm-checkbox>
-        </div>
+  <div class="ic-filter">
+    <div class="ic-filter__panel">
+      <div class="ic-filter__item"
+        @click="filterItemClick">
+        <div class="ic-filter__row">{{item[labelKey]}}</div>
+        <i class="ic-filter__checkbox glyph__checkbox--primary"
+          :style="{
+            'display': itemActiveId === item.key ? 'inline-block' : 'none'
+          }"></i>
       </div>
     </div>
   </div>
@@ -29,23 +15,26 @@
 
 <script>
   export default {
-    name: 'xm-filter',
+    name: 'ic-filter',
 
     props: {
-      showArrow: {
-        type: Boolean,
-        default: true
+      item: {
+        type: Object,
+        default: () => ({})
+      },
+      itemActiveId: {
+        type: [String, Number],
+        default: 0
+      },
+      labelKey: {
+        type: String,
+        default: 'label'
       }
     },
-    data () {
-      return {
-        test: ''
+    methods: {
+      filterItemClick () {
+        this.$emit('filter-item-click')
       }
     }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/filter.styl'
-</style>
-

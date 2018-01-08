@@ -3,27 +3,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import XmAvatar from '../components/XmAvatar'
-import XmBadge from '../components/XmBadge'
-import XmButton from '../components/XmButton'
-import XmCell from '../components/XmCell'
-import XmCheckbox from '../components/XmCheckbox'
-import XmDialog from '../components/XmDialog'
-import XmFilter from '../components/XmFilter'
-import XmHeader from '../components/XmHeader'
-import XmIcon from '../components/XmIcon'
-import XmInput from '../components/XmInput'
-import XmLoading from '../components/XmLoading'
-import XmModal from '../components/XmModal'
-import XmRadio from '../components/XmRadio'
-import XmSpinner from '../components/XmSpinner'
-import XmSwitch from '../components/XmSwitch'
-import XmTab from '../components/XmTab'
-import XmTabItem from '../components/XmTabItem'
-import XmTabbar from '../components/XmTabbar'
-import XmTag from '../components/XmTag'
-import XmTimeline from '../components/XmTimeline'
-import XmToast from '../components/XmToast'
+import Avatar from '../components/Avatar'
+import Badge from '../components/Badge'
+import Button from '../components/Button'
+import Cell from '../components/Cell'
+import Checkbox from '../components/Checkbox'
+import Dialog from '../components/Dialog'
+import Filter from '../components/Filter'
+import Header from '../components/Header'
+import Icon from '../components/Icon'
+import Input from '../components/Input'
+import Loading from '../components/Loading'
+import Modal from '../components/Modal'
+import Radio from '../components/Radio'
+import Spinner from '../components/Spinner'
+import Switch from '../components/Switch'
+import Tab from '../components/Tab'
+import TabItem from '../components/TabItem'
+import Tabbar from '../components/Tabbar'
+import Tag from '../components/Tag'
+import Timeline from '../components/Timeline'
+import Toast from '../components/Toast'
+import Collapse from '../components/Collapse'
+import Loaction from '../components/Loaction'
 
 Vue.use(Router)
 
@@ -31,87 +33,95 @@ export default new Router({
   routes: [
     {
       path: '/avatar',
-      component: XmAvatar
+      component: Avatar
     },
     {
       path: '/badge',
-      component: XmBadge
+      component: Badge
     },
     {
       path: '/button',
-      component: XmButton
+      component: Button
     },
     {
       path: '/cell',
-      component: XmCell
+      component: Cell
     },
     {
       path: '/checkbox',
-      component: XmCheckbox
+      component: Checkbox
     },
     {
       path: '/dialog',
-      component: XmDialog
+      component: Dialog
     },
     {
       path: '/filter',
-      component: XmFilter
+      component: Filter
     },
     {
       path: '/header',
-      component: XmHeader
+      component: Header
     },
     {
       path: '/icon',
-      component: XmIcon
+      component: Icon
     },
     {
       path: '/input',
-      component: XmInput
+      component: Input
     },
     {
       path: '/loading',
-      component: XmLoading
+      component: Loading
     },
     {
       path: '/modal',
-      component: XmModal
+      component: Modal
     },
     {
       path: '/radio',
-      component: XmRadio
+      component: Radio
     },
     {
       path: '/spinner',
-      component: XmSpinner
+      component: Spinner
     },
     {
       path: '/switch',
-      component: XmSwitch
+      component: Switch
     },
     {
       path: '/tab',
-      component: XmTab
+      component: Tab
     },
     {
       path: '/tab-item',
-      component: XmTabItem
+      component: TabItem
     },
     {
       path: '/tabbar',
-      component: XmTabbar
+      component: Tabbar
     },
     {
       path: '/tag',
-      component: XmTag
+      component: Tag
     },
     {
       path: '/timeline',
-      component: XmTimeline
+      component: Timeline
     },
     {
       path: '/toast',
-      component: XmToast
+      component: Toast
+    },
+    {
+      path: '/collapse',
+      component: Collapse
+    },
+    {
+      path: '/location',
+      component: Loaction
     }
   ]
 })

@@ -1,7 +1,9 @@
+import '../packages/theme/src/index.styl'
+import 'reset.css'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import components from './components'
+import components from '../packages'
 
 Vue.config.productionTip = false
 

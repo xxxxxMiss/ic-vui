@@ -1,0 +1,60 @@
+@import 'common/var'
+@import 'common/animation'
+
+$disabled-border-color = #ddd
++prefix-classes($prefix-classes)
+  .checkbox
+    display inline-block
+    position relative
+    &__wrapper
+      display flex
+      align-items center
+      justify-content center
+    &__inner
+      display inline-block
+      position relative
+      width $checkbox-with
+      height $checkbox-with
+      border 1px solid $gray-dark
+    &__input
+      display none
+    &--checked &__inner
+      background-color $primary
+      border-color $primary
+    &--checked &__inner:after
+      content: ''
+      position absolute
+      top 50%
+      left 50%
+      width 13px
+      height (@width / 2)
+      border-left 3px solid $white
+      border-bottom 3px solid $white
+      transform translate3d(-50%, -50%, 0) rotate(-45deg)
+      margin-top -2px
+      animation checkbox-fade-in .2s
+
+    &__label
+      padding-left 8px
+    &--checked &__label
+      color $primary
+
+    &--disabled &__inner
+      background-color $gray-light
+      border-color $disabled-border-color
+    &--disabled &__label
+      color $gray-dark
+
+    &--round &__inner
+      border-radius 50%
+
+@keyframes checkbox-fade-in
+  from
+    transform translate3d(-50%, -50%, 0) rotate(-45deg) scale(.8)
+    opacity 0
+  50%
+    transform translate3d(-50%, -50%, 0) rotate(-45deg) scale(1.2)
+  to
+    transform translate3d(-50%, -50%, 0) rotate(-45deg) scale(1)
+    opacity 1
+

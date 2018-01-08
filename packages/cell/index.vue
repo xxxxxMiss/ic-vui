@@ -1,19 +1,19 @@
 <template>
-  <div class="xm-cell">
+  <div class="ic-cell">
     <slot name="all">
-      <div class="xm-cell__inner">
-        <div class="xm-cell__left">
+      <div class="ic-cell__inner">
+        <div class="ic-cell__left">
           <slot name="prefix">
-            <xm-icon v-if="icon" :name="icon"></xm-icon>
+            <ic-icon v-if="icon" :name="icon"></ic-icon>
           </slot>
           <slot name="title">
-            <span class="xm-cell__title">{{title}}</span>
+            <span class="ic-cell__title">{{title}}</span>
           </slot>
         </div>
         <slot name="suffix">
-          <div class="xm-cell__right">
+          <div class="ic-cell__right">
             <span>{{content}}</span>
-            <xm-icon v-if="showArrow" name="arrow"></xm-icon>
+            <ic-icon v-if="showArrow" name="arrow"></ic-icon>
           </div>
         </slot>
       </div>
@@ -26,7 +26,7 @@
   import XmIcon from '../icon'
 
   export default {
-    name: 'xm-cell',
+    name: 'ic-cell',
 
     props: {
       title: String,
@@ -40,7 +40,3 @@
     components: { XmIcon }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/cell.styl'
-</style>

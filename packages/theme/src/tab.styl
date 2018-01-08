@@ -1,0 +1,59 @@
+@import 'common/var'
+@import 'mixin/border'
+@import 'mixin/ellipsis'
+
+$filter-arrow-size = 5px
+$title-height = 44px
++prefix-classes($prefix-classes)
+  .tab
+    &__inner
+      position relative
+      display flex
+      align-items center
+      oveflow hidden
+      &:after
+        border-retina()
+
+    &__item
+      flex 1
+      padding 12px $padding-x
+      &--active
+        color $primary
+
+    &--filter &__item--active
+      color $primary
+      .arrow
+        transform rotate(-180deg)
+        border-top-color $primary
+
+    &--filter &__item
+      width 33.33333%
+      position relative
+      text-align center
+      display flex
+      align-items center
+
+    &--filter &__text
+      ellipsis()
+
+    &__panel
+      display none
+      &--active
+        display block
+
+    &__title
+      display flex
+      align-items center
+      height $title-height
+      background-color $white
+      position relative
+      &:after
+        border-retina()
+  .arrow
+    width 0
+    height 0
+    border-left $filter-arrow-size solid transparent
+    border-right $filter-arrow-size solid transparent
+    border-top $filter-arrow-size solid $gray-dark
+    margin-left 4px
+    transition transform .2s

@@ -1,18 +1,18 @@
 <template>
-  <label class="xm-checkbox"
+  <label class="ic-checkbox"
     :class="{
-      'xm-checkbox--checked': value,
-      'xm-checkbox--disabled': disabled,
-      'xm-checkbox--round': round
+      'ic-checkbox--checked': value,
+      'ic-checkbox--disabled': disabled,
+      'ic-checkbox--round': round
     }">
-    <span class="xm-checkbox__wrapper">
-      <span class="xm-checkbox__inner">
+    <span class="ic-checkbox__wrapper">
+      <span class="ic-checkbox__inner">
         <input type="checkbox"
           v-model="currentValue"
           :disabled="disabled"
-          class="xm-checkbox__input">
+          class="ic-checkbox__input">
       </span>
-      <span class="xm-checkbox__label"
+      <span class="ic-checkbox__label"
         v-if="$slots.default">
         <slot></slot>
       </span>
@@ -22,7 +22,7 @@
 
 <script>
   export default {
-    name: 'xm-checkbox',
+    name: 'ic-checkbox',
 
     props: {
       value: {
@@ -52,7 +52,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/checkbox.styl'
-</style>

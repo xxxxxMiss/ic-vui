@@ -1,0 +1,87 @@
+@import 'common/var'
+@import 'mixin/center'
+
+$caret-color = #FF6644
+$input-background-color = #F5F5F8
+$sizes = {
+  large: {
+    height: 45px,
+    padding: 0 15px
+    fontSize: 16px
+  },
+  medium: {
+    height: 40px,
+    padding: 0 20px
+    fontSize: 14px
+  },
+  small: {
+    height: 32px,
+    padding: 0 15px,
+    fontSize: 13px
+  }
+}
+
++prefix-classes($prefix-classes)
+  .input
+    &__inner
+      position relative
+    &__input, &__textarea
+      outline none
+      -webkit-appearance none
+      background-color $input-background-color
+      border 1px solid $input-background-color
+      color $black
+      font-weight 500
+      width 100%
+      border-radius 4px
+      &[readonly]
+        text-overflow ellipsis
+      // caret-color $caret-color // 待定，该属性兼容性目前不是很好
+    &__input[type=search]::-webkit-search-cancel-button
+      -webkit-appearance none
+    &__input::-webkit-input-placeholder
+    &__textarea::-webkit-input-placeholder
+      color $gray-dark
+
+    for key, val in $sizes
+      &--{key} &__input
+        height: val['height']
+        padding: val['padding']
+        font-size: val['fontSize']
+
+    &--suffix .icon-suffix
+      center-y()
+      right 15px
+      font-size $font-size-xlarge
+      color $gray-dark
+    &--suffix &__input
+        padding-right 50px
+
+    &--prefix .icon-prefix
+      center-y()
+      left 15px
+      font-size $font-size-xlarge
+      color $gray-dark
+    &--prefix &__input
+        padding-left 45px
+
+    &--round &__input
+      border-radius 16px
+
+    &--timer &__input
+      padding-right 94px
+    &--timer .btn
+      center-y()
+      right 0
+      background-color $input-background-color
+
+    &__textarea
+      line-height 1.5
+      resize none
+      padding 12px $padding-x
+      font-size $font-size-medium
+  .textarea--mirror
+    opacity 0
+    position absolute
+    top 0
+    z-index -1

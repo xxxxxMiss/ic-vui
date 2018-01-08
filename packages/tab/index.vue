@@ -1,15 +1,27 @@
 <template>
-  <div class="xm-tab">
-    <div class="xm-tab__inner">
-      <div class="xm-tab__item"
+  <div class="ic-tab"
+  :class="{
+    'ic-tab--filter': type === 'filter'
+  }">
+    <div class="ic-tab__inner">
+      <div class="ic-tab__item"
         v-for="(item, index) in items"
         :key="index"
         :class="{
-          'xm-tab__item--active': index == currentActive
+          'ic-tab__item--active': index == currentActive
         }"
-        @click="clickItem(index)">{{item.title}}</div>
+        @click="clickItem(index)">
+        <template
+          v-if="type === 'filter'">
+          <span class="ic-tab__text">{{item.title}}</span>
+          <i class="ic-arrow"></i>
+        </template>
+        <template v-if="type === 'normal'">
+          {{item.title}}
+        </template>
+      </div>
     </div>
-    <div class="xm-tab__content">
+    <div class="ic-tab__content">
       <slot></slot>
     </div>
   </div>
@@ -17,18 +29,27 @@
 
 <script>
   export default {
-    name: 'xm-tab',
+    name: 'ic-tab',
 
     props: {
       defaultActive: {
         type: [String, Number],
         default: 0
+      },
+      type: {
+        type: String,
+        default: 'normal' // filter
+      }
+    },
+    computed: {
+      active () {
+        return this.type !== 'filter' ? this.defaultActive : ''
       }
     },
     data () {
       return {
         items: [],
-        currentActive: this.defaultActive
+        currentActive: this.active
       }
     },
     methods: {
@@ -39,7 +60,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/tab.styl'
-</style>

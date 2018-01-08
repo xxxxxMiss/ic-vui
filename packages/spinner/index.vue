@@ -1,26 +1,26 @@
 <template>
-  <span class="xm-spinner"
+  <span class="ic-spinner"
     :class="[
-      'xm-spinner--' + type
+      'ic-spinner--' + type
     ]">
 
     <span v-if="type === 'default'"
-      :style="{color: colors[0]}"
-      class="xm-spinner__inner">
+      :style="{ color: colors[0] }"
+      class="ic-spinner__inner">
       <i v-for="i in 12" :key="i"></i>
     </span>
 
     <span v-if="type === 'circle'"
-      class="xm-spinner__inner"
+      class="ic-spinner__inner"
       :style="{
         'border-color': colors[0],
         'border-left-color': 'transparent'
       }"></span>
 
     <span v-if="type === 'crash-ball'"
-      class="xm-spinner__inner">
+      class="ic-spinner__inner">
       <i v-for="(val, index) in ['top', 'right', 'bottom', 'left']"
-        :class="['xm-spinner--' + val]"
+        :class="[ 'ic-spinner--' + val ]"
         :style="{
           'background-color': colors[index]
         }"></i>
@@ -30,7 +30,7 @@
 
 <script>
   export default {
-    name: 'xm-spinner',
+    name: 'ic-spinner',
 
     props: {
       type: {
@@ -49,8 +49,3 @@
     }
   }
 </script>
-
-
-<style lang="stylus">
-  @import '../theme/spinner.styl'
-</style>

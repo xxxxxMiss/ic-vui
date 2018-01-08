@@ -1,0 +1,62 @@
+@import 'common/var'
+@import 'mixin/border'
+@import 'mixin/ellipsis'
+@import 'mixin/center'
+
++prefix-classes($prefix-classes)
+  .collapse
+    &__item
+      background-color $white
+      margin-bottom 10px
+
+    &__header
+      display flex
+      align-items center
+      position relative
+      padding 10px 0
+      &:after
+        border-retina()
+      .arrow
+        center-y()
+        right 0
+        transition transform .2s
+      span
+        padding-right 18px
+
+    &__title
+      flex 7
+      font-size $font-size-large
+      ellipsis()
+    &__subtitle
+      font-size $font-size-base
+      margin-top 8px
+
+    &__weathercock
+      flex 2
+      text-align right
+      ^[0]__item--active .arrow
+        transform translateY(-50%) rotate(-180deg)
+
+    &__panel
+      padding-top 20px
+
+.collapse-enter-active
+  animation collapse-fade-in .2s
+.collapse-leave-active
+  animation collapse-fade-out .2s
+
+@keyframes collapse-fade-in
+  0%
+    transform: translate3d(0, -20px, 0)
+    opacity: 0
+  100%
+    transform: translate3d(0, 0, 0)
+    opacity: 1
+
+@keyframes collapse-fade-out
+  0%
+    transform: translate3d(0, 0, 0)
+    opacity: 1
+  100%
+    transform: translate3d(0, -20px, 0)
+    opacity: 0

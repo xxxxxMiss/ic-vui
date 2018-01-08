@@ -1,11 +1,11 @@
 <template>
-  <div class="xm-radio">
+  <div class="ic-radio">
     <input type="radio" name="">
   </div>
 </template>
 
 <script>
   export default {
-    name: 'xm-radio'
+    name: 'ic-radio'
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
-  <span class="xm-badge"
+  <span class="ic-badge"
     :class="{
-      'xm-badge--dot': !$slots.default
+      'ic-badge--dot': !$slots.default
     }">
     <slot></slot>
   </span>
@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: 'xm-badge',
+    name: 'ic-badge',
 
     props: {
       blink: {
@@ -19,7 +19,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-  @import '../theme/badge.styl'
-</style>

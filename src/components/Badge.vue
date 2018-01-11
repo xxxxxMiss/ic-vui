@@ -1,8 +1,8 @@
 <template>
   <div class="demo-badge">
-    <xm-badge>89</xm-badge>
-    <xm-badge>1</xm-badge>
-    <xm-badge></xm-badge>
+    <ic-badge>89</ic-badge>
+    <ic-badge>1</ic-badge>
+    <ic-badge></ic-badge>
   </div>
 </template>
 
@@ -12,6 +12,6 @@
 
 <style lang="stylus">
   .demo-badge
-    .xm-badge + .xm-badge
+    .ic-badge + .ic-badge
       margin-left 15px
 </style>

@@ -35,6 +35,7 @@
         <ic-button v-if="timer"
           timer
           text
+          @timer-end="timerEnd"
           @click="timerClick"></ic-button>
       </template>
 
@@ -103,6 +104,10 @@
       timer: {
         type: Boolean,
         default: false
+      },
+      timerEnd: {
+        type: Function,
+        default: () => {}
       },
       to: [String, Object],
       name: String,

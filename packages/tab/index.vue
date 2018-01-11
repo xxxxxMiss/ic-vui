@@ -52,6 +52,11 @@
         currentActive: this.active
       }
     },
+    watch: {
+      currentActive (newVal) {
+        this.$emit('change', newVal)
+      }
+    },
     methods: {
       clickItem (index) {
         this.currentActive = index

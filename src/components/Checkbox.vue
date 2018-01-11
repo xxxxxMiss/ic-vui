@@ -1,10 +1,10 @@
 <template>
   <div class="demo-checkbox">
-    <xm-checkbox v-model="foo">备选项</xm-checkbox>
-    <xm-checkbox v-model="bar"></xm-checkbox>
-    <xm-checkbox v-model="trusly" disabled>选中禁用</xm-checkbox>
-    <xm-checkbox v-model="falsly" disabled>未选中禁用</xm-checkbox>
-    <xm-checkbox v-model="foo" round>圆形</xm-checkbox>
+    <ic-checkbox v-model="foo">备选项</ic-checkbox>
+    <ic-checkbox v-model="bar"></ic-checkbox>
+    <ic-checkbox v-model="trusly" disabled>选中禁用</ic-checkbox>
+    <ic-checkbox v-model="falsly" disabled>未选中禁用</ic-checkbox>
+    <ic-checkbox v-model="foo" round>圆形</ic-checkbox>
   </div>
 </template>
 
@@ -28,6 +28,6 @@
 
 <style lang="stylus">
   .demo-checkbox
-    .xm-checkbox + .xm-checkbox
+    .ic-checkbox + .ic-checkbox
       margin-left 20px
 </style>

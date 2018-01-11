@@ -10,13 +10,16 @@ $title-height = 44px
       position relative
       display flex
       align-items center
-      oveflow hidden
+      justify-content center
+      overflow hidden
+      padding 0 $padding-x
       &:after
         border-retina()
 
     &__item
       flex 1
-      padding 12px $padding-x
+      height $title-height
+      line-height @height
       &--active
         color $primary
 

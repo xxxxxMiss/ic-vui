@@ -19,13 +19,13 @@ import Radio from '../components/Radio'
 import Spinner from '../components/Spinner'
 import Switch from '../components/Switch'
 import Tab from '../components/Tab'
-import TabItem from '../components/TabItem'
 import Tabbar from '../components/Tabbar'
 import Tag from '../components/Tag'
 import Timeline from '../components/Timeline'
 import Toast from '../components/Toast'
 import Collapse from '../components/Collapse'
 import Loaction from '../components/Loaction'
+import Picker from '../components/Picker'
 
 Vue.use(Router)
 
@@ -96,10 +96,6 @@ export default new Router({
       component: Tab
     },
     {
-      path: '/tab-item',
-      component: TabItem
-    },
-    {
       path: '/tabbar',
       component: Tabbar
     },
@@ -122,6 +118,10 @@ export default new Router({
     {
       path: '/location',
       component: Loaction
+    },
+    {
+      path: '/picker',
+      component: Picker
     }
   ]
 })

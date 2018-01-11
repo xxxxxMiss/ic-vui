@@ -5,7 +5,7 @@
       placeholder="填写技能名称"></ic-input>
     <ic-input
       placeholder="只有前面的icon"
-      prefix-icon="star"
+      prefix-icon="titlebar-share"
       clearable
       v-model="card"
       size="large"
@@ -34,7 +34,7 @@
       timer
       v-model="value"
       @timer-click="timerClick"
-      @timer-end="showEnd"
+      :timer-end="showEnd"
       placeholder="请输入验证码"
       prefix-icon="form-message"></ic-input>
 

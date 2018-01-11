@@ -3,19 +3,21 @@ import modalOptions from './modal.vue'
 
 const defaultOptions = {
   showClose: true,
+  isGhost: false,
   cancelButtonText: '取消',
   confirmButtonText: '确定',
   showCancelButton: true,
   showConfirmButton: true,
   closeOnClickMask: true,
-  center: false,
+  center: true,
   title: '',
   message: '',
   visible: true,
   category: 'confirm',
   inputType: 'text',
   inputPlaceholder: '',
-  callback () {}
+  callback: null,
+  cancel: null
 }
 
 let modalVm
@@ -28,37 +30,79 @@ const createInstance = () => {
     })
     document.body.appendChild(modalVm.$el)
   }
-  modalVm.visible = true
   return modalVm
 }
 
-const modal = options => {
+const Modal = options => {
   createInstance()
   Object.assign(modalVm, options)
   return modalVm
 }
 
-Vue.prototype.$alert = options => {
-  if (typeof options === 'string' ) {
-    options = { message: options }
+Vue.prototype.$alert = (message, title, options) => {
+  let callback = null
+  if (typeof title === 'object') {
+    options = title
+    title = ''
   }
-  options = Object.assign(defaultOptions, options, {
+  if (typeof title === 'function') {
+    callback = title
+    title = ''
+  }
+  if (typeof options === 'function') {
+    callback = options
+  }
+  const opt = {
+    message,
+    title,
+    callback,
     category: 'alert'
-  })
-
-  return modal(options)
-}
-
-Vue.prototype.$confirm = options => {
-  if (typeof options === 'string') {
-    options = { message: options }
   }
-  options = Object.assign(defaultOptions, options, {
-    category: 'confirm'
-  })
-
-  return modal(options)
+  return Modal(Object.assign(defaultOptions, opt, options))
 }
 
-export default modal
+Vue.prototype.$confirm = (message, title, options) => {
+  let callback = null
+  if (typeof title === 'object') {
+    options = title
+    title = ''
+  }
+  if (typeof title === 'function') {
+    callback = title
+    title = ''
+  }
+  if (typeof options === 'function') {
+    callback = options
+  }
+  const opt = {
+    message,
+    title,
+    callback,
+    category: 'confirm'
+  }
+  return Modal(Object.assign(defaultOptions, opt, options))
+}
 
+Vue.prototype.$prompt = (message, title, options) => {
+  let callback = null
+  if (typeof title === 'object') {
+    options = title
+    title = ''
+  }
+  if (typeof title === 'function') {
+    callback = title
+    title = ''
+  }
+  if (typeof options === 'function') {
+    callback = options
+  }
+  const opt = {
+    message,
+    title,
+    callback,
+    category: 'prompt'
+  }
+  return Modal(Object.assign(defaultOptions, opt, options))
+}
+
+export default Modal

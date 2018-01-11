@@ -1,10 +1,11 @@
 <template>
   <div class="demo-header">
     <ic-header
-      left-text="返回"
-      left-icon="arrow-left"
+      @click-left="clickIcon"
+      @click-right="clickRight"
+      left-icon="titlebar-back"
       title="内推职位"
-      :right-icon="['share', 'location']"></ic-header>
+      :right-icon="['titlebar-share', 'titlebar-search']"></ic-header>
 
     <ic-header
       left-icon="arrow-left"
@@ -22,8 +23,33 @@
       left-icon="close"
       title="职位详情"
       ></ic-header>
+
+    <ic-header
+      right-text="跳过"
+      theme="#f5f5f5"
+      ></ic-header>
+
+    <ic-header
+      right-text="跳过"
+      theme="#20a0ff"
+      color="#fff"
+      ></ic-header>
   </div>
 </template>
+
+<script>
+  export default {
+    methods: {
+      clickIcon (e) {
+        console.log(e)
+      },
+      clickRight (e, index) {
+        console.log(e)
+        console.log(index)
+      }
+    }
+  }
+</script>
 
 <style lang="stylus">
   .demo-header

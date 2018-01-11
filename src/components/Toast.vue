@@ -1,9 +1,9 @@
 <template>
   <div class="demo-toast">
-    <xm-button type="warning" @click="showToast1">点击显示</xm-button>
-    <xm-button type="success" @click="showToast2">文字很长</xm-button>
-    <xm-button type="info" @click="showToast3">传入选项</xm-button>
-    <xm-button type="info" @click="showToast4">不同的位置</xm-button>
+    <ic-button type="warning" @click="showToast1">点击显示</ic-button>
+    <ic-button type="success" @click="showToast2">文字很长</ic-button>
+    <ic-button type="info" @click="showToast3">传入选项</ic-button>
+    <ic-button type="info" @click="showToast4">不同的位置</ic-button>
   </div>
 </template>
 

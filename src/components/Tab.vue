@@ -1,6 +1,6 @@
 <template>
   <div class="demo-tab">
-    <ic-tab default-active="1"
+    <ic-tab
       type="filter"
       @change="changeItem"
       @click-item="clickItem">
@@ -14,14 +14,15 @@
       </ic-tab-item>
     </ic-tab>
 
-    <!-- <ic-tab default-active="1"
-      type="filter"
-      @change="changeItem"
-      @click-item="clickItem">
-      <ic-tab-item v-for="(item, index) in tabs"
+    <ic-tab :default-active="1"
+      :show-divider="false"
+      @change="changeTabItem"
+    >
+      <ic-tab-item v-for="(val, index) in tabs"
         :key="index"
-        :title="item.text">
-      </ic-tab-item> -->
+        :title="val">
+        <div class="obtain-record">当前索引：{{index}}</div>
+      </ic-tab-item>
     </ic-tab>
   </div>
 </template>
@@ -30,7 +31,6 @@
   export default {
     data () {
       return {
-        defaultActive: 1,
         visible: false,
         tabIndex: '',
         res: [
@@ -70,7 +70,8 @@
               { key: 'sb', label: '深圳' }
             ]
           }
-        ]
+        ],
+        tabs: ['获取记录', '兑换记录']
       }
     },
     methods: {
@@ -84,6 +85,9 @@
       handleClick (item, index) {
         this.visible = false
         this.res[this.tabIndex].text = item.label
+      },
+      changeTabItem (index) {
+        console.log('当前激活的索引：', index)
       }
     }
   }
@@ -92,4 +96,9 @@
 <style lang="stylus">
   .demo-tab
     font-size 14px
+    .ic-tab + .ic-tab
+      margin-top 30px
+
+    .obtain-record
+      padding 20px 15px
 </style>

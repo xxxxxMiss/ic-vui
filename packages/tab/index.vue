@@ -1,15 +1,18 @@
 <template>
   <div class="ic-tab"
   :class="{
-    'ic-tab--filter': type === 'filter'
+    'ic-tab--filter': type === 'filter',
+    'ic-tab--divider': showDivider,
+    'ic-tab--disperse': isDisperse
   }">
     <div class="ic-tab__inner">
       <div class="ic-tab__item"
-        v-for="(item, index) in items"
-        :key="index"
+        :style="{ width: (100 / children.length) + '%'}"
         :class="{
-          'ic-tab__item--active': index == currentActive
+          'ic-tab__item--active': index === currentActive
         }"
+        v-for="(item, index) in children"
+        :key="index"
         @click="clickItem(index)">
         <template
           v-if="type === 'filter'">
@@ -20,6 +23,8 @@
           {{item.title}}
         </template>
       </div>
+      <div v-if="type === 'normal' && cursorType !== 'disperse'"
+        class="ic-tab__cursor"></div>
     </div>
     <div class="ic-tab__content">
       <slot></slot>
@@ -33,23 +38,31 @@
 
     props: {
       defaultActive: {
-        type: [String, Number],
+        type: Number,
         default: 0
       },
       type: {
         type: String,
         default: 'normal' // filter
+      },
+      showDivider: {
+        type: Boolean,
+        default: true
+      },
+      cursorType: {
+        type: String,
+        default: 'disperse' // line
       }
     },
     computed: {
-      active () {
-        return this.type !== 'filter' ? this.defaultActive : ''
+      isDisperse () {
+        return this.type !== 'filter' && this.cursorType === 'disperse'
       }
     },
     data () {
       return {
-        items: [],
-        currentActive: this.active
+        children: [],
+        currentActive: this.type !== 'filter' ? this.defaultActive : ''
       }
     },
     watch: {

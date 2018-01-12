@@ -13,15 +13,42 @@ $title-height = 44px
       justify-content center
       overflow hidden
       padding 0 $padding-x
+    &--divider &__inner
       &:after
         border-retina()
 
+    &__cursor
+      position absolute
+      bottom 0
+      width 120px
+      height 4px
+      background-color $primary
+      border-radius 4px
+
     &__item
+      position relative
       flex 1
       height $title-height
       line-height @height
+      text-align center
+      font-size $font-size-medium
       &--active
         color $primary
+        font-weight bold
+
+    &--disperse &__item:after
+      content ''
+      position absolute
+      width 100%
+      left 0
+      bottom 0
+      height 4px
+      background-color $primary
+      border-radius 4px
+      transform scale(0)
+      transition transform .2s
+    &--disperse &__item--active:after
+      transform scale(1)
 
     &--filter &__item--active
       color $primary
@@ -30,11 +57,11 @@ $title-height = 44px
         border-top-color $primary
 
     &--filter &__item
-      width 33.33333%
-      position relative
       text-align center
       display flex
+      justify-content center
       align-items center
+      font-size $font-size-base
 
     &--filter &__text
       ellipsis()

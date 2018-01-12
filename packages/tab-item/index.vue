@@ -20,7 +20,7 @@
     },
     computed: {
       index() {
-        return this.parentGroup.items.indexOf(this)
+        return this.parentGroup.children.indexOf(this)
       }
     },
     methods: {
@@ -39,7 +39,10 @@
     },
     created () {
       this.findParentByName('ic-tab')
-      this.parentGroup.items.push(this)
+      this.parentGroup.children.push(this)
+    },
+    mounted () {
+      console.log('333')
     }
   }
 </script>

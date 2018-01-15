@@ -95,7 +95,6 @@
           this.$refs.wrapper.style = `transform: translate3d(0, -50px, 0)`
           this.$emit('pull-loading', this.done)
         }
-
       },
       done (status) {
         if (status && status === 'fail') {

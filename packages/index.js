@@ -29,7 +29,7 @@ import IcTag from './tag'
 import IcTimeline from './timeline'
 import IcToast from './toast'
 
-const version = '0.0.71'
+const version = '0.0.81'
 const components = [
   IcAvatar,
   IcBadge,

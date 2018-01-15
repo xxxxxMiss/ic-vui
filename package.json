@@ -1,6 +1,6 @@
 {
   "name": "ic-vui",
-  "version": "0.0.71",
+  "version": "0.0.81",
   "description": "A Vue.js UI components lib",
   "main": "lib/ic-vui.js",
   "files": [

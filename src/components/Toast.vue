@@ -21,12 +21,12 @@
       showToast3 () {
         Toast({
           message: '可以自定义选项',
-          icon: 'like'
+          icon: 'form-Education'
         })
       },
       showToast4 () {
         Toast({
-          message: '显示在底部',
+          message: '显示在底部显示在底部',
           position: 'bottom'
         })
       }

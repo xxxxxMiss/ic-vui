@@ -18,6 +18,7 @@
       </div>
     </div>
     <div class="ic-location__bar"
+      :class="{ 'ic-location__bar--active': barActive }"
       @touchstart="onTouchStart"
       @touchmove.prevent="onTouchMove"
       @touchend="onTouchEnd">
@@ -62,6 +63,7 @@
     data () {
       return {
         touchedLetter: '',
+        barActive: false,
         timer: null
       }
     },
@@ -77,12 +79,14 @@
         this.$emit('item-click', item, index)
       },
       onTouchStart (e) {
+        this.barActive = true
         this.computeTouch(e)
       },
       onTouchMove (e) {
         this.computeTouch(e)
       },
       onTouchEnd (e) {
+        this.barActive = false
         if (this.timer) clearTimeout(this.timer)
         this.timer = setTimeout(_ => this.touchedLetter = '', 500)
       },

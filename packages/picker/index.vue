@@ -9,6 +9,18 @@
 
 <script>
   export default {
-    name: 'ic-picker'
+    name: 'ic-picker',
+
+    props: {
+      itemHeight: {
+        type: String,
+        default: '36px'
+      }
+    },
+    provide () {
+      return {
+        'picker': this
+      }
+    }
   }
 </script>

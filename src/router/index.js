@@ -26,6 +26,7 @@ import Toast from '../components/Toast'
 import Collapse from '../components/Collapse'
 import Loaction from '../components/Loaction'
 import Picker from '../components/Picker'
+import Pull from '../components/Pull'
 
 Vue.use(Router)
 
@@ -122,6 +123,10 @@ export default new Router({
     {
       path: '/picker',
       component: Picker
+    },
+    {
+      path: '/pull',
+      component: Pull
     }
   ]
 })

@@ -40,6 +40,10 @@
       color: {
         type: String,
         default: ''
+      },
+      size: {
+        type: String,
+        default: 'medium' // small
       }
     },
     computed: {

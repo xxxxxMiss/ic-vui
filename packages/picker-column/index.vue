@@ -6,6 +6,10 @@
     ref="column"
   >
     <div class="ic-picker__item"
+      :style="{
+        'height': itemHeight,
+        'line-height': itemHeight
+      }"
       v-for="val in 10"
       :key="val">{{val}}</div>
   </div>
@@ -15,8 +19,11 @@
   export default {
     name: 'ic-picker-column',
 
+    props: {},
+    inject: ['picker'],
     data () {
       return {
+        itemHeight: this.picker.itemHeight,
         deltaY: 0,
         pageY: 0
       }
@@ -25,6 +32,7 @@
       handleTouchStart (e) {
         this.pageY = e.touches[0].pageY
         console.log('start')
+        console.log(e)
       },
       handleTouchMove (e) {
         const touch = e.changedTouches ? e.changedTouches[0] : e.touches[0]
@@ -36,6 +44,9 @@
       handleTouchEnd (e) {
         console.log('end')
       }
+    },
+    created () {
+      // console.log(this.picker)
     }
   }
 </script>

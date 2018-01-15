@@ -1,8 +1,10 @@
 @import 'common/var'
 
 $size = 16px
+$directions = (top spinner-top) (right spinner-right) (bottom spinner-bottom) (left spinner-left)
 +prefix-classes($prefix-classes)
   .spinner
+    display inline-block
     &__inner
       position relative
       display inline-block
@@ -42,44 +44,30 @@ $size = 16px
           transform rotate($i * 30deg)
 
     &--crash-ball
-      ^[0]--top, ^[0]--right, ^[0]--bottom, ^[0]--left
-        position absolute
-        display inline-block
-        width $size
-        height $size
-        border-radius 50%
+      for val in $directions
+        ^[0]--{val[0]}
+          position absolute
+          {val[0]} 0
+          display inline-block
+          width $size
+          height $size
+          border-radius 50%
+          animation val[1] 1s infinite
+          animation-direction alternate
+          animation-fill-mode both
+          animation-timing-function linear
       ^[0]--top
-        top 0
         left 0
         background-color $primary
-        animation spinner-top 1s infinite
-        animation-direction alternate
-        animation-fill-mode both
-        animation-timing-function linear
       ^[0]--right
-        right 0
         top 0
         background-color $danger
-        animation spinner-right 1s infinite
-        animation-direction alternate
-        animation-fill-mode both
-        animation-timing-function linear
       ^[0]--bottom
-        bottom 0
         right 0
         background-color $warning
-        animation spinner-bottom 1s infinite
-        animation-direction alternate
-        animation-fill-mode both
-        animation-timing-function linear
       ^[0]--left
         bottom 0
-        left 0
         background-color $success
-        animation spinner-left 1s infinite
-        animation-direction alternate
-        animation-fill-mode both
-        animation-timing-function linear
 
 @keyframes spinner-top
   from

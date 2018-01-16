@@ -20,7 +20,7 @@
       loadData (done) {
         setTimeout(_ => {
           this.supplyData()
-          done('fail')
+          done()
         }, 2000)
       },
       supplyData () {

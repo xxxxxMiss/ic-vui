@@ -27,6 +27,7 @@ import Collapse from '../components/Collapse'
 import Loaction from '../components/Loaction'
 import Picker from '../components/Picker'
 import Pull from '../components/Pull'
+import Upload from '../components/Upload'
 
 Vue.use(Router)
 
@@ -127,6 +128,10 @@ export default new Router({
     {
       path: '/pull',
       component: Pull
+    },
+    {
+      path: '/upload',
+      component: Upload
     }
   ]
 })

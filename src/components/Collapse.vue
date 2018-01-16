@@ -74,6 +74,11 @@
           }
         ]
       }
+    },
+    watch: {
+      defaultActive (id) {
+        console.log(id)
+      }
     }
   }
 </script>

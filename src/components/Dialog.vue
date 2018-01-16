@@ -9,8 +9,9 @@
     </ic-dialog>
 
     <ic-button type="success" @click="visible2 = true">自定义dialog大小</ic-button>
-    <ic-dialog height="50%" width="80%"
+    <ic-dialog height="37%" width="80%"
       title="自定义标题"
+      :show-close="false"
       :close-on-click-mask="false"
       :visible.sync="visible2">
       <ic-tag type="cyan">青色</ic-tag>
@@ -21,23 +22,9 @@
       <p>这里有很多内容</p>
       <p>这里有很多内容</p>
       <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
-      <p>这里有很多内容</p>
+      <div slot="footer">
+        <ic-button type="primary" @click="visible2 = false">知道了</ic-button>
+      </div>
     </ic-dialog>
   </div>
 </template>

@@ -11,7 +11,7 @@
         :style="{ width, height, 'margin-top': marginTop }">
         <div class="ic-dialog__header">
           <slot name="header">
-            <ic-header left-icon="titlebar-close"
+            <ic-header :left-icon="showClose ? 'titlebar-close' : ''"
               :title="title"
               @click-left.prevent="close"></ic-header>
           </slot>
@@ -52,6 +52,10 @@
       round: {
         type: Boolean,
         default: true
+      },
+      showClose: {
+        type: Boolean,
+        default: true
       }
     },
     computed: {
@@ -77,10 +81,10 @@
     },
     methods: {
       handleMaskClose () {
-        this.closeOnClickMask && this.close()
+        this.closeOnClickMask && this.$emit('update:visible', false)
       },
       close () {
-        this.$emit('update:visible', false)
+        this.showClose && this.$emit('update:visible', false)
       }
     }
   }

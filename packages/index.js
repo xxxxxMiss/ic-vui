@@ -28,8 +28,9 @@ import IcTabbarItem from './tabbar-item'
 import IcTag from './tag'
 import IcTimeline from './timeline'
 import IcToast from './toast'
+import IcUpload from './upload'
 
-const version = '0.0.81'
+const version = '0.0.91'
 const components = [
   IcAvatar,
   IcBadge,
@@ -58,7 +59,8 @@ const components = [
   IcTabbarItem,
   IcTag,
   IcTimeline,
-  IcToast
+  IcToast,
+  IcUpload
 ]
 
 const install = Vue => {
@@ -101,7 +103,8 @@ export {
   IcTabbarItem,
   IcTag,
   IcTimeline,
-  IcToast
+  IcToast,
+  IcUpload
 }
 
 export default {
@@ -132,5 +135,6 @@ export default {
   IcTabbarItem,
   IcTag,
   IcTimeline,
-  IcToast
+  IcToast,
+  IcUpload
 }

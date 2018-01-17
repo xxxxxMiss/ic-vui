@@ -1,4 +1,5 @@
 @import 'common/var'
+@import 'mixin/center'
 
 +prefix-classes($prefix-classes)
   .loading
@@ -14,10 +15,7 @@
       flex-direction column
       align-items center
       text-align center
-      position absolute
-      left 50%
-      top 50%
-      transform translate3d(-50%, -50%, 0)
+      center()
       user-select none
       padding 20px
       border-radius 4px
@@ -25,3 +23,18 @@
       color $white
     &__text
       padding-top 10px
+
+.loading-fade-enter-active
+  animation: loading-fade-in .3s
+.loading-fade-leave-active
+  animation: loading-fade-out .3s
+@keyframes loading-fade-in
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+@keyframes loading-fade-out
+  0%
+    opacity: 1
+  100%
+    opacity: 0

@@ -6,21 +6,17 @@ $picker-item-height = 36px
 
 +prefix-classes($prefix-classes)
   .picker
-    // height 200px
-    &__wrapper
+    overflow hidden
+
+    &__toolbar
+      height 40px
+
+    &__items
       position relative
       display flex
-      align-items center
-      overflow hidden
-      perspective 1200px
-      height 100%
-
-    &__column
-      transform-style preserve-3d
-
-    &__item
-      // height $picker-item-height
-      // line-height @height
+      justify-content center
+      padding 0
+      text-align right
 
     &__highlight
       position absolute
@@ -35,3 +31,65 @@ $picker-item-height = 36px
         top 0
       &:after
         border-retina()
+
+    &__slot
+      position relative
+      overflow hidden
+      max-height 100%
+      &--left
+        text-align left
+      &--center
+        text-align center
+      &--right
+        text-align right
+      &--divider
+        display flex
+        align-items center
+        color $black
+      &--absolute ^[0]__item
+        position absolute
+
+    &__wrapper
+      transition-duration 0.3s
+      transition-timing-function ease-out
+      backface-visibility hidden
+      &--dragging
+        transition-duration 0s
+        & ^[0]__item
+          transition-duration 0s
+
+    &__item
+      height 36px
+      line-height 36px
+      padding 0 10px
+      white-space nowrap
+      position relative
+      overflow hidden
+      text-overflow ellipsis
+      color #707274
+      left 0
+      top 0
+      width 100%
+      transition-duration .3s
+      backface-visibility hidden
+      &--far
+        pointer-events none
+      &--selected
+        color $black
+        transform translate3d(0, 0, 0) rotateX(0)
+
+    &--3d &__items
+      overflow hidden
+      perspective 700px
+
+    &--3d
+      ../__item
+      ../__slot
+      ../__wrapper
+        transform-style preserve-3d
+      ../__slot
+        overflow visible
+      ../__item
+        transform-origin center center
+        backface-visibility hidden
+        transition-timing-function ease-out

@@ -1,5 +1,5 @@
 <template>
-  <transition name="modal-fade">
+  <transition name="loading-fade">
     <div class="ic-loading" v-show="visible">
       <div class="ic-loading__inner">
         <ic-spinner

@@ -13,9 +13,11 @@
 
     <h3>size="small"，小型输入框；添加suffix-icon="iconName"可添加输入框后面的icon</h3>
     <ic-input
+      v-model="keyword"
       type="search"
       @focus="onFocus"
       round
+      clearable
       suffix-icon="titlebar-search"
       placeholder="支持搜索工作地点、职位名称、岗位要求"
       size="small"></ic-input>
@@ -61,7 +63,8 @@
         value: '',
         card: '',
         content: '',
-        suffixIcon: 'eyes-closed'
+        suffixIcon: 'eyes-closed',
+        keyword: ''
       }
     },
     watch: {

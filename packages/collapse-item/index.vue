@@ -11,15 +11,15 @@
           class="ic-collapse__subtitle">{{subtitle}}</div>
       </div>
       <div class="ic-collapse__weathercock">
-        <span>{{weathercockText}}</span>
+        <span v-if="!disabled">{{weathercockText}}</span>
         <i class="ic-arrow"></i>
       </div>
     </div>
-    <transition name="collapse">
+    <!-- <transition name="collapse"> -->
       <div class="ic-collapse__panel" v-show="active">
         <slot></slot>
       </div>
-    </transition>
+    <!-- </transition> -->
   </li>
 </template>
 
@@ -38,7 +38,12 @@
         return this.collapse.activeNames.indexOf(this.name) > -1
       },
       weathercockText () {
-        return this.active ? '收起' : '展开'
+        return this.active
+          ? this.collapse.activeText
+          : this.collapse.inactiveText
+      },
+      disabled () {
+        return this.collapse.disabled
       }
     },
     methods: {

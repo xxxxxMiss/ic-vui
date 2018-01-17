@@ -16,6 +16,7 @@
           class="ic-icon-prefix"
           :name="prefixIcon"></ic-icon>
         <input class="ic-input__input"
+          :style="style"
           v-model="currentValue"
           :readonly="readonly"
           :placeholder="placeholder"
@@ -28,7 +29,7 @@
           :name="suffixIcon"
           class="ic-icon-suffix"
           @click="clickSuffix"></ic-icon>
-        <ic-icon v-show="!suffixIcon && clearable && value"
+        <ic-icon v-show="clearable && value"
           name="clean"
           class="ic-icon-suffix"
           @click="onClear"></ic-icon>
@@ -128,6 +129,15 @@
         },
         get () {
           return this.value
+        }
+      },
+      style () {
+        return {
+          paddingRight: this.clearable && this.value && this.suffixIcon
+            ? '100px'
+            : this.clearable && !this.value && this.suffixIcon
+              ? '50px'
+              : ''
         }
       }
     },

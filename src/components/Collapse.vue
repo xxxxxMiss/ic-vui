@@ -1,6 +1,8 @@
 <template>
   <div class="demo-collapse">
-    <ic-collapse v-model="defaultActive">
+    <ic-collapse accordion
+      active-text="折叠"
+      v-model="defaultActive">
       <ic-collapse-item v-for="(item, index) in data"
         :key="index"
         :title="item.position"
@@ -33,6 +35,48 @@
           {
             position: '高级前端开发工程师',
             status: '简历不合适',
+            process: [
+              {
+                title: '面试',
+                flag: '通过',
+                date: '2017.12.05 08:23'
+              },
+              {
+                title: '评审',
+                flag: '通过',
+                date: '2017.11.07 11:23'
+              },
+              {
+                title: '简历投递',
+                flag: '投递成功',
+                date: '2017.08.07 10:23'
+              }
+            ]
+          },
+          {
+            position: '高级前端开发工程师',
+            status: '面试中',
+            process: [
+              {
+                title: '面试',
+                flag: '通过',
+                date: '2017.12.05 08:23'
+              },
+              {
+                title: '评审',
+                flag: '通过',
+                date: '2017.11.07 11:23'
+              },
+              {
+                title: '简历投递',
+                flag: '投递成功',
+                date: '2017.08.07 10:23'
+              }
+            ]
+          },
+          {
+            position: '高级前端开发工程师',
+            status: '面试中',
             process: [
               {
                 title: '面试',

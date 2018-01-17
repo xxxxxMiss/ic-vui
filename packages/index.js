@@ -16,7 +16,6 @@ import IcLoading from './loading'
 import IcLocation from './location'
 import IcModal from './modal'
 import IcPicker from './picker'
-import IcPickerColumn from './picker-column'
 import IcPull from './pull'
 import IcRadio from './radio'
 import IcSpinner from './spinner'
@@ -30,7 +29,7 @@ import IcTimeline from './timeline'
 import IcToast from './toast'
 import IcUpload from './upload'
 
-const version = '0.0.91'
+const version = '0.0.92'
 const components = [
   IcAvatar,
   IcBadge,
@@ -48,7 +47,6 @@ const components = [
   IcLocation,
   IcModal,
   IcPicker,
-  IcPickerColumn,
   IcPull,
   IcRadio,
   IcSpinner,
@@ -92,7 +90,6 @@ export {
   IcLocation,
   IcModal,
   IcPicker,
-  IcPickerColumn,
   IcPull,
   IcRadio,
   IcSpinner,
@@ -124,7 +121,6 @@ export default {
   IcLocation,
   IcModal,
   IcPicker,
-  IcPickerColumn,
   IcPull,
   IcRadio,
   IcSpinner,

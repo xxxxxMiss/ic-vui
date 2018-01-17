@@ -1,26 +1,151 @@
 <template>
-  <div class="ic-picker">
-    <div class="ic-picker__wrapper">
+  <div class="ic-picker" :class="{ 'ic-picker--3d': rotateEffect }">
+    <div class="ic-picker__toolbar" v-if="showToolbar">
       <slot></slot>
-      <div class="ic-picker__highlight"></div>
+    </div>
+    <div class="ic-picker__items">
+      <picker-column v-for="(item, index) in items"
+        :key="index"
+        :valueKey="valueKey"
+        :values="item.values || []"
+        :text-align="item.textAlign || 'center'"
+        :visible-item-count="visibleItemCount"
+        :class-name="item.className"
+        :flex="item.flex"
+        v-model="values[item.valueIndex]"
+        :rotate-effect="rotateEffect"
+        :divider="item.divider"
+        :content="item.content"
+        :itemHeight="itemHeight"
+        :default-index="item.defaultIndex">
+      </picker-column>
+      <div class="ic-picker__highlight"
+        :style="{
+          height: itemHeight + 'px',
+          marginTop: -itemHeight / 2 + 'px'
+        }"></div>
     </div>
   </div>
 </template>
 
 <script>
+  import PickerColumn from './picker-column.vue'
+
   export default {
     name: 'ic-picker',
 
     props: {
+      items: {
+        type: Array,
+        default: () => []
+      },
+      showToolbar: {
+        type: Boolean,
+        default: false
+      },
+      visibleItemCount: {
+        type: Number,
+        default: 5
+      },
+      valueKey: String,
+      rotateEffect: {
+        type: Boolean,
+        default: false
+      },
       itemHeight: {
-        type: String,
-        default: '36px'
+        type: Number,
+        default: 36
       }
     },
-    provide () {
-      return {
-        'picker': this
+    computed: {
+      values: {
+        get () {
+          const items = this.items
+          const values = []
+          let valueIndexCount = 0
+          items.forEach(item => {
+            if (!item.divider) {
+              item.valueIndex = valueIndexCount++
+              values[item.valueIndex] = (item.values || [])[item.defaultIndex || 0]
+            }
+          })
+          return values
+        }
+      },
+      itemCount () {
+        const items = this.items
+        let result = 0
+        items.forEach(function (item) {
+          if (!item.divider) result++
+        })
+        return result
       }
-    }
+    },
+    methods: {
+      itemValueChange () {
+        this.$emit('change', this, this.values)
+      },
+      getItem (itemIndex) {
+        var items = this.items
+        var count = 0
+        var target
+        var children = this.$children.filter(child => child.$options.name === 'picker-column')
+
+        items.forEach(function(item, index) {
+          if (!item.divider) {
+            if (itemIndex === count) {
+              target = children[index]
+            }
+            count++
+          }
+        })
+
+        return target
+      },
+      getItemValue(index) {
+        var item = this.getItem(index)
+        if (item) {
+          return item.currentValue
+        }
+        return null
+      },
+      setItemValue(index, value) {
+        var item = this.getItem(index)
+        if (item) {
+          item.currentValue = value
+        }
+      },
+      getItemValues(index) {
+        var item = this.getItem(index)
+        if (item) {
+          return item.mutatingValues
+        }
+        return null
+      },
+      setItemValues(index, values) {
+        var item = this.getItem(index)
+        if (item) {
+          item.mutatingValues = values
+        }
+      },
+      getValues() {
+        return this.values
+      },
+      setValues(values) {
+        const itemCount = this.itemCount
+        values = values || []
+        if (itemCount !== values.length) {
+          throw new Error('values length is not equal item count.')
+        }
+        values.forEach((value, index) => {
+          this.setItemValue(index, value)
+        })
+      }
+    },
+    created() {
+      this.$on('itemValueChange', this.itemValueChange)
+      this.itemValueChange()
+    },
+    components: { PickerColumn }
   }
 </script>

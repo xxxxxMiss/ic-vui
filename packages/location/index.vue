@@ -2,7 +2,7 @@
   <div class="ic-location">
     <div class="ic-location__content" ref="content">
       <div class="ic-location__block"
-        v-for="(item, index) in data"
+        v-for="(item, index) in normalizedData"
         :key="index"
         :data-flag="item.title">
         <div class="ic-location__title">
@@ -13,7 +13,7 @@
             v-for="(child, idx) in item.children"
             :key="idx"
             @click="clickItem(child, idx)"
-          >{{child.name}}</ic-button>
+          >{{child[displayKey]}}</ic-button>
         </div>
       </div>
     </div>
@@ -41,7 +41,11 @@
     name: 'ic-location',
 
     props: {
-      data: Array,
+      data: [Object, Array],
+      displayKey: {
+        type: String,
+        default: 'name'
+      },
       showTouched: {
         type: Boolean,
         default: false
@@ -52,10 +56,15 @@
       }
     },
     computed: {
+      normalizedData () {
+        if ('length' in this.data) return this.data
+
+        return Object.keys(this.data).map(key => ({ title: key, children: this.data[key] }))
+      },
       barLetters () {
         const ret = []
-        for (let i = 0, l = this.data.length; i < l; i++) {
-          ret[i] = this.data[i].title
+        for (let i = 0, l = this.normalizedData.length; i < l; i++) {
+          ret[i] = this.normalizedData[i].title
         }
         return ret
       }
@@ -93,9 +102,9 @@
       computeTouch (e) {
         let touch = e.changedTouches ? e.changedTouches[0] : e.touches[0]
         let letterHeight = touch.target.clientHeight
-        let barTop = (window.innerHeight - this.data.length * letterHeight) / 2
+        let barTop = (window.innerHeight - this.barLetters.length * letterHeight) / 2
         let index = parseInt((touch.clientY - barTop) / letterHeight) - 2
-        if (index >= 0 && index < this.data.length) {
+        if (index >= 0 && index < this.barLetters.length) {
           this.touchedLetter = this.barLetters[index]
         }
       }

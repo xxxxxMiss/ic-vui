@@ -5,6 +5,7 @@ import IcBadge from './badge'
 import IcButton from './button'
 import IcCell from './cell'
 import IcCheckbox from './checkbox'
+import IcCheckboxGroup from './checkbox-group'
 import IcCollapse from './collapse'
 import IcCollapseItem from './collapse-item'
 import IcDialog from './dialog'
@@ -36,6 +37,7 @@ const components = [
   IcButton,
   IcCell,
   IcCheckbox,
+  IcCheckboxGroup,
   IcCollapse,
   IcCollapseItem,
   IcDialog,
@@ -79,6 +81,7 @@ export {
   IcButton,
   IcCell,
   IcCheckbox,
+  IcCheckboxGroup,
   IcCollapse,
   IcCollapseItem,
   IcDialog,
@@ -110,6 +113,7 @@ export default {
   IcButton,
   IcCell,
   IcCheckbox,
+  IcCheckboxGroup,
   IcCollapse,
   IcCollapseItem,
   IcDialog,

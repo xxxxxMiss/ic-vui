@@ -18,21 +18,18 @@
         <input class="ic-input__input"
           :style="style"
           v-model="currentValue"
-          :readonly="readonly"
-          :placeholder="placeholder"
           :type="type"
-          :name="name"
           :autofocus="autofocus"
-          @blur="onBlur"
-          @focus="onFocus">
+          v-bind="$attrs"
+          v-on="$listeners">
         <ic-icon v-if="suffixIcon"
           :name="suffixIcon"
           class="ic-icon-suffix"
-          @click="clickSuffix"></ic-icon>
+          @click.stop="clickSuffix"></ic-icon>
         <ic-icon v-show="clearable && value"
           name="clean"
           class="ic-icon-suffix"
-          @click="onClear"></ic-icon>
+          @click.stop="onClear"></ic-icon>
         <ic-button v-if="timer"
           timer
           text
@@ -44,15 +41,12 @@
         <textarea
           class="ic-input__textarea"
           v-model="currentValue"
-          :readonly="readonly"
-          :placeholder="placeholder"
-          :name="name"
           :rows="rows"
           :autofocus="autofocus"
-          @blur="onBlur"
-          @focus="onFocus"
           ref="textarea"
           :style="textareaStyle"
+          v-bind="$attrs"
+          v-on="$listeners"
         ></textarea>
         <div
           ref="mirror"
@@ -88,13 +82,8 @@
         type: Boolean,
         default: false
       },
-      value: [String, Number],
+      value: {},
       autofocus: {
-        type: Boolean,
-        default: false
-      },
-      placeholder: String,
-      readonly: {
         type: Boolean,
         default: false
       },
@@ -111,7 +100,6 @@
         default: () => {}
       },
       to: [String, Object],
-      name: String,
       rows: {
         type: [String, Number],
         default: 3
@@ -125,7 +113,8 @@
       currentValue: {
         set (v) {
           this.resizeTextarea()
-          this.$emit('input', v)
+          // https://github.com/vuejs/vue/issues/7042
+          this.$nextTick(_ => this.$emit('input', v))
         },
         get () {
           return this.value
@@ -159,12 +148,6 @@
       },
       onClear () {
         this.currentValue = ''
-      },
-      onFocus (e) {
-        this.$emit('focus', e)
-      },
-      onBlur (e) {
-        this.$emit('blur', e)
       },
       clickSuffix (e) {
         this.$emit('click-suffix', e)

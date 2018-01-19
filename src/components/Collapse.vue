@@ -1,6 +1,7 @@
 <template>
   <div class="demo-collapse">
     <ic-collapse accordion
+      @change="handleChange"
       active-text="折叠"
       v-model="defaultActive">
       <ic-collapse-item v-for="(item, index) in data"
@@ -31,6 +32,7 @@
     data () {
       return {
         defaultActive: 1,
+        cache: {},
         data: [
           {
             position: '高级前端开发工程师',
@@ -121,7 +123,12 @@
     },
     watch: {
       defaultActive (id) {
-        console.log(id)
+        // console.log(id)
+      }
+    },
+    methods: {
+      handleChange (val) {
+        console.log(val)
       }
     }
   }

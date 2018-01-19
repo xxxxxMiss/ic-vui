@@ -21,13 +21,15 @@
 </template>
 
 <script>
+  import emitter from 'mixins/emitter'
+
   export default {
     name: 'ic-checkbox',
 
+    mixins: [emitter],
     props: {
       value: {
-        type: Boolean,
-        required: true,
+        type: [Boolean, Number, String],
         default: false
       },
       label: String,
@@ -46,9 +48,19 @@
       }
     },
     watch: {
-      currentValue (newVal) {
+      currentValue (newVal, oldValue) {
         this.$emit('input', newVal)
+        this.dispatch('ic-checkbox-group', 'update:actives', newVal)
       }
+    },
+    methods: {
+      setDefault (values) {
+        // if (values.indexOf(this.value) > -1) this.currentValue = true
+        // else this.currentValue = false
+      }
+    },
+    created () {
+      this.$on('set:default', this.setDefault)
     }
   }
 </script>

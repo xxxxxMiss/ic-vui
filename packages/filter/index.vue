@@ -10,14 +10,14 @@
           @click.stop="filterItemClick(item, index)">
           <div class="ic-filter__row"
             :class="{
-              'ic-filter__row--active': currentActive === item.key
+              'ic-filter__row--active': currentActive === item[valueKey]
             }">
             <ic-icon v-if="item.icon" :name="item.icon"></ic-icon>
             {{item[labelKey]}}
           </div>
           <i class="ic-filter__checkbox glyph__checkbox--primary"
             :style="{
-              'display': currentActive === item.key ? 'inline-block' : 'none'
+              'display': currentActive === item[valueKey] ? 'inline-block' : 'none'
             }"></i>
         </div>
       </div>
@@ -39,6 +39,10 @@
         type: String,
         default: 'label'
       },
+      valueKey: {
+        type: [String, Number],
+        default: 'key'
+      },
       maxHeight: {
         type: String,
         default: '70%'
@@ -56,7 +60,7 @@
     methods: {
       filterItemClick (item, index) {
         this.currentActive = item.key
-        this.$emit('filter-item-click', item, index)
+        this.$emit('filter-item-click', item, index, this.valueKey, this.labelKey)
       },
       close () {
         this.$emit('invisible')

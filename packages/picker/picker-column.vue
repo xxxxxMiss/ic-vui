@@ -26,8 +26,8 @@
 <script>
   import draggable from './draggable'
   import translateUtil from './translate'
-  import { once, addClass, removeClass } from '../../src/utils/dom'
-  import emitter from '../../src/mixins/emitter'
+  import { once, addClass, removeClass } from 'utils/dom'
+  import emitter from 'mixins/emitter'
   if (typeof window !== 'undefined') {
     require('raf.js')
   }

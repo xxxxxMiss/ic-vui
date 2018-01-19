@@ -8,6 +8,8 @@
 </template>
 
 <script>
+  import { findParentByName } from 'utils/share'
+
   export default {
     name: 'ic-tab-item',
 
@@ -23,26 +25,11 @@
         return this.parentGroup.children.indexOf(this)
       }
     },
-    methods: {
-      findParentByName () {
-        if (!this.parentGroup) {
-          let parent = this.$parent
-          while (parent) {
-            if (parent.$options.name === 'ic-tab') {
-              this.parentGroup = parent
-              break
-            }
-            parent = parent.$parent
-          }
-        }
-      }
-    },
     created () {
-      this.findParentByName('ic-tab')
+      if (!this.parentGroup) {
+        this.parentGroup = findParentByName(this, 'ic-tab')
+      }
       this.parentGroup.children.push(this)
-    },
-    mounted () {
-      console.log('333')
     }
   }
 </script>

@@ -77,6 +77,7 @@
         this.currentText = this.loadingOptions.pullText
       },
       handleTouchMove (e) {
+        e.preventDefault()
         this.touchCurrentY = e.type === 'touchmove'
           ? e.targetTouches[0].pageY : e.pageY
         this.deltaY = this.touchCurrentY - this.touchStartY
@@ -94,7 +95,10 @@
           this.currentText = this.loadingOptions.loadingText
           this.$refs.wrapper.style = `transform: translate3d(0, -50px, 0)`
           this.$emit('pull-loading', this.done)
+        } else {
+          this.$refs.wrapper.style = `transform: translate3d(0, 0, 0)`
         }
+        this.deltaY = 0
       },
       done (status) {
         if (status && status === 'fail') {

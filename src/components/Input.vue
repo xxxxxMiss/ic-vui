@@ -16,6 +16,7 @@
       v-model="keyword"
       type="search"
       @focus="onFocus"
+      @blur="handleBlur"
       round
       clearable
       suffix-icon="titlebar-search"
@@ -87,6 +88,9 @@
       },
       onFocus () {
         console.log('focus')
+      },
+      handleBlur () {
+        console.log('handleBlur')
       },
       onChange (val) {
         console.log('val', val)

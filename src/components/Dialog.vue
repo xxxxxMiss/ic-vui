@@ -2,9 +2,11 @@
   <div class="demo-dialog">
     <ic-button type="primary" @click="visible = true">点击显示</ic-button>
     <ic-dialog :visible.sync="visible"
+      is-left-close
       title="选择所在城市">
      <ic-location :data="cities"
        show-touched
+       touched-type="round"
        @item-click="clickItem"></ic-location>
     </ic-dialog>
 
@@ -37,7 +39,25 @@
         visible2: false,
         cities: [
           {
-            title: '热',
+            title: '定位当前城市',
+            icon: 'location',
+            children: [
+              { shortName: 'sh', name: '上海' },
+              { shortName: 'bj', name: '北京' },
+              { shortName: 'gz', name: '广州' },
+              { shortName: 'sz', name: '深圳' },
+              { shortName: 'tj', name: '天津' },
+              { shortName: 'hz', name: '杭州' },
+              { shortName: 'cd', name: '成都' },
+              { shortName: 'wh', name: '武汉' },
+              { shortName: 'xa', name: '西安' },
+              { shortName: 'nj', name: '南京' },
+              { shortName: 'cq', name: '重庆' }
+            ]
+          },
+          {
+            title: '热门城市',
+            icon: 'star',
             children: [
               { shortName: 'sh', name: '上海' },
               { shortName: 'bj', name: '北京' },

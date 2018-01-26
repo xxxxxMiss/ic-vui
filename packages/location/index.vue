@@ -5,8 +5,16 @@
         v-for="(item, index) in normalizedData"
         :key="index"
         :data-flag="item.title">
-        <div class="ic-location__title">
-          <span>{{item.title}}</span>
+        <div class="ic-location__icon-title" v-if="item.icon">
+          <slot name="title">
+            <ic-icon :name="item.icon"></ic-icon>
+            <span class="ic-location__icon-text">{{item.title}}</span>
+          </slot>
+        </div>
+        <div class="ic-location__title" v-else>
+          <slot name="title">
+            <span>{{item.title}}</span>
+          </slot>
         </div>
         <div class="ic-location__inner">
           <ic-button
@@ -30,7 +38,7 @@
       <div class="ic-location__touched"
         :class="[ 'ic-location__touched--' + touchedType ]"
         v-show="showTouched && touchedLetter">
-        {{touchedLetter}}
+        {{touchedLetter[0]}}
       </div>
     </transition>
   </div>
@@ -64,7 +72,7 @@
       barLetters () {
         const ret = []
         for (let i = 0, l = this.normalizedData.length; i < l; i++) {
-          ret[i] = this.normalizedData[i].title
+          ret[i] = this.normalizedData[i].title.slice(0, 2)
         }
         return ret
       }
@@ -79,7 +87,7 @@
     watch: {
       touchedLetter (v) {
         if (!v) return
-        const matchedBlock = document.querySelector(`.ic-location__block[data-flag=${v}]`)
+        const matchedBlock = document.querySelector(`.ic-location__block[data-flag^=${v}]`)
         this.$refs.content.scrollTop = matchedBlock.offsetTop
       }
     },

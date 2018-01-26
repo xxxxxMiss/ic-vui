@@ -9,11 +9,12 @@
       <div class="ic-dialog__wrapper"
         ref="wrapper"
         :style="{ width, height, 'margin-top': marginTop }">
-        <div class="ic-dialog__header">
+        <div class="ic-dialog__header"
+          :class="{ 'ic-dialog__header--left-close': isLeftClose }">
           <slot name="header">
-            <ic-header :left-icon="showClose ? 'titlebar-close' : ''"
-              :title="title"
-              @click-left.prevent="close"></ic-header>
+            <i class="glyph__close" v-if="showClose"
+              @click.prevent="close"></i>
+            <span v-if="title">{{title}}</span>
           </slot>
         </div>
         <div class="ic-dialog__content">
@@ -56,6 +57,10 @@
       showClose: {
         type: Boolean,
         default: true
+      },
+      isLeftClose: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {

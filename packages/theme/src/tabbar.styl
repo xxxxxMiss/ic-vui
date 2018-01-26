@@ -13,15 +13,17 @@
     justify-content center
     align-items center
     transition color .2s
-    &__item
-      flex 1
-      text-align center
-      &--active
-        color $primary
 
     .icon
       font-size 27px
       color $gray-dark
+
+    &__item
+      flex 1
+      text-align center
+      &--active
+        a, .icon
+          color $primary
 
     &__text
       padding-top 2px
@@ -30,3 +32,4 @@
 {lookup($prefix-classes)tab} a
   display block
   text-decoration none
+  color $gray-dark

@@ -1,5 +1,6 @@
 <template>
   <header class="ic-header"
+    :class="{ 'ic-header--divider': showDivider }"
     :style="{
       'background-color': theme,
       'color': color
@@ -43,7 +44,11 @@
       leftText: String,
       leftIcon: String,
       rightIcon: [String, Array],
-      rightText: String
+      rightText: String,
+      showDivider: {
+        type: Boolean,
+        default: true
+      }
     },
     computed: {
       rightOption () {

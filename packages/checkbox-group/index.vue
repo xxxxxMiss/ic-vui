@@ -23,6 +23,7 @@
     watch: {
       values (newVal) {
         this.$emit('input', newVal)
+        this.$emit('change', newVal)
       }
     },
     methods: {
@@ -37,9 +38,6 @@
     },
     created () {
       this.$on('update:actives', this.setActives)
-    },
-    mounted () {
-      this.broadcast('ic-checkbox', 'set:default', this.values)
     }
   }
 </script>

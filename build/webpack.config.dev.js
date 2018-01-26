@@ -40,8 +40,9 @@ module.exports = {
     alias: {
       vue: 'vue/dist/vue.runtime.esm.js',
       packages: path.join(__dirname, '../packages'),
-      lib: path.join(__dirname, '../lib')
-      // components: path.join(__dirname, '../docs/src/components')
+      lib: path.join(__dirname, '../lib'),
+      utils: path.join(__dirname, '../src/utils'),
+      mixins: path.join(__dirname, '../src/mixins')
     }
   },
   module: {

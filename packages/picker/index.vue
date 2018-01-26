@@ -1,7 +1,10 @@
 <template>
   <div class="ic-picker" :class="{ 'ic-picker--3d': rotateEffect }">
     <div class="ic-picker__toolbar" v-if="showToolbar">
-      <slot></slot>
+      <slot>
+        <!-- <ic-button text @click="handleCancel">取消</ic-button>
+        <ic-button text @click="handleOk">确定</ic-button> -->
+      </slot>
     </div>
     <div class="ic-picker__items">
       <picker-column v-for="(item, index) in items"
@@ -82,14 +85,20 @@
       }
     },
     methods: {
+      handleCancel () {
+        this.$emit('cancel')
+      },
+      handleConfirm () {
+        this.$emit('confirm', this.values)
+      },
       itemValueChange () {
         this.$emit('change', this, this.values)
       },
       getItem (itemIndex) {
-        var items = this.items
-        var count = 0
-        var target
-        var children = this.$children.filter(child => child.$options.name === 'picker-column')
+        const items = this.items
+        let count = 0
+        let target
+        const children = this.$children.filter(child => child.$options.name === 'picker-column')
 
         items.forEach(function(item, index) {
           if (!item.divider) {
@@ -103,27 +112,27 @@
         return target
       },
       getItemValue(index) {
-        var item = this.getItem(index)
+        const item = this.getItem(index)
         if (item) {
           return item.currentValue
         }
         return null
       },
       setItemValue(index, value) {
-        var item = this.getItem(index)
+        const item = this.getItem(index)
         if (item) {
           item.currentValue = value
         }
       },
       getItemValues(index) {
-        var item = this.getItem(index)
+        const item = this.getItem(index)
         if (item) {
           return item.mutatingValues
         }
         return null
       },
       setItemValues(index, values) {
-        var item = this.getItem(index)
+        const item = this.getItem(index)
         if (item) {
           item.mutatingValues = values
         }

@@ -34,6 +34,7 @@ $sizes = {
       font-weight 500
       width 100%
       border-radius 4px
+      transition box-shadow .2s
       &[readonly]
         text-overflow ellipsis
       // caret-color $caret-color // 待定，该属性兼容性目前不是很好
@@ -42,6 +43,12 @@ $sizes = {
     &__input::-webkit-input-placeholder
     &__textarea::-webkit-input-placeholder
       color $gray-dark
+
+    &--focus &__input
+    &--focus &__textarea
+      background-color $white
+      border-color $white
+      box-shadow 0 4px 12px 0 rgba(0,0,0,0.10)
 
     for key, val in $sizes
       &--{key} &__input
@@ -55,7 +62,7 @@ $sizes = {
       font-size $font-size-xlarge
       color $gray-dark
     &--suffix .icon-suffix + .icon-suffix
-        right 60px
+        right 50px
     &--suffix &__input
         padding-right 50px
 
@@ -76,6 +83,21 @@ $sizes = {
       center-y()
       right 0
       background-color $input-background-color
+    &--focus .btn
+      background-color $white
+
+    &--error
+      .icon-suffix
+      .icon-prefix
+        color $primary
+    &--error &__input
+    &--error &__textarea
+      color $primary
+
+    &__errormsg
+      color $primary
+      font-size $font-size-small
+      padding-top 4px
 
     &__textarea
       line-height 1.5
@@ -87,3 +109,4 @@ $sizes = {
     position absolute
     top 0
     z-index -1
+

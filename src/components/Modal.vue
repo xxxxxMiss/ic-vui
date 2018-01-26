@@ -10,12 +10,11 @@
       @click="showPrompt">prompt弹窗</ic-button>
     <ic-button type="warning"
       @click="showParams">传入更多参数</ic-button>
-    <ic-button type="error"
-      @click="showGhost">幽灵弹出</ic-button>
   </div>
 </template>
 
 <script>
+  import Toast from '../../packages/toast/index'
   export default {
     methods: {
       showAlert () {
@@ -43,17 +42,19 @@
           center: false,
           confirmButtonText: '提交',
           showClose: false,
-          callback () {
+          inputValue: '333',
+          callback ({ value }) {
             console.log('回确定调')
+            console.log('prompt框的input的值：', value)
+          },
+          inputValidator (value) {
+            if (+value > 10) return true
+            Toast('校验失败，请重新输入')
+            return false
           },
           cancel () {
             console.log('取消回调')
           }
-        })
-      },
-      showGhost () {
-        this.$alert('此处显示最多50个字的驳回理由，由HR在B端填写，此处显示最多50个字的驳回理由，由HR在B端填写，此处显示最多50个字', '驳回理由', {
-          isGhost: true
         })
       }
     }

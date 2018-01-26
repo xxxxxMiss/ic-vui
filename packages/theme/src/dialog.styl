@@ -19,17 +19,31 @@
       overflow hidden
 
     &--round &__wrapper
-      padding-top 10px
       border-radius 8px
 
     &__header
+      position relative
+      display flex
+      align-items center
+      justify-content center
       height $header-height
+      padding 0 $padding-x
+      font-size $font-size-xlarge
+      font-weight bold
+      text-align center
+      i
+        position absolute
+        right $padding-x
+      &--left-close i
+        left $padding-x
 
     &__content
       padding 0 $padding-x
 
     &__footer
-      height $footer-height
-      line-height $footer-height
-      padding 0 $padding-x
+      position absolute
+      left 0
+      bottom 0
+      width 100%
+      padding $padding-x
       text-align right

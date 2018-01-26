@@ -12,6 +12,9 @@
 
     <p><code>type="circle"</code>颜色字符串</p>
     <ic-spinner type="circle"></ic-spinner>
+
+    <p><code>type="gradient"</code>渐变圆环</p>
+    <ic-spinner type="gradient"></ic-spinner>
   </div>
 </template>
 

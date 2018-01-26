@@ -1,6 +1,6 @@
 {
   "name": "ic-vui",
-  "version": "0.0.93",
+  "version": "0.0.9415",
   "description": "A Vue.js UI components lib",
   "main": "lib/ic-vui.js",
   "files": [
@@ -26,6 +26,7 @@
     "animate.css": "^3.5.2",
     "debounce": "^1.1.0",
     "raf.js": "0.0.4",
+    "vee-validate": "^2.0.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

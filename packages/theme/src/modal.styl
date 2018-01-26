@@ -35,24 +35,21 @@
       margin 35px auto 45px
 
     &__footer
+      display flex
+      justify-content flex-end
       text-align right
+      .btn
+        height 50px
+        font-size $font-size-medium
       .btn + .btn
-        margin-left 12px
+        margin-left 15px
 
     &--center
       ^[0]__header
       ^[0]__content
-      ^[0]__footer
         text-align center
-
-    &--ghost
-      ../../__header
-        position relative
-        padding-bottom 30px
-        &:after
-          border-retina()
-      ../../__footer
-        display none
+    &--center &__footer
+      justify-content center
 
     .input
       padding-top 15px

@@ -2,8 +2,7 @@
   <transition name="modal-fade">
     <div class="ic-modal" v-show="visible"
       :class="[{
-        'ic-modal--center': center,
-        'ic-modal--ghost': isGhost
+        'ic-modal--center': center
       }]"
       @click.self="close">
       <div class="ic-modal__inner">
@@ -18,7 +17,8 @@
             {{message}}
           </div>
           <ic-input v-if="category === 'prompt'"
-            autofocus
+            v-model="value"
+            size="large"
             :type="inputType"
             :placeholder="inputPlaceholder"></ic-input>
         </div>
@@ -45,10 +45,6 @@
       showClose: {
         type: Boolean,
         default: true
-      },
-      isGhost: {
-        type: Boolean,
-        default: false
       },
       cancelButtonText: {
         type: String,
@@ -78,6 +74,8 @@
         type: String,
         default: 'text'
       },
+      inputValue: {},
+      inputValidator: Function,
       inputPlaceholder: String,
       title: String,
       message: String
@@ -85,7 +83,8 @@
     data () {
       return {
         visible: false,
-        category: 'confirm' // alert, prompt
+        category: 'confirm', // alert, prompt
+        value: this.inputValue
       }
     },
     watch: {
@@ -95,6 +94,8 @@
             const input = document.querySelector('.ic-modal .ic-input__input')
             input && input.focus()
           })
+        } else {
+          this.value && (this.value = '')
         }
       }
     },
@@ -103,7 +104,13 @@
         this.closeOnClickMask && (this.visible = false)
       },
       ok () {
-        this.visible = false
+        if (typeof this.inputValidator === 'function') {
+          if (this.inputValidator(this.value) === true) {
+            this.visible = false
+          } else return
+        } else {
+          this.visible = false
+        }
         this.callback &&
           typeof this.callback === 'function' &&
           this.callback(this)

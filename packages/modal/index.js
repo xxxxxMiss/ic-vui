@@ -3,7 +3,6 @@ import modalOptions from './modal.vue'
 
 const defaultOptions = {
   showClose: true,
-  isGhost: false,
   cancelButtonText: '取消',
   confirmButtonText: '确定',
   showCancelButton: true,
@@ -16,6 +15,9 @@ const defaultOptions = {
   category: 'confirm',
   inputType: 'text',
   inputPlaceholder: '',
+  inputValue: '',
+  value: '',
+  inputValidator: null,
   callback: null,
   cancel: null
 }
@@ -101,6 +103,9 @@ Vue.prototype.$prompt = (message, title, options) => {
     title,
     callback,
     category: 'prompt'
+  }
+  if (options.inputValue) {
+    defaultOptions.value = options.inputValue
   }
   return Modal(Object.assign(defaultOptions, opt, options))
 }

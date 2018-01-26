@@ -7,11 +7,10 @@
       <ic-tab-item v-for="(item, index) in res"
         :key="index"
         :title="item.text">
-          <ic-filter :visible="visible"
+          <ic-filter :visible.sync="visible"
             :items="item.children"
             :label-key="item.labelKey"
             :value-key="item.valueKey"
-            @invisible="visible = false"
             @filter-item-click="handleClick"></ic-filter>
       </ic-tab-item>
     </ic-tab>
@@ -90,9 +89,8 @@
       changeItem (index) {
         this.visible = true
       },
-      handleClick (item, index, valueKey, labelKey) {
+      handleClick ({item, index, valueKey, labelKey}) {
         console.log(valueKey, labelKey)
-        this.visible = false
         this.res[this.tabIndex].text = item[labelKey]
       },
       changeTabItem (index) {

@@ -34,6 +34,13 @@
       theme="#20a0ff"
       color="#fff"
       ></ic-header>
+
+    <ic-header
+      :show-divider="false"
+      right-text="跳过"
+      left-icon="close"
+      theme="transparent"
+      ></ic-header>
   </div>
 </template>
 
@@ -55,4 +62,6 @@
   .demo-header
     .ic-header + .ic-header
       margin-top 20px
+    .ic-header
+      position relative
 </style>

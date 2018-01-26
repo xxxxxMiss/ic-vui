@@ -4,13 +4,17 @@
 
 +prefix-classes($prefix-classes)
   .header
-    position relative
+    position fixed
+    z-index: $z-index['header']
+    left 0
+    top 0
+    width 100%
     display flex
     align-items center
     background-color $white
     height $header-height
     padding 0 $padding-x
-    &:after
+    &--divider:after
       border-retina()
 
     &__left

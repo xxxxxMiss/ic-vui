@@ -3,6 +3,14 @@
     <ic-picker rotate-effect
       @change="changeValue"
       :items="items"></ic-picker>
+
+    <ic-picker
+      @cancel="handleCancel"
+      @confirm="handleConfirm"
+      show-toolbar
+      rotate-effect
+      @change="changeValue1"
+      :items="items1"></ic-picker>
   </div>
 </template>
 
@@ -26,11 +34,27 @@
             className: 'slot3',
             textAlign: 'left'
           }
+        ],
+        items1: [
+          {
+            flex: 1,
+            values: ['专科', '本科', '研究生', '硕士', '博士']
+          }
         ]
       }
     },
     methods: {
+      handleConfirm (values) {
+        console.log('当前选中的值：', values)
+      },
+      handleCancel () {
+        console.log('取消事件。。。')
+      },
       changeValue (picker, values) {
+        console.log(picker)
+        console.log(values)
+      },
+      changeValue1 (picker, values) {
         console.log(picker)
         console.log(values)
       }

@@ -1,13 +1,18 @@
 <template>
-  <div class="ic-upload">
+  <form class="ic-upload">
     <slot>
       <span class="ic-upload__wrapper">
-        <ic-icon v-if="icon && !showPreview" :name="icon"></ic-icon>
+        <ic-icon v-if="icon && !usePreview" :name="icon"></ic-icon>
       </span>
     </slot>
-    <input type="file" v-bind="$attrs" @change="changeFile">
-    <img v-if="showPreview" :src="privewSrc" alt="图片预览">
-  </div>
+    <input type="file"
+      :disabled="disabled"
+      :name="name"
+      :accept="accept"
+      v-bind="$attrs"
+      @change="changeFile">
+    <img v-if="usePreview" :src="previewSrc" alt="图片预览">
+  </form>
 </template>
 
 <script>
@@ -23,32 +28,122 @@
         type: String,
         default: 'dataurl' // arraybuffer, text
       },
-      usePreview: {
+      showPreview: {
         type: Boolean,
         default: true
       },
-      afterRead: Function
+      uploadType: {
+        type: String,
+        default: 'formdata' // base64
+      },
+      name: String,
+      url: {
+        type: String,
+        required: true
+      },
+      headers: {
+        type: Object,
+        default: () => ({})
+      },
+      data: Object,
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      credentials: {
+        type: String,
+        default: 'omit' // 'include', 'same-origin'
+      },
+      mode: {
+        type: String,
+        default: 'cors' // 'no-cors', 'same-origin', 'navigate'
+      },
+      accept: String,
+      afterRead: Function,
+      onSuccess: Function,
+      onError: Function,
+      onProgress: Function,
+      beforeUpload: Function,
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      responseType: {
+        type: String,
+        default: 'json' // 'arraybuffer', 'blob', 'text', 'formdata'
+      }
     },
     data () {
       return {
-        privewSrc: '',
+        previewSrc: '',
         readSucc: false
       }
     },
     computed: {
-      showPreview () {
-        return this.usePreview && this.readSucc
+      usePreview () {
+        return this.showPreview && this.readSucc
       }
     },
     methods: {
+      upload (file) {
+        if (!file) return
+        const formData = new FormData()
+        formData.append(this.name, file)
+        if (this.data) {
+          Object.keys(this.data).forEach(key => formData.append(key, this.data[key]))
+        }
+
+        if (typeof this.beforeUpload === 'function') {
+          if (this.beforeUpload(file) === false) return
+          else this.fetch(formData)
+        } else {
+          this.fetch(formData)
+        }
+      },
+      fetch (formData) {
+        fetch(this.url, {
+          method: 'POST',
+          headers: this.headers,
+          credentials: this.credentials,
+          mode: this.mode,
+          body: formData
+        })
+        .then(res => {
+          switch (this.responseType) {
+            case 'json': return res.json()
+            case 'blob': return res.blob()
+            case 'arraybuffer': return res.arrayBuffer()
+            case 'text': return res.text()
+            case 'formdata': return res.formData()
+          }
+        })
+        .then(data => {
+          if (typeof this.onSuccess === 'function') {
+            this.onSuccess(data)
+          }
+        })
+        .catch(e => {
+          if (typeof this.onError === 'function') {
+            this.onError(e)
+          }
+        })
+      },
       changeFile (e) {
         const files = e.target.files
-        if (files && files.length > 0) {
+        if (!files || files.length < 1) return
+
+        if (this.uploadType === 'formdata') {
+          return this.upload(files[0])
+        }
+
+        if (this.uploadType === 'base64') {
           this.getBlobData(files[0], this.readType).then(res => {
             this.afterRead && typeof this.afterRead === 'function' &&
             this.afterRead(res, files[0])
             this.readSucc = true
-            this.privewSrc = res
+            this.previewSrc = res
+
+            this.upload(res)
           }).catch(e => {
             console.error(e)
             this.readSucc = false

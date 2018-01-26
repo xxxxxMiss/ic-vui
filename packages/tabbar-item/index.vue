@@ -1,8 +1,9 @@
 <template>
   <li class="ic-tabbar__item"
     :class="{
-      'ic-tabbar__item--active': index == parentGroup.currentActive
-    }">
+      'ic-tabbar__item--active': name === tabbar.value
+    }"
+    @click="clickItem">
     <router-link :to="route">
       <slot>
         <ic-icon :name="icon"></ic-icon>
@@ -13,36 +14,23 @@
 </template>
 
 <script>
+  import emitter from 'mixins/emitter'
+
   export default {
     name: 'ic-tabbar-item',
 
+    mixins: [emitter],
     props: {
       icon: String,
       text: String,
-      route: [String, Object]
+      route: [String, Object],
+      name: [String, Number]
     },
-    computed: {
-      index () {
-        return this.parentGroup.bars.indexOf(this)
-      }
-    },
+    inject: ['tabbar'],
     methods: {
-      findParent () {
-        if (!this.parentGroup) {
-          let parent = this.$parent
-          while (parent) {
-            if (parent.$options.name === 'ic-tabbar') {
-              this.parentGroup = parent
-              break
-            }
-            parent = parent.$parent
-          }
-        }
+      clickItem () {
+        this.dispatch('ic-tabbar', 'set-active', this.name)
       }
-    },
-    created () {
-      this.findParent()
-      this.parentGroup.bars.push(this)
     }
   }
 </script>

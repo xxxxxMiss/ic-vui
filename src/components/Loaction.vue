@@ -6,6 +6,7 @@
     <ic-location :data="city"
       displayKey="name"
       show-touched
+      touched-type="round"
       @item-click="clickItem"></ic-location>
   </div>
 </template>

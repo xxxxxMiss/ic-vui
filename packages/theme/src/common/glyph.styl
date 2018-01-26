@@ -34,15 +34,15 @@
 
 .glyph__checkbox--success
   @extends .glyph__checkbox--primary
-  width 40px
-  height 40px
-  background-color green
+  width 60px
+  height 60px
+  background-color #00AA55
   &:after
-    width 24px
-    height (@width / 2)
-    border-left-width 5px
+    height 15px
+    width @height * 2
+    border-left-width 8px
     border-bottom-width @border-left-width
-
+    animation grow-fade 1s
 
 .glyph__add
   display inline-block
@@ -129,3 +129,9 @@
   &:after
     height 8px
 // =========== timeline ==========
+
+@keyframes grow-fade
+  from
+    opacity 0
+  to
+    opacity 1

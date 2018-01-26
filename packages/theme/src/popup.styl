@@ -1,0 +1,31 @@
+@import 'common/var'
+
++prefix-classes($prefix-classes)
+  .popup
+    &__content
+      position fixed
+      z-index: $z-index['popup']
+      left 0
+      height 40%
+      bottom -@height
+      width 100%
+      overflow hidden
+      overflow-y auto
+      background-color $white
+      padding $padding-x 0
+      transition bottom .2s
+
+    &__backdrop
+      position fixed
+      z-index: ($z-index['popup'] - 1)
+      top 100%
+      left 0
+      height 100%
+      width 100%
+      background-color rgba(0, 0, 0, .4)
+
+    &--visible &__content
+      bottom 0
+    &--visible &__backdrop
+      top 0
+

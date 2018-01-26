@@ -41,7 +41,7 @@
       },
       valueKey: {
         type: [String, Number],
-        default: 'key'
+        default: 'value'
       },
       maxHeight: {
         type: String,
@@ -59,11 +59,17 @@
     },
     methods: {
       filterItemClick (item, index) {
-        this.currentActive = item.key
-        this.$emit('filter-item-click', item, index, this.valueKey, this.labelKey)
+        this.currentActive = item[this.valueKey]
+        this.close()
+        this.$emit('filter-item-click', {
+          item,
+          index,
+          valueKey: this.valueKey,
+          labelKey: this.labelKey
+        })
       },
       close () {
-        this.$emit('invisible')
+        this.$emit('update:visible', false)
       }
     }
   }

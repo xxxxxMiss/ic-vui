@@ -6,7 +6,9 @@
         'ic-input--round': round,
         'ic-input--prefix': prefixIcon,
         'ic-input--suffix': suffixIcon || clearable,
-        'ic-input--timer': timer
+        'ic-input--timer': timer,
+        'ic-input--error': showError,
+        'ic-input--focus': isFocus
       }
     ]">
     <slot name="prepend"></slot>
@@ -16,6 +18,8 @@
           class="ic-icon-prefix"
           :name="prefixIcon"></ic-icon>
         <input class="ic-input__input"
+          @focus="handleFocus"
+          @blur="handleBlur"
           :style="style"
           v-model="currentValue"
           :type="type"
@@ -26,7 +30,8 @@
           :name="suffixIcon"
           class="ic-icon-suffix"
           @click.stop="clickSuffix"></ic-icon>
-        <ic-icon v-show="clearable && value"
+        <ic-icon v-show="showClearable"
+          :style="{ color: '#999' }"
           name="clean"
           class="ic-icon-suffix"
           @click.stop="onClear"></ic-icon>
@@ -41,6 +46,8 @@
         <textarea
           class="ic-input__textarea"
           v-model="currentValue"
+          @focus="handleFocus"
+          @blur="handleBlur"
           :rows="rows"
           :autofocus="autofocus"
           ref="textarea"
@@ -55,6 +62,8 @@
         >{{currentValue}}</div>
       </template>
     </div>
+    <div v-show="errorMsg"
+      class="ic-input__errormsg">{{errorMsg}}</div>
     <slot name="append"></slot>
   </div>
 </template>
@@ -107,7 +116,12 @@
       autosize: {
         type: [Boolean, Object],
         default: false
-      }
+      },
+      showError: {
+        type: Boolean,
+        default: false
+      },
+      errorMsg: String
     },
     computed: {
       currentValue: {
@@ -123,16 +137,20 @@
       style () {
         return {
           paddingRight: this.clearable && this.value && this.suffixIcon
-            ? '100px'
+            ? '90px'
             : this.clearable && !this.value && this.suffixIcon
               ? '50px'
-              : ''
+              : '15px'
         }
+      },
+      showClearable () {
+        return this.clearable && this.value && this.isFocus
       }
     },
     data () {
       return {
-        textareaStyle: {}
+        textareaStyle: {},
+        isFocus: false
       }
     },
     methods: {
@@ -157,6 +175,14 @@
       },
       timerClick (e) {
         this.$emit('timer-click', e)
+      },
+      handleFocus (e) {
+        this.isFocus = true
+        this.$emit('focus', e)
+      },
+      handleBlur (e) {
+        this.isFocus = false
+        this.$emit('blur', e)
       }
     }
   }

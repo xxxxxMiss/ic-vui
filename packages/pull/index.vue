@@ -1,116 +1,289 @@
 <template>
-  <div class="ic-pull">
-    <div class="ic-pull__wrapper"
-      ref="wrapper"
-      @touchstart="handleTouchStart"
-      @touchmove="handleTouchMove"
-      @touchend="handleTouchEnd"
-    >
-      <div class="ic-pull__scroller">
-        <i class="glyph__arrow--down"></i>
-        <slot></slot>
-      </div>
-      <div class="ic-pull__loading">
-        <i class="ic-pull__load-arrow"
-          :class="{ 'ic-pull__load-arrow--rotate': rotateArrow }"
-          v-show="showPullIcon"></i>
-        <ic-spinner
-          v-show="showLoadingIcon"></ic-spinner>
-        <i class="glyph__success"
-          v-show="showDoneIcon"></i>
-        <i class="glyph__close--gray"
-          v-show="showFailIcon"></i>
-        <span class="ic-pull__text">{{currentText}}</span>
-      </div>
+  <div class="ic-pull"
+       :style="{ height: wrapperHeight, transform: `translate3d(0, ${diff}px, 0)` }">
+    <div v-if="topLoadMethod"
+         :style="{ height: `${topBlockHeight}px`, marginTop: `${-topBlockHeight}px` }"
+         class="ic-pull__action-block">
+      <slot name="top-block"
+            :state="state"
+            :state-text="topText">
+        <p class="ic__default-text">{{ topText }}</p>
+      </slot>
+    </div>
+    <div class="ic-pull__scroller">
+      <slot></slot>
+    </div>
+    <div v-if="bottomLoadMethod"
+         :style="{ height: `${bottomBlockHeight}px`, marginBottom: `${-bottomBlockHeight}px` }"
+         class="ic-pull__action-block">
+      <slot name="bottom-block"
+            :state="state"
+            :state-text="bottomText">
+        <p class="ic-pull__default-text">{{ bottomText }}</p>
+      </slot>
     </div>
   </div>
 </template>
 
 <script>
+  import throttle from 'utils/throttle'
+  import { TOP_DEFAULT_CONFIG, BOTTOM_DEFAULT_CONFIG } from './config'
+
   export default {
     name: 'ic-pull',
-
     props: {
-      loadingOptions: {
+      distanceIndex: {
+        type: Number,
+        default: 2
+      },
+      topBlockHeight: {
+        type: Number,
+        default: 50
+      },
+      bottomBlockHeight: {
+        type: Number,
+        default: 50
+      },
+      wrapperHeight: {
+        type: String,
+        default: '100%'
+      },
+      topLoadMethod: {
+        type: Function
+      },
+      bottomLoadMethod: {
+        type: Function
+      },
+      isThrottleTopPull: {
+        type: Boolean,
+        default: true
+      },
+      isThrottleBottomPull: {
+        type: Boolean,
+        default: true
+      },
+      isThrottleScroll: {
+        type: Boolean,
+        default: true
+      },
+      isTopBounce: {
+        type: Boolean,
+        default: true
+      },
+      isBottomBounce: {
+        type: Boolean,
+        default: true
+      },
+      topConfig: {
         type: Object,
-        default: () => ({
-          pullText: '上拉加载',
-          triggerText: '释放立即加载',
-          loadingText: '正在加载...',
-          doneText: '加载完成',
-          failText: '加载失败'
-        })
+        default: () => {
+          return {}
+        }
+      },
+      bottomConfig: {
+        type: Object,
+        default: () => {
+          return {}
+        }
       }
     },
-    data () {
+    data() {
       return {
-        deltaY: 0,
-        touchStartY: 0,
-        touchCurrentY: 0,
-        currentText: this.loadingOptions.pullText,
-        timer: null
+        scrollEl: null,
+        startScrollTop: 0,
+        startY: 0,
+        currentY: 0,
+        distance: 0,
+        direction: 0,
+        diff: 0,
+        beforeDiff: 0,
+        topText: '',
+        bottomText: '',
+        state: '',
+        bottomReached: false,
+        throttleEmitTopPull: null,
+        throttleEmitBottomPull: null,
+        throttleEmitScroll: null,
+        throttleOnInfiniteScroll: null
       }
     },
     computed: {
-      showPullIcon () {
-        return this.currentText === this.loadingOptions.pullText ||
-          this.currentText === this.loadingOptions.triggerText
+      _topConfig: function () {
+        return Object.assign({}, TOP_DEFAULT_CONFIG, this.topConfig)
       },
-      rotateArrow () {
-        return this.currentText === this.loadingOptions.triggerText
-      },
-      showLoadingIcon () {
-        return this.currentText === this.loadingOptions.loadingText
-      },
-      showDoneIcon () {
-        return this.currentText === this.loadingOptions.doneText
-      },
-      showFailIcon () {
-        return this.currentText === this.loadingOptions.failText
+      _bottomConfig: function () {
+        return Object.assign({}, BOTTOM_DEFAULT_CONFIG, this.bottomConfig)
+      }
+    },
+    watch: {
+      state(val) {
+        if (this.direction === 'down') {
+          this.$emit('top-state-change', val)
+        } else {
+          this.$emit('bottom-state-change', val)
+        }
       }
     },
     methods: {
-      handleTouchStart (e) {
-        this.touchCurrentY = e.type === 'touchstart'
-          ? e.targetTouches[0].pageY : e.pageY
-        this.touchStartY = this.touchCurrentY
-        this.currentText = this.loadingOptions.pullText
+      actionPull() {
+        this.state = 'pull'
+        this.direction === 'down'
+          ? this.topText = this._topConfig.pullText
+          : this.bottomText = this._bottomConfig.pullText
       },
-      handleTouchMove (e) {
-        e.preventDefault()
-        this.touchCurrentY = e.type === 'touchmove'
-          ? e.targetTouches[0].pageY : e.pageY
-        this.deltaY = this.touchCurrentY - this.touchStartY
-
-        if (this.deltaY > 0) return
-
-        this.$refs.wrapper.style = `transform: translate3d(0, ${this.deltaY}px, 0)`
-        if (Math.abs(this.deltaY) > 40) this.currentText = this.loadingOptions.pullText
-        if (Math.abs(this.deltaY) > 60) this.currentText = this.loadingOptions.triggerText
+      actionTrigger() {
+        this.state = 'trigger'
+        this.direction === 'down'
+          ? this.topText = this._topConfig.triggerText
+          : this.bottomText = this._bottomConfig.triggerText
       },
-      handleTouchEnd (e) {
-        if (this.deltaY > 0) return
-
-        if (Math.abs(this.deltaY) > 60) {
-          this.currentText = this.loadingOptions.loadingText
-          this.$refs.wrapper.style = `transform: translate3d(0, -50px, 0)`
-          this.$emit('pull-loading', this.done)
+      actionLoading() {
+        this.state = 'loading'
+        if (this.direction === 'down') {
+          this.topText = this._topConfig.loadingText
+          this.topLoadMethod.call(this, this.actionLoaded)
+          this.scrollTo(this._topConfig.stayDistance)
         } else {
-          this.$refs.wrapper.style = `transform: translate3d(0, 0, 0)`
+          this.bottomText = this._bottomConfig.loadingText
+          this.bottomLoadMethod.call(this, this.actionLoaded)
+          this.scrollTo(-this._bottomConfig.stayDistance)
         }
-        this.deltaY = 0
       },
-      done (status) {
-        if (status && status === 'fail') {
-          this.currentText = this.loadingOptions.failText
+      actionLoaded(loadState = 'done') {
+        this.state = `loaded-${loadState}`
+        let loadedStayTime
+        if (this.direction === 'down') {
+          this.topText = loadState === 'done'
+            ? this._topConfig.doneText
+            : this._topConfig.failText
+          loadedStayTime = this._topConfig.loadedStayTime
         } else {
-          this.currentText = this.loadingOptions.doneText
+          this.bottomText = loadState === 'done'
+            ? this._bottomConfig.doneText
+            : this._bottomConfig.failText
+          loadedStayTime = this._bottomConfig.loadedStayTime
         }
-        this.timer && clearTimeout(this.timer)
-        this.timer = setTimeout(_ => {
-          this.$refs.wrapper.style = `transform: translate3d(0, 0, 0)`
-        }, 500)
+        setTimeout(() => {
+          this.scrollTo(0)
+
+          // reset state
+          setTimeout(() => {
+            this.state = ''
+          }, 200)
+        }, loadedStayTime)
+      },
+      scrollTo(y, duration = 200) {
+        this.$el.style.transition = `${duration}ms`
+        this.diff = y
+        setTimeout(() => {
+          this.$el.style.transition = ''
+        }, duration)
+      },
+
+      checkBottomReached() {
+        return this.scrollEl.scrollTop + this.scrollEl.offsetHeight + 1 >= this.scrollEl.scrollHeight
+      },
+
+      handleTouchStart(event) {
+        this.startY = event.touches[0].clientY
+        this.beforeDiff = this.diff
+        this.startScrollTop = this.scrollEl.scrollTop
+        this.bottomReached = this.checkBottomReached()
+      },
+
+      handleTouchMove(event) {
+        this.currentY = event.touches[0].clientY
+        this.distance = (this.currentY - this.startY) / this.distanceIndex + this.beforeDiff
+        this.direction = this.distance > 0 ? 'down' : 'up'
+
+        if (this.startScrollTop === 0 && this.direction === 'down' && this.isTopBounce) {
+          event.preventDefault()
+          event.stopPropagation()
+          this.diff = this.distance
+          this.isThrottleTopPull ? this.throttleEmitTopPull(this.diff) : this.$emit('top-pull', this.diff)
+
+          if (typeof this.topLoadMethod !== 'function') return
+
+          if (this.distance < this._topConfig.triggerDistance &&
+            this.state !== 'pull' && this.state !== 'loading') {
+            this.actionPull()
+          } else if (this.distance >= this._topConfig.triggerDistance &&
+            this.state !== 'trigger' && this.state !== 'loading') {
+            this.actionTrigger()
+          }
+        } else if (this.bottomReached && this.direction === 'up' && this.isBottomBounce) {
+          event.preventDefault()
+          event.stopPropagation()
+          this.diff = this.distance
+          this.isThrottleBottomPull ? this.throttleEmitBottomPull(this.diff) : this.$emit('bottom-pull', this.diff)
+
+          if (typeof this.bottomLoadMethod !== 'function') return
+
+          if (Math.abs(this.distance) < this._bottomConfig.triggerDistance &&
+            this.state !== 'pull' && this.state !== 'loading') {
+            this.actionPull()
+          } else if (Math.abs(this.distance) >= this._bottomConfig.triggerDistance &&
+            this.state !== 'trigger' && this.state !== 'loading') {
+            this.actionTrigger()
+          }
+        }
+      },
+
+      handleTouchEnd() {
+        if (this.diff !== 0) {
+          if (this.state === 'trigger') {
+            this.actionLoading()
+            return
+          }
+
+          // pull cancel
+          this.scrollTo(0)
+        }
+      },
+
+      handleScroll(event) {
+        this.isThrottleScroll ? this.throttleEmitScroll(event) : this.$emit('scroll', event)
+        this.throttleOnInfiniteScroll()
+      },
+
+      onInfiniteScroll() {
+        if (this.checkBottomReached()) {
+          this.$emit('infinite-scroll')
+        }
+      },
+
+      throttleEmit(delay, mustRunDelay = 0, eventName) {
+        const throttleMethod = function () {
+          const args = [...arguments]
+          args.unshift(eventName)
+          this.$emit.apply(this, args)
+        }
+
+        return throttle(throttleMethod, delay, mustRunDelay)
+      },
+
+      bindEvents() {
+        this.scrollEl.addEventListener('touchstart', this.handleTouchStart)
+        this.scrollEl.addEventListener('touchmove', this.handleTouchMove)
+        this.scrollEl.addEventListener('touchend', this.handleTouchEnd)
+        this.scrollEl.addEventListener('scroll', this.handleScroll)
+      },
+
+      createThrottleMethods() {
+        this.throttleEmitTopPull = this.throttleEmit(200, 300, 'top-pull')
+        this.throttleEmitBottomPull = this.throttleEmit(200, 300, 'bottom-pull')
+        this.throttleEmitScroll = this.throttleEmit(100, 150, 'scroll')
+        this.throttleOnInfiniteScroll = throttle(this.onInfiniteScroll, 400)
+      },
+
+      init() {
+        this.createThrottleMethods()
+        this.scrollEl = this.$el.querySelector('.ic-pull__scroller')
+        this.bindEvents()
       }
+    },
+    mounted() {
+      this.init()
     }
   }
 </script>

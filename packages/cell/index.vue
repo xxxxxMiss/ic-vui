@@ -23,8 +23,6 @@
 </template>
 
 <script>
-  import XmIcon from '../icon'
-
   export default {
     name: 'ic-cell',
 
@@ -36,7 +34,6 @@
         type: Boolean,
         default: false
       }
-    },
-    components: { XmIcon }
+    }
   }
 </script>

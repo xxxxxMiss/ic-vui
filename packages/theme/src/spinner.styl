@@ -17,6 +17,15 @@ $directions = (top spinner-top) (right spinner-right) (bottom spinner-bottom) (l
       border-radius 50%
       animation rotate-infinite .8s infinite linear
 
+    &--gradient &__inner
+      border 5px solid transparent
+      border-image linear-gradient(#FF6644, #fd937e)
+      // border-image linear-gradient(#fd937e, #fec9bd)
+      // border-image linear-gradient(#fec9bd, #fffcfc)
+      // border-image linear-gradient(#fffcfc, #fff)
+      border-radius 50%
+      animation rotate-infinite .8s infinite linear
+
     &--default &__inner
       position relative
       width 30px

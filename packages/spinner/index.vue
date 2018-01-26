@@ -17,6 +17,9 @@
         'border-left-color': 'transparent'
       }"></span>
 
+    <span v-if="type === 'gradient'"
+      class="ic-spinner__inner"></span>
+
     <span v-if="type === 'crash-ball'"
       class="ic-spinner__inner">
       <i v-for="(val, index) in ['top', 'right', 'bottom', 'left']"

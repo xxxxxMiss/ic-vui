@@ -13,5 +13,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-lib/
-packages/theme/lib/
+lib/*
+packages/theme/lib/*

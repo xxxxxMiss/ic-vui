@@ -72,6 +72,15 @@
     },
     methods: {
       clickItem (index) {
+        // if (this.type === 'filter') {
+        //   if (this.currentActive === index) {
+        //     this.currentActive = ''
+        //   } else {
+        //     this.currentActive = index
+        //   }
+        // } else {
+        //   this.currentActive = index
+        // }
         this.currentActive = index
         this.$emit('click-item', index)
       }

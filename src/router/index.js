@@ -26,8 +26,10 @@ import Toast from '../components/Toast'
 import Collapse from '../components/Collapse'
 import Loaction from '../components/Loaction'
 import Picker from '../components/Picker'
+import DatetimePicker from '../components/DatetimePicker'
 import Pull from '../components/Pull'
 import Upload from '../components/Upload'
+import Popup from '../components/Popup'
 
 Vue.use(Router)
 
@@ -132,6 +134,14 @@ export default new Router({
     {
       path: '/upload',
       component: Upload
+    },
+    {
+      path: '/popup',
+      component: Popup
+    },
+    {
+      path: '/datetime-picker',
+      component: DatetimePicker
     }
   ]
 })

@@ -8,6 +8,7 @@ import IcCheckbox from './checkbox'
 import IcCheckboxGroup from './checkbox-group'
 import IcCollapse from './collapse'
 import IcCollapseItem from './collapse-item'
+import IcDatetimePicker from './datetime-picker'
 import IcDialog from './dialog'
 import IcFilter from './filter'
 import IcHeader from './header'
@@ -17,6 +18,7 @@ import IcLoading from './loading'
 import IcLocation from './location'
 import IcModal from './modal'
 import IcPicker from './picker'
+import IcPopup from './popup'
 import IcPull from './pull'
 import IcRadio from './radio'
 import IcSpinner from './spinner'
@@ -30,7 +32,7 @@ import IcTimeline from './timeline'
 import IcToast from './toast'
 import IcUpload from './upload'
 
-const version = '0.0.92'
+const version = '0.0.9415'
 const components = [
   IcAvatar,
   IcBadge,
@@ -40,6 +42,7 @@ const components = [
   IcCheckboxGroup,
   IcCollapse,
   IcCollapseItem,
+  IcDatetimePicker,
   IcDialog,
   IcFilter,
   IcHeader,
@@ -49,6 +52,7 @@ const components = [
   IcLocation,
   IcModal,
   IcPicker,
+  IcPopup,
   IcPull,
   IcRadio,
   IcSpinner,
@@ -84,6 +88,7 @@ export {
   IcCheckboxGroup,
   IcCollapse,
   IcCollapseItem,
+  IcDatetimePicker,
   IcDialog,
   IcFilter,
   IcHeader,
@@ -93,6 +98,7 @@ export {
   IcLocation,
   IcModal,
   IcPicker,
+  IcPopup,
   IcPull,
   IcRadio,
   IcSpinner,
@@ -116,6 +122,7 @@ export default {
   IcCheckboxGroup,
   IcCollapse,
   IcCollapseItem,
+  IcDatetimePicker,
   IcDialog,
   IcFilter,
   IcHeader,
@@ -125,6 +132,7 @@ export default {
   IcLocation,
   IcModal,
   IcPicker,
+  IcPopup,
   IcPull,
   IcRadio,
   IcSpinner,

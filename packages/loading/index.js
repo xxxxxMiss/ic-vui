@@ -6,7 +6,8 @@ let loadingVm
 const defaultOptions = {
   visible: true,
   text: '',
-  spinnerType: 'default',
+  spinnerType: 'gradient',
+  size: 'medium',
   color: 'white',
   close () {
     loadingVm && (loadingVm.visible = false)
@@ -32,10 +33,6 @@ const Loading = options => {
   return loadingVm
 }
 
-Vue.prototype.$loading = options => {
-  if (typeof options === 'string')
-  options = { text: options }
-  return Loading(options)
-}
+Vue.prototype.$loading = options => Loading(options)
 
 export default Loading

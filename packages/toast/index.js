@@ -40,4 +40,6 @@ const Toast = options => {
   return toastVm
 }
 
+Vue.prototype.$toast = options => Toast(options)
+
 export default Toast

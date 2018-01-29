@@ -49,6 +49,9 @@ $sizes = {
       background-color $white
       border-color $white
       box-shadow 0 4px 12px 0 rgba(0,0,0,0.10)
+    &--focus &__input[type=search]
+      box-shadow none
+      background-color $input-background-color
 
     for key, val in $sizes
       &--{key} &__input

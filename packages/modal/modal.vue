@@ -30,7 +30,8 @@
           </ic-button>
           <ic-button v-if="showConfirmButton"
             type="primary"
-            @click="ok">{{confirmButtonText}}</ic-button>
+            :disabled="disabled"
+            @click="confirm">{{confirmButtonText}}</ic-button>
         </div>
       </div>
     </div>
@@ -78,13 +79,17 @@
       inputValidator: Function,
       inputPlaceholder: String,
       title: String,
-      message: String
+      message: String,
+      visible: {
+        type: Boolean,
+        default: false
+      }
     },
     data () {
       return {
-        visible: false,
         category: 'confirm', // alert, prompt
-        value: this.inputValue
+        value: this.inputValue,
+        disabled: false
       }
     },
     watch: {
@@ -103,7 +108,7 @@
       close () {
         this.closeOnClickMask && (this.visible = false)
       },
-      ok () {
+      confirm () {
         if (typeof this.inputValidator === 'function') {
           if (this.inputValidator(this.value) === true) {
             this.visible = false

@@ -12,11 +12,15 @@ export default {
     },
     max (field, n) {
       return `${field}不能超过${n}个字符`
+    },
+    phone (field) {
+      return `${field}无效的手机号`
     }
   },
   attributes: {
     email: '邮箱',
     date: '日期',
-    skill: '专业技能'
+    skill: '专业技能',
+    phone: '手机号'
   }
 }

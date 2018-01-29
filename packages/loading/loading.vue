@@ -2,10 +2,12 @@
   <transition name="loading-fade">
     <div class="ic-loading" v-show="visible">
       <div class="ic-loading__inner">
-        <ic-spinner
-          :color="color"
-          :type="spinnerType"
-        ></ic-spinner>
+        <slot>
+          <ic-spinner
+            :color="color"
+            :type="spinnerType">
+          </ic-spinner>
+        </slot>
         <span class="ic-loading__text" v-if="text">{{text}}</span>
       </div>
     </div>
@@ -22,14 +24,17 @@
         type: String,
         default: 'default'
       },
+      size: {
+        type: String,
+        default: 'medium'
+      },
       color: {
         type: String,
         default: 'white'
-      }
-    },
-    data () {
-      return {
-        visible: false
+      },
+      visible: {
+        type: Boolean,
+        default: false
       }
     }
   }

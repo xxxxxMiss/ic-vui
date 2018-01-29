@@ -18,6 +18,7 @@ const defaultOptions = {
   inputValue: '',
   value: '',
   inputValidator: null,
+  disabled: false,
   callback: null,
   cancel: null
 }
@@ -35,79 +36,40 @@ const createInstance = () => {
   return modalVm
 }
 
-const Modal = options => {
+const Modal = (message, title, options, category) => {
   createInstance()
-  Object.assign(modalVm, options)
+  let callback = null
+  if (typeof title === 'object') {
+    options = title
+    title = ''
+  }
+  if (typeof title === 'function') {
+    callback = title
+    title = ''
+  }
+  if (typeof options === 'function') {
+    callback = options
+  }
+  const opt = {
+    message,
+    title,
+    callback,
+    category
+  }
+  Object.assign(modalVm, defaultOptions, opt)
   return modalVm
 }
 
 Vue.prototype.$alert = (message, title, options) => {
-  let callback = null
-  if (typeof title === 'object') {
-    options = title
-    title = ''
-  }
-  if (typeof title === 'function') {
-    callback = title
-    title = ''
-  }
-  if (typeof options === 'function') {
-    callback = options
-  }
-  const opt = {
-    message,
-    title,
-    callback,
-    category: 'alert'
-  }
-  return Modal(Object.assign(defaultOptions, opt, options))
+  return Modal(message, title, options, 'alert')
 }
 
 Vue.prototype.$confirm = (message, title, options) => {
-  let callback = null
-  if (typeof title === 'object') {
-    options = title
-    title = ''
-  }
-  if (typeof title === 'function') {
-    callback = title
-    title = ''
-  }
-  if (typeof options === 'function') {
-    callback = options
-  }
-  const opt = {
-    message,
-    title,
-    callback,
-    category: 'confirm'
-  }
-  return Modal(Object.assign(defaultOptions, opt, options))
+  return Modal(message, title, options, 'confirm')
 }
 
 Vue.prototype.$prompt = (message, title, options) => {
-  let callback = null
-  if (typeof title === 'object') {
-    options = title
-    title = ''
-  }
-  if (typeof title === 'function') {
-    callback = title
-    title = ''
-  }
-  if (typeof options === 'function') {
-    callback = options
-  }
-  const opt = {
-    message,
-    title,
-    callback,
-    category: 'prompt'
-  }
-  if (options.inputValue) {
-    defaultOptions.value = options.inputValue
-  }
-  return Modal(Object.assign(defaultOptions, opt, options))
+  return Modal(message, title, options, 'prompt')
 }
 
 export default Modal

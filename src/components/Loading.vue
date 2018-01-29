@@ -10,9 +10,9 @@
   export default {
     methods: {
       showLoading () {
-        const loading = this.$loading('加载中...')
+        this.$loading()
         setTimeout(_ => {
-          loading.close()
+          // loading.close()
         }, 3000)
       }
     }

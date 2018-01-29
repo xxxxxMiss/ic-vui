@@ -6,9 +6,6 @@
         v-for="(val, index) in list" :key="index">
         row: {{index}}
       </div>
-      <div class="loading-bar">
-        <ic-spinner></ic-spinner>
-      </div>
     </ic-pull>
   </div>
 </template>

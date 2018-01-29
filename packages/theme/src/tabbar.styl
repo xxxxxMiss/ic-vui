@@ -1,9 +1,15 @@
 @import 'common/var'
 
+.{$prefix-classes}tabbar a
+  display block
+  text-decoration none
+  color $gray-dark
+
 +prefix-classes($prefix-classes)
   .tabbar
     display flex
     position fixed
+    z-index: $z-index['tabbar']
     left 0
     bottom 0
     width 100%
@@ -13,6 +19,7 @@
     justify-content center
     align-items center
     transition color .2s
+    border-top: 1px solid rgba(0,0,0,0.10)
 
     .icon
       font-size 27px
@@ -29,7 +36,3 @@
       padding-top 2px
       font-size $font-size-small
 
-{lookup($prefix-classes)tab} a
-  display block
-  text-decoration none
-  color $gray-dark

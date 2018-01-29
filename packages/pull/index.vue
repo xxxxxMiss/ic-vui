@@ -12,6 +12,11 @@
     </div>
     <div class="ic-pull__scroller">
       <slot></slot>
+      <div class="ic-pull__infinite-loading"
+        v-if="!topLoadMethod && !bottomLoadMethod">
+        <ic-spinner type="gradient" size="small"></ic-spinner>
+        <span>加载中...</span>
+      </div>
     </div>
     <div v-if="bottomLoadMethod"
          :style="{ height: `${bottomBlockHeight}px`, marginBottom: `${-bottomBlockHeight}px` }"

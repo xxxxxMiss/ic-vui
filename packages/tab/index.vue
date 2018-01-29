@@ -1,30 +1,21 @@
 <template>
   <div class="ic-tab"
   :class="{
-    'ic-tab--filter': type === 'filter',
     'ic-tab--divider': showDivider,
     'ic-tab--disperse': isDisperse
   }">
     <div class="ic-tab__inner">
       <div class="ic-tab__item"
-        :style="{ width: (100 / children.length) + '%'}"
+        :style="itemStyle"
         :class="{
           'ic-tab__item--active': index === currentActive
         }"
         v-for="(item, index) in children"
         :key="index"
         @click="clickItem(index)">
-        <template
-          v-if="type === 'filter'">
-          <span class="ic-tab__text">{{item.title}}</span>
-          <i class="ic-arrow"></i>
-        </template>
-        <template v-if="type === 'normal'">
-          {{item.title}}
-        </template>
+        {{ item.title }}
       </div>
-      <div v-if="type === 'normal' && cursorType !== 'disperse'"
-        class="ic-tab__cursor"></div>
+      <!-- <div class="ic-tab__cursor"></div> -->
     </div>
     <div class="ic-tab__content">
       <slot></slot>
@@ -43,7 +34,7 @@
       },
       type: {
         type: String,
-        default: 'normal' // filter
+        default: 'normal'
       },
       showDivider: {
         type: Boolean,
@@ -52,17 +43,25 @@
       cursorType: {
         type: String,
         default: 'disperse' // line
-      }
+      },
+      itemWidth: String
     },
     computed: {
       isDisperse () {
-        return this.type !== 'filter' && this.cursorType === 'disperse'
+        return this.cursorType === 'disperse'
+      },
+      itemStyle () {
+        return {
+          width: this.itemWidth
+            ? this.itemWidth
+            : `${100 / this.children.length}%`
+        }
       }
     },
     data () {
       return {
         children: [],
-        currentActive: this.type !== 'filter' ? this.defaultActive : ''
+        currentActive: this.defaultActive
       }
     },
     watch: {
@@ -72,17 +71,8 @@
     },
     methods: {
       clickItem (index) {
-        // if (this.type === 'filter') {
-        //   if (this.currentActive === index) {
-        //     this.currentActive = ''
-        //   } else {
-        //     this.currentActive = index
-        //   }
-        // } else {
-        //   this.currentActive = index
-        // }
         this.currentActive = index
-        this.$emit('click-item', index)
+        this.$emit('click-item', this.currentActive)
       }
     }
   }

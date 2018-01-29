@@ -3,30 +3,56 @@
 @import 'mixin/ellipsis'
 @import 'mixin/border'
 
-$filter-arrow-size = 5px
 $title-height = 44px
 +prefix-classes($prefix-classes)
   .filter
-    position fixed
-    z-index: $z-index['dialog']
-    left 0
-    background-color rgba(0, 0, 0, .4)
-    width 100%
-    height 100%
+    &__header
+      position relative
+      display flex
+      height $title-height
+      &:after
+        border-retina()
+      &-item
+        text-align center
+        display flex
+        justify-content center
+        align-items center
+        font-size $font-size-base
+        .icon
+          color $gray-dark
+          padding 0 4px
+          transition transform .2s
+      &-item--active
+        color $primary
+        .icon
+          transform rotate(-180deg)
+          border-top-color $primary
+          color $primary
+      &-text
+        ellipsis()
+
+    &__content
+      position fixed
+      z-index: $z-index['dialog']
+      left 0
+      background-color rgba(0, 0, 0, .4)
+      width 100%
+      height 100%
     &__panel
       padding 0 $padding-x
       background-color $white
       max-height 70%
       overflow hidden
       overflow-y auto
-    &__item
-      position relative
-      padding 13px 0
-      font-size 17px
-      &:after
-        border-retina()
-      .icon
-        padding-right 21px
+      &-item
+        position relative
+        padding 13px 0
+        font-size 17px
+        &:after
+          border-retina()
+        .icon
+          padding-right 21px
+          color $gray-dark
 
     &__checkbox
       display none
@@ -39,4 +65,6 @@ $title-height = 44px
       ellipsis()
       &--active
         color $primary
+        .icon
+          color $primary
 

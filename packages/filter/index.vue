@@ -1,28 +1,46 @@
 <template>
-  <transition name="modal-fade">
-    <div class="ic-filter" v-show="visible"
-      @click="close">
-      <div class="ic-filter__panel"
-        :style="{ 'max-height': maxHeight }">
-        <div class="ic-filter__item"
-          v-for="(item, index) in items"
-          :key="index"
-          @click.stop="filterItemClick(item, index)">
-          <div class="ic-filter__row"
-            :class="{
-              'ic-filter__row--active': currentActive === item[valueKey]
-            }">
-            <ic-icon v-if="item.icon" :name="item.icon"></ic-icon>
-            {{item[labelKey]}}
-          </div>
-          <i class="ic-filter__checkbox glyph__checkbox--primary"
-            :style="{
-              'display': currentActive === item[valueKey] ? 'inline-block' : 'none'
-            }"></i>
-        </div>
+  <div class="ic-filter">
+    <div class="ic-filter__header">
+      <div class="ic-filter__header-item"
+        :style="{ width: (100 / innerHeaders.length) + '%' }"
+        :class="{
+          'ic-filter__header-item--active': currentIndex === index
+        }"
+        v-for="(val, index) in innerHeaders"
+        :key="index"
+        @click="clickHeaderItem(index, val)">
+        <span class="ic-filter__header-text">{{ val }}</span>
+        <ic-icon name="arrow-down"></ic-icon>
       </div>
     </div>
-  </transition>
+    <transition-group name="modal-fade">
+      <div class="ic-filter__content"
+        v-show="currentIndex === index"
+        v-for="(item, index) in data"
+        :key="index"
+        @click="clickMask">
+        <div class="ic-filter__panel">
+          <div class="ic-filter__panel-item"
+            v-for="(child, idx) in item.children"
+            :key="idx"
+            @click.stop="clickPanelItem(child, idx, index)"
+          >
+            <div class="ic-filter__row"
+              :class="{
+                'ic-filter__row--active': currentPanelIndexs[currentIndex] === idx
+              }">
+              <ic-icon v-if="child.icon" :name="child.icon"></ic-icon>
+              {{ child[item.labelKey] }}
+            </div>
+            <i class="ic-filter__checkbox glyph__checkbox--primary"
+              :style="{
+                'display': currentPanelIndexs[currentIndex] === idx ? 'inline-block' : 'none'
+              }"></i>
+          </div>
+        </div>
+      </div>
+    </transition-group>
+  </div>
 </template>
 
 <script>
@@ -30,46 +48,52 @@
     name: 'ic-filter',
 
     props: {
-      items: Array,
-      defaultActive: {
-        type: [String, Number],
-        default: 0
+      data: {
+        type: Array
       },
-      labelKey: {
-        type: String,
-        default: 'label'
-      },
-      valueKey: {
-        type: [String, Number],
-        default: 'value'
-      },
-      maxHeight: {
-        type: String,
-        default: '70%'
-      },
-      visible: {
+      headers: Array,
+      value: {},
+      closeOnClickMask: {
         type: Boolean,
-        default: false
+        default: true
       }
     },
     data () {
+      const headers = this.data.map(item => item.text)
       return {
-        currentActive: this.defaultActive
+        innerHeaders: this.headers || headers,
+        currentIndex: this.value,
+        currentPanelIndexs: {}
       }
     },
     methods: {
-      filterItemClick (item, index) {
-        this.currentActive = item[this.valueKey]
-        this.close()
-        this.$emit('filter-item-click', {
+      clickPanelItem (item, itemIndex, headerIndex) {
+        this.currentPanelIndexs[headerIndex] = itemIndex
+        this.$emit('item-click', {
           item,
-          index,
-          valueKey: this.valueKey,
-          labelKey: this.labelKey
+          headerIndex,
+          itemIndex
         })
+        this.currentIndex = ''
+        this.$emit('input', '')
+        this.innerHeaders.splice(
+          headerIndex, 1, item[this.data[headerIndex].labelKey]
+        )
       },
-      close () {
-        this.$emit('update:visible', false)
+      clickHeaderItem (index, val) {
+        if (this.value !== index) {
+          this.currentIndex = index
+        } else {
+          this.currentIndex = ''
+        }
+        this.$emit('input', this.currentIndex)
+        this.$emit('change', this.currentIndex)
+      },
+      clickMask () {
+        if (this.closeOnClickMask) {
+          this.currentIndex = ''
+          this.$emit('input', '')
+        }
       }
     }
   }

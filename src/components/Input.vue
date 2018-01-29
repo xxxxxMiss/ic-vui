@@ -9,12 +9,10 @@
 
     <h3>默认为中等大小的输入框</h3>
     <ic-input clearable
-      v-model="skill"
-      :show-error="errors.has('skill')"
-      name="skill"
-      v-validate="{required: true, max: 15}"
-      placeholder="填写专业技能"></ic-input>
-    <ic-input
+      v-model="phone"
+      name="phone"
+      placeholder="请输入手机号"></ic-input>
+    <!-- <ic-input
       placeholder="只有前面的icon"
       prefix-icon="titlebar-share"
       clearable
@@ -24,7 +22,7 @@
       size="large"
       :show-error="errors.has('card')"
       :error-msg="errors.first('card')"
-      ></ic-input>
+      ></ic-input> -->
 
     <h3>size="small"，小型输入框；添加suffix-icon="iconName"可添加输入框后面的icon</h3>
     <ic-input
@@ -61,13 +59,19 @@
       to="/button"
       value="上海上海上海上海上海上海上海上海上海上海上海上海上海上海上海"
       suffix-icon="go-small"></ic-input>
+    <ic-button type="primary"
+      @click="validateForm"
+      :disabled="disabled">提交</ic-button>
   </div>
 </template>
 
 
 <script>
   import Toast from '../../packages/toast/index'
+  import { Validator } from 'vee-validate'
+
   export default {
+    validator: null,
     data () {
       return {
         type: 'password',
@@ -76,7 +80,15 @@
         content: '',
         suffixIcon: 'eyes-closed',
         keyword: '',
-        skill: ''
+        skill: '',
+        phone: '',
+        email: '',
+        errors: null
+      }
+    },
+    computed: {
+      disabled () {
+        return !this.phone
       }
     },
     watch: {
@@ -114,7 +126,25 @@
       },
       showEnd () {
         console.log('end')
+      },
+      validateForm () {
+        this.validator.validateAll({
+          email: this.email,
+          phone: this.phone
+        }).then((result) => {
+          if (result) {
+            console.log('All is well')
+            return
+          }
+          console.log('Oops!')
+        })
       }
+    },
+    created () {
+      this.validator = new Validator({
+        phone: { max: 11 }
+      })
+      this.$set(this, 'errors', this.validator.errors)
     }
   }
 </script>

@@ -14,7 +14,7 @@
     <ic-spinner type="circle"></ic-spinner>
 
     <p><code>type="gradient"</code>渐变圆环</p>
-    <ic-spinner type="gradient"></ic-spinner>
+    <ic-spinner type="gradient"></ic-spinner><span class="loading-text">加载中...</span>
   </div>
 </template>
 
@@ -24,5 +24,8 @@
       margin-left 20px
     code
       color blue
+    margin 5px
+    .loading-text
+      font-size 13px
 </style>
 

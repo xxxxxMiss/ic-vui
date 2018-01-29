@@ -31,7 +31,7 @@
           class="ic-icon-suffix"
           @click.stop="clickSuffix"></ic-icon>
         <ic-icon v-show="showClearable"
-          :style="{ color: '#999' }"
+          :style="{ color: '#bbb' }"
           name="clean"
           class="ic-icon-suffix"
           @click.stop="onClear"></ic-icon>

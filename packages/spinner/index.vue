@@ -1,7 +1,8 @@
 <template>
-  <span class="ic-spinner"
+  <div class="ic-spinner"
     :class="[
-      'ic-spinner--' + type
+      'ic-spinner--' + type,
+      'ic-spinner--' + size
     ]">
 
     <span v-if="type === 'default'"
@@ -17,8 +18,13 @@
         'border-left-color': 'transparent'
       }"></span>
 
-    <span v-if="type === 'gradient'"
-      class="ic-spinner__inner"></span>
+    <div v-if="type === 'gradient'"
+      class="ic-spinner__inner">
+      <div class="ic-spinner--gradient-left"></div>
+      <div class="ic-spinner--gradient-top"></div>
+      <div class="ic-spinner--gradient-bottom"></div>
+      <div class="ic-spinner--gradient-patch"></div>
+    </div>
 
     <span v-if="type === 'crash-ball'"
       class="ic-spinner__inner">
@@ -28,7 +34,7 @@
           'background-color': colors[index]
         }"></i>
     </span>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -38,7 +44,7 @@
     props: {
       type: {
         type: String,
-        default: 'default' // crash-ball, circle
+        default: 'default' // crash-ball, circle, gradient
       },
       color: {
         type: String,

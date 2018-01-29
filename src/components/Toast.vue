@@ -16,10 +16,10 @@
         Toast('测试组件库')
       },
       showToast2 () {
-        Toast('显示文字很长的时候会自动换行')
+        this.$toast('显示文字很长的时候会自动换行')
       },
       showToast3 () {
-        Toast({
+        this.$toast({
           message: '可以自定义选项',
           icon: 'form-Education'
         })

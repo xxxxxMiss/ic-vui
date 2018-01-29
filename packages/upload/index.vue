@@ -30,7 +30,7 @@
       },
       showPreview: {
         type: Boolean,
-        default: true
+        default: false
       },
       uploadType: {
         type: String,
@@ -38,8 +38,7 @@
       },
       name: String,
       url: {
-        type: String,
-        required: true
+        type: String
       },
       headers: {
         type: Object,
@@ -52,7 +51,7 @@
       },
       credentials: {
         type: String,
-        default: 'omit' // 'include', 'same-origin'
+        default: 'include' // 'omit', 'same-origin'
       },
       mode: {
         type: String,
@@ -71,7 +70,8 @@
       responseType: {
         type: String,
         default: 'json' // 'arraybuffer', 'blob', 'text', 'formdata'
-      }
+      },
+      onRequest: Function
     },
     data () {
       return {
@@ -85,10 +85,15 @@
       }
     },
     methods: {
-      upload (file) {
+      upload (file, base64) {
         if (!file) return
+        // use yourself request method
+        if (typeof this.onRequest === 'function') {
+          return this.onRequest(file, base64)
+        }
+
         const formData = new FormData()
-        formData.append(this.name, file)
+        formData.append(this.name, this.uploadType === 'base64' ? base64 : file)
         if (this.data) {
           Object.keys(this.data).forEach(key => formData.append(key, this.data[key]))
         }
@@ -143,7 +148,7 @@
             this.readSucc = true
             this.previewSrc = res
 
-            this.upload(res)
+            this.upload(files[0], res)
           }).catch(e => {
             console.error(e)
             this.readSucc = false

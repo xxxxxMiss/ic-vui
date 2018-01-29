@@ -2,7 +2,7 @@
   <div class="demo-upload">
     <ic-upload
       :on-success="handleSuccess"
-      mode="no-cors"
+      :on-error="handleError"
       :url="url"
       name="photo"></ic-upload>
   </div>
@@ -18,6 +18,9 @@
     methods: {
       handleSuccess (data) {
         console.log(data)
+      },
+      handleError (e) {
+        console.log(e)
       }
     }
   }

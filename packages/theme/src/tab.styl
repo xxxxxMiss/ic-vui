@@ -2,8 +2,7 @@
 @import 'mixin/border'
 @import 'mixin/ellipsis'
 
-$filter-arrow-size = 5px
-$title-height = 44px
+$title-height = 48px
 +prefix-classes($prefix-classes)
   .tab
     &__inner
@@ -12,7 +11,6 @@ $title-height = 44px
       align-items center
       justify-content center
       overflow hidden
-      padding 0 $padding-x
     &--divider &__inner
       &:after
         border-retina()
@@ -27,11 +25,13 @@ $title-height = 44px
 
     &__item
       position relative
-      flex 1
       height $title-height
       line-height @height
       text-align center
       font-size $font-size-medium
+      width 124px
+      padding 0 $padding-x
+      color $gray-dark
       &--active
         color $primary
         font-weight bold
@@ -50,27 +50,6 @@ $title-height = 44px
     &--disperse &__item--active:after
       transform scale(1)
 
-    &--filter &__item--active
-      color $primary
-      .arrow
-        transform rotate(-180deg)
-        border-top-color $primary
-
-    &--filter &__item
-      text-align center
-      display flex
-      justify-content center
-      align-items center
-      font-size $font-size-base
-
-    &--filter &__text
-      ellipsis()
-
-    &__panel
-      display none
-      &--active
-        display block
-
     &__title
       display flex
       align-items center
@@ -79,11 +58,8 @@ $title-height = 44px
       position relative
       &:after
         border-retina()
-  .arrow
-    width 0
-    height 0
-    border-left $filter-arrow-size solid transparent
-    border-right $filter-arrow-size solid transparent
-    border-top $filter-arrow-size solid $gray-dark
-    margin-left 4px
-    transition transform .2s
+
+    &__panel
+      display none
+      &--active
+        display block

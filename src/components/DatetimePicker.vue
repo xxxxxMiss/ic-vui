@@ -8,7 +8,8 @@
       prefix-icon="resume-education"
     ></ic-input>
     <ic-popup :visible.sync="visible">
-      <ic-datetime-picker v-model="selectedDate"
+      <ic-datetime-picker rotate-effect
+        v-model="selectedDate"
         type="range-date"></ic-datetime-picker>
     </ic-popup>
   </div>
@@ -26,6 +27,7 @@
     watch: {
       selectedDate (newVal) {
         console.log('newVal: ', newVal)
+        this.date = newVal.join('-')
       }
     },
     methods: {

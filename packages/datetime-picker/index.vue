@@ -1,10 +1,10 @@
 <template>
   <ic-picker
+    :rotate-effect="rotateEffect"
     :items="dateSlots"
     @change="onChange"
     :visible-item-count="visibleItemCount"
-    ref="picker"
-    show-toolbar>
+    ref="picker">
   </ic-picker>
 </template>
 
@@ -76,6 +76,10 @@
       visibleItemCount: {
         type: Number,
         default: 7
+      },
+      rotateEffect: {
+        type: Boolean,
+        default: false
       },
       value: null
     },
@@ -214,7 +218,6 @@
 
       onChange(picker) {
         let values = picker.$children.filter(child => child.currentValue !== undefined).map(child => child.currentValue)
-        console.log(values)
         if (this.selfTriggered) {
           this.selfTriggered = false
           return
@@ -351,14 +354,13 @@
       },
 
       isDateString(str) {
-        return /\d{4}(\-|\/|.)\d{1,2}(\1\d{1,2})?/.test(str)
+        return typeof str === 'string' &&
+          /\d{4}(\-|\/|.)\d{1,2}(\1\d{1,2})?/.test(str)
       },
 
       getYear(value) {
-        console.log('xxxxxx')
         value = Array.isArray(value) ? value[0] : value
-        console.log(value)
-        return this.isDateString(value) ? value.split(' ')[0].split(/-|\/|\./)[0] : value.getFullYear()
+        const a = this.isDateString(value) ? value.split(' ')[0].split(/-|\/|\./)[0] : value.getFullYear()
       },
 
       getMonth(value) {

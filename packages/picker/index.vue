@@ -61,12 +61,12 @@
       }
     },
     computed: {
+      // get every item default value
       values: {
         get () {
-          const items = this.items
           const values = []
           let valueIndexCount = 0
-          items.forEach(item => {
+          this.items.forEach(item => {
             if (!item.divider) {
               item.valueIndex = valueIndexCount++
               values[item.valueIndex] = (item.values || [])[item.defaultIndex || 0]
@@ -75,10 +75,10 @@
           return values
         }
       },
+      // get the number of not divider item
       itemCount () {
-        const items = this.items
         let result = 0
-        items.forEach(function (item) {
+        this.items.forEach(function (item) {
           if (!item.divider) result++
         })
         return result
@@ -94,13 +94,13 @@
       itemValueChange () {
         this.$emit('change', this, this.values)
       },
+      // get not divider child component by index
       getItem (itemIndex) {
-        const items = this.items
         let count = 0
         let target
         const children = this.$children.filter(child => child.$options.name === 'picker-column')
 
-        items.forEach(function(item, index) {
+        this.items.forEach(function(item, index) {
           if (!item.divider) {
             if (itemIndex === count) {
               target = children[index]
@@ -111,36 +111,36 @@
 
         return target
       },
-      getItemValue(index) {
+      getItemValue (index) {
         const item = this.getItem(index)
         if (item) {
           return item.currentValue
         }
         return null
       },
-      setItemValue(index, value) {
+      setItemValue (index, value) {
         const item = this.getItem(index)
         if (item) {
           item.currentValue = value
         }
       },
-      getItemValues(index) {
+      getItemValues (index) {
         const item = this.getItem(index)
         if (item) {
           return item.mutatingValues
         }
         return null
       },
-      setItemValues(index, values) {
+      setItemValues (index, values) {
         const item = this.getItem(index)
         if (item) {
           item.mutatingValues = values
         }
       },
-      getValues() {
+      getValues () {
         return this.values
       },
-      setValues(values) {
+      setValues (values) {
         const itemCount = this.itemCount
         values = values || []
         if (itemCount !== values.length) {

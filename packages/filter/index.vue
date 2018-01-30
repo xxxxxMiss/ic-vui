@@ -66,6 +66,15 @@
         currentPanelIndexs: {}
       }
     },
+    watch: {
+      value (newVal) {
+        if (newVal === '') {
+          document.body.style.overflowY = 'auto'
+        } else {
+          document.body.style.overflowY = 'hidden'
+        }
+      }
+    },
     methods: {
       clickPanelItem (item, itemIndex, headerIndex) {
         this.currentPanelIndexs[headerIndex] = itemIndex

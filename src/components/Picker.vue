@@ -1,6 +1,6 @@
 <template>
   <div class="demo-picker">
-    <ic-picker rotate-effect
+    <ic-picker
       @change="changeValue"
       :items="items"></ic-picker>
 
@@ -38,6 +38,7 @@
         items1: [
           {
             flex: 1,
+            defaultIndex: 3,
             values: ['专科', '本科', '研究生', '硕士', '博士']
           }
         ]

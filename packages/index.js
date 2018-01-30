@@ -11,7 +11,6 @@ import IcCollapseItem from './collapse-item'
 import IcDatetimePicker from './datetime-picker'
 import IcDialog from './dialog'
 import IcFilter from './filter'
-import IcFilterItem from './filter-item'
 import IcHeader from './header'
 import IcIcon from './icon'
 import IcInput from './input'
@@ -33,7 +32,7 @@ import IcTimeline from './timeline'
 import IcToast from './toast'
 import IcUpload from './upload'
 
-const version = '0.0.9417'
+const version = '0.0.9418'
 const components = [
   IcAvatar,
   IcBadge,
@@ -46,7 +45,6 @@ const components = [
   IcDatetimePicker,
   IcDialog,
   IcFilter,
-  IcFilterItem,
   IcHeader,
   IcIcon,
   IcInput,
@@ -93,7 +91,6 @@ export {
   IcDatetimePicker,
   IcDialog,
   IcFilter,
-  IcFilterItem,
   IcHeader,
   IcIcon,
   IcInput,
@@ -128,7 +125,6 @@ export default {
   IcDatetimePicker,
   IcDialog,
   IcFilter,
-  IcFilterItem,
   IcHeader,
   IcIcon,
   IcInput,

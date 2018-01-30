@@ -172,9 +172,10 @@
       },
 
       translate2Value (translate) {
-        var itemHeight = this.itemHeight
+        const itemHeight = this.itemHeight
+        // get a int translate of itemHeight
         translate = Math.round(translate / itemHeight) * itemHeight
-        var index = -(translate - Math.floor(this.visibleItemCount / 2) * itemHeight) / itemHeight
+        const index = -(translate - Math.floor(this.visibleItemCount / 2) * itemHeight) / itemHeight
 
         return this.mutatingValues[index]
       },
@@ -378,6 +379,7 @@
         this.dispatch('ic-picker', 'itemValueChange', this)
       },
       defaultIndex (val) {
+        // ensure in the range
         if ((this.mutatingValues[val] !== undefined) && (this.mutatingValues.length >= val + 1)) {
           this.currentValue = this.mutatingValues[val]
         }

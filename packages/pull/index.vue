@@ -12,10 +12,14 @@
     </div>
     <div class="ic-pull__scroller">
       <slot></slot>
-      <div class="ic-pull__infinite-loading"
-        v-if="!topLoadMethod && !bottomLoadMethod">
-        <ic-spinner type="gradient" size="small"></ic-spinner>
-        <span>加载中...</span>
+      <div class="ic-pull__infinite-loading">
+        <template v-if="!topLoadMethod && !bottomLoadMethod && !infiniteScrollEndText">
+          <ic-spinner type="gradient" size="small"></ic-spinner>
+          <span>加载中...</span>
+        </template>
+        <span v-else-if="infiniteScrollEndText">
+          {{ infiniteScrollEndText }}
+        </span>
       </div>
     </div>
     <div v-if="bottomLoadMethod"
@@ -109,7 +113,8 @@
         throttleEmitTopPull: null,
         throttleEmitBottomPull: null,
         throttleEmitScroll: null,
-        throttleOnInfiniteScroll: null
+        throttleOnInfiniteScroll: null,
+        infiniteScrollEndText: ''
       }
     },
     computed: {

@@ -59,11 +59,11 @@
           ref="mirror"
           class="ic-input__textarea ic-textarea--mirror"
           contenteditable
-        >{{currentValue}}</div>
+        >{{ currentValue }}</div>
       </template>
     </div>
     <div v-show="errorMsg"
-      class="ic-input__errormsg">{{errorMsg}}</div>
+      class="ic-input__errormsg">{{ errorMsg }}</div>
     <slot name="append"></slot>
   </div>
 </template>
@@ -134,17 +134,18 @@
           return this.value
         }
       },
+      showClearable () {
+        return this.clearable && this.value && this.isFocus
+      },
       style () {
         return {
-          paddingRight: this.clearable && this.value && this.suffixIcon
+          paddingRight: this.showClearable && this.suffixIcon
             ? '90px'
-            : this.clearable && !this.value && this.suffixIcon
+            : !this.showClearable && this.suffixIcon ||
+              this.showClearable && !this.suffixIcon
               ? '50px'
               : '15px'
         }
-      },
-      showClearable () {
-        return this.clearable && this.value && this.isFocus
       }
     },
     data () {

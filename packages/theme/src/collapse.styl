@@ -13,32 +13,35 @@
       display flex
       align-items center
       position relative
-      padding 10px 0
+      padding-bottom 15px
+      margin 0 $padding-x
       &:after
         border-retina()
-      .arrow
-        center-y()
-        right 0
-        transition transform .2s
-      span
-        padding-right 18px
-
-    &__title
+    &__inner
       flex 7
+    &__title
       font-size $font-size-large
+      font-weight 600
+      padding-top 15px
       ellipsis()
     &__subtitle
       font-size $font-size-base
-      margin-top 8px
+      font-weight 400
+      padding-top 10px
 
     &__weathercock
       flex 2
       text-align right
-      ^[0]__item--active .arrow
-        transform translateY(-50%) rotate(-180deg)
+      .icon
+        display inline-block
+        font-size 12px
+        color $gray-dark
+        transition transform .2s
+      ^[0]__item--active .icon
+        transform rotate(-180deg)
 
     &__panel
-      padding-top 20px
+      padding 20px $padding-x 0
 
 .collapse-enter-active
   animation collapse-fade-in .2s

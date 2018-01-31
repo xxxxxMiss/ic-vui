@@ -4,41 +4,48 @@
       <div class="ic-location__block"
         v-for="(item, index) in normalizedData"
         :key="index"
-        :data-flag="item.title">
+        :data-flag="item.icon || item.title">
         <div class="ic-location__icon-title" v-if="item.icon">
           <slot name="title">
             <ic-icon :name="item.icon"></ic-icon>
-            <span class="ic-location__icon-text">{{item.title}}</span>
+            <span class="ic-location__icon-text">{{ item.title }}</span>
           </slot>
         </div>
         <div class="ic-location__title" v-else>
           <slot name="title">
-            <span>{{item.title}}</span>
+            <span>{{ item.title }}</span>
           </slot>
         </div>
         <div class="ic-location__inner">
           <ic-button
             v-for="(child, idx) in item.children"
             :key="idx"
-            @click="clickItem(child, idx)"
-          >{{child[displayKey]}}</ic-button>
+            @click="clickItem(child, idx)">
+            {{ child[displayKey] }}
+          </ic-button>
         </div>
       </div>
     </div>
     <div class="ic-location__bar"
       :class="{ 'ic-location__bar--active': barActive }"
+      @click="handleClickBar"
       @touchstart="onTouchStart"
       @touchmove.prevent="onTouchMove"
       @touchend="onTouchEnd">
       <div class="ic-location__letter"
-        v-for="(val, index) in barLetters"
-        :key="index">{{val}}</div>
+        v-for="(item, index) in barLetters"
+        :key="index">
+        <ic-icon v-if="item.icon" :name="item.icon"></ic-icon>
+        <template v-else>
+          {{ item.title }}
+        </template>
+      </div>
     </div>
     <transition name="touched-fade">
       <div class="ic-location__touched"
         :class="[ 'ic-location__touched--' + touchedType ]"
         v-show="showTouched && touchedLetter">
-        {{touchedLetter[0]}}
+        {{ touchedLetter[0] }}
       </div>
     </transition>
   </div>
@@ -71,8 +78,17 @@
       },
       barLetters () {
         const ret = []
+        let count = 0
         for (let i = 0, l = this.normalizedData.length; i < l; i++) {
-          ret[i] = this.normalizedData[i].title.slice(0, 2)
+          const item = this.normalizedData[i]
+          // a fuck requirement
+          if (item.icon !== 'location') {
+            ret[count] = {
+              icon: item.icon,
+              title: item.title.slice(0, 2)
+            }
+            count++
+          }
         }
         return ret
       }
@@ -103,17 +119,30 @@
         this.computeTouch(e)
       },
       onTouchEnd (e) {
-        this.barActive = false
-        if (this.timer) clearTimeout(this.timer)
-        this.timer = setTimeout(_ => this.touchedLetter = '', 500)
+        if (this.timer) {
+          clearTimeout(this.timer)
+          this.timer = null
+        }
+        this.timer = setTimeout(_ => {
+          this.touchedLetter = ''
+          this.barActive = false
+        }, 500)
+      },
+      handleClickBar (e) {
+        this.onTouchStart(e)
+        this.onTouchEnd(e)
       },
       computeTouch (e) {
-        let touch = e.changedTouches ? e.changedTouches[0] : e.touches[0]
+        const touch = e.type === 'click'
+          ? e
+          : e.changedTouches ?
+            e.changedTouches[0] : e.touches[0]
         let letterHeight = touch.target.clientHeight
         let barTop = (window.innerHeight - this.barLetters.length * letterHeight) / 2
         let index = parseInt((touch.clientY - barTop) / letterHeight) - 2
         if (index >= 0 && index < this.barLetters.length) {
-          this.touchedLetter = this.barLetters[index]
+          const target = this.barLetters[index]
+          this.touchedLetter = target.icon || target.title
         }
       }
     }

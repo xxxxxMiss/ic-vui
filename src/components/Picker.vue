@@ -9,6 +9,7 @@
       @confirm="handleConfirm"
       show-toolbar
       rotate-effect
+      value-key="key"
       @change="changeValue1"
       :items="items1"></ic-picker>
   </div>
@@ -39,7 +40,7 @@
           {
             flex: 1,
             defaultIndex: 3,
-            values: ['专科', '本科', '研究生', '硕士', '博士']
+            values: [{key: '专科', value: 1}, {key: '本科', value: 2}, {key: '研究生', value: 3}, {key: '硕士', value: 4}]
           }
         ]
       }

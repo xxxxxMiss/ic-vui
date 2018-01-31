@@ -5,8 +5,6 @@
       is-left-close
       title="选择所在城市">
      <ic-location :data="cities"
-       show-touched
-       touched-type="round"
        @item-click="clickItem"></ic-location>
     </ic-dialog>
 

@@ -13,11 +13,11 @@
     <div class="ic-pull__scroller">
       <slot></slot>
       <div class="ic-pull__infinite-loading">
-        <template v-if="!topLoadMethod && !bottomLoadMethod && !infiniteScrollEndText">
+        <template v-if="!topLoadMethod && !bottomLoadMethod && !isInfiniteScrollEnd">
           <ic-spinner type="gradient" size="small"></ic-spinner>
-          <span>加载中...</span>
+          <span>{{ infiniteScrollLoadingText }}</span>
         </template>
-        <span v-else-if="infiniteScrollEndText">
+        <span v-else-if="isInfiniteScrollEnd">
           {{ infiniteScrollEndText }}
         </span>
       </div>
@@ -94,6 +94,18 @@
         default: () => {
           return {}
         }
+      },
+      infiniteScrollLoadingText: {
+        type: String,
+        default: '加载中...'
+      },
+      infiniteScrollEndText: {
+        type: String,
+        default: '没有更多啦'
+      },
+      isInfiniteScrollEnd: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -113,8 +125,7 @@
         throttleEmitTopPull: null,
         throttleEmitBottomPull: null,
         throttleEmitScroll: null,
-        throttleOnInfiniteScroll: null,
-        infiniteScrollEndText: ''
+        throttleOnInfiniteScroll: null
       }
     },
     computed: {
@@ -259,6 +270,9 @@
       onInfiniteScroll() {
         if (this.checkBottomReached()) {
           this.$emit('infinite-scroll')
+        }
+        if (this.isInfiniteScrollEnd) {
+          this.$off('infinite-scroll')
         }
       },
 

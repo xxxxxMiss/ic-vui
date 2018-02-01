@@ -18,23 +18,31 @@
   export default {
     methods: {
       showAlert () {
-        this.$alert('警告信息这是一段警告信息', '温馨提示', function () {
-          console.log('这是回调')
+        this.$alert('警告信息这是一段警告信息', '温馨提示', {
+          center: true,
+          callback () {
+            console.log('这是回调')
+          }
         })
       },
       showNotitle () {
-        this.$alert('只有内容，没有标题的alert', function () {
-          console.log('确定回调')
+        this.$alert('只有内容，没有标题的alert', '', {
+          callback () {
+            console.log('确定回调')
+          }
         })
       },
       showConfirm () {
-        this.$confirm('这是确定弹框的内容', '温馨提示', function () {
-          console.log('确定弹框的回调')
+        this.$confirm('这是确定弹框的内容', '温馨提示').then(action => {
+          console.log('确定弹框的回调：', action)
         })
       },
       showPrompt () {
-        this.$prompt(null, '标题', function () {
-          console.log('prompt确定回调')
+        this.$prompt('', '标题', {
+          confirmButtonDisabled: false
+        }).then(({ value }) => {
+          console.log('可以使用promise接收回调')
+          console.log('input输入框的值：', value)
         })
       },
       showParams () {
@@ -42,18 +50,15 @@
           center: false,
           confirmButtonText: '提交',
           showClose: false,
-          inputValue: '333',
-          callback ({ value }) {
+          inputValue: 3,
+          callback (action, vm) {
             console.log('回确定调')
-            console.log('prompt框的input的值：', value)
+            console.log('prompt框的input的值：', vm.inputValue)
           },
           inputValidator (value) {
             if (+value > 10) return true
             Toast('校验失败，请重新输入')
             return false
-          },
-          cancel () {
-            console.log('取消回调')
           }
         })
       }

@@ -18,6 +18,7 @@
           class="ic-icon-prefix"
           :name="prefixIcon"></ic-icon>
         <input class="ic-input__input"
+          ref="input"
           @focus="handleFocus"
           @blur="handleBlur"
           :style="style"
@@ -179,6 +180,7 @@
       },
       handleFocus (e) {
         this.isFocus = true
+        e.target.scrollIntoView()
         this.$emit('focus', e)
       },
       handleBlur (e) {

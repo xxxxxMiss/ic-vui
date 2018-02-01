@@ -81,7 +81,11 @@
         type: Boolean,
         default: false
       },
-      value: null
+      value: null,
+      defaultValue: {
+        type: [String, Array],
+        default: ''
+      }
     },
     data() {
       return {

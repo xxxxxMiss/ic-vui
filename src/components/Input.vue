@@ -151,6 +151,7 @@
 
 <style lang="stylus">
   .demo-input
+    margin-top 300px
     .ic-input + .ic-input
       margin-top 20px
     h3

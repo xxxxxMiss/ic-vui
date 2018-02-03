@@ -180,7 +180,6 @@
       },
       handleFocus (e) {
         this.isFocus = true
-        e.target.scrollIntoView()
         this.$emit('focus', e)
       },
       handleBlur (e) {

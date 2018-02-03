@@ -1,6 +1,7 @@
 <template>
   <div class="demo-popup">
     <ic-input @click="showPopup"
+      placeholder="请选择学位"
       v-model="degree"
       readonly
       suffix-icon="go-large"

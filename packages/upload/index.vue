@@ -57,12 +57,6 @@
         type: String,
         default: 'cors' // 'no-cors', 'same-origin', 'navigate'
       },
-      accept: String,
-      afterRead: Function,
-      onSuccess: Function,
-      onError: Function,
-      onProgress: Function,
-      beforeUpload: Function,
       disabled: {
         type: Boolean,
         default: false
@@ -71,6 +65,16 @@
         type: String,
         default: 'json' // 'arraybuffer', 'blob', 'text', 'formdata'
       },
+      autoUpload: {
+        type: Boolean,
+        default: true
+      },
+      accept: String,
+      afterRead: Function,
+      onSuccess: Function,
+      onError: Function,
+      onProgress: Function,
+      beforeUpload: Function,
       onRequest: Function
     },
     data () {
@@ -100,9 +104,11 @@
 
         if (typeof this.beforeUpload === 'function') {
           if (this.beforeUpload(file) === false) return
-          else this.fetch(formData)
+          else {
+            this.autoUpload && this.fetch(formData)
+          }
         } else {
-          this.fetch(formData)
+          this.autoUpload && this.fetch(formData)
         }
       },
       fetch (formData) {

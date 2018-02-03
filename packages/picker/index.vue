@@ -69,7 +69,7 @@
           this.items.forEach(item => {
             if (!item.divider) {
               item.valueIndex = valueIndexCount++
-              values[item.valueIndex] = (item.values || [])[item.defaultIndex || 0]
+              values[item.valueIndex] = (item.values || [])[item.defaultIndex] || ''
             }
           })
           return values

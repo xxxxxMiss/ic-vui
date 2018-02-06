@@ -23,6 +23,7 @@
         degree: '专科',
         items1: [
           {
+            defaultIndex: -1,
             flex: 1,
             values: ['专科', '本科', '研究生', '硕士', '博士']
           }

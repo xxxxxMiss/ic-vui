@@ -100,7 +100,7 @@
     },
     watch: {
       inputValue: {
-        immediate: true,
+        immediate: false,
         handler(val) {
           this.$nextTick(_ => {
             if (this.$type === 'prompt' && val !== null) {

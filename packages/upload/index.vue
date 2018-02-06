@@ -16,6 +16,13 @@
 </template>
 
 <script>
+  import {
+    getBlobData,
+    getBitmapCanvas,
+    canvas2DataURL
+  } from 'utils/blob'
+  import EXIF from 'utils/exif'
+
   export default {
     name: 'ic-upload',
 
@@ -23,10 +30,6 @@
       icon: {
         type: String,
         default: 'titlebar-settings'
-      },
-      readType: {
-        type: String,
-        default: 'dataurl' // arraybuffer, text
       },
       showPreview: {
         type: Boolean,
@@ -97,11 +100,15 @@
         }
 
         const formData = new FormData()
-        formData.append(this.name, this.uploadType === 'base64' ? base64 : file)
+        if (typeof this.onRequest !== 'function' && !this.name) {
+          throw new Error('you must supply a `name` prop')
+        }
+        formData.append(this.name, this.uploadType != 'formdata' ? base64 : file)
         if (this.data) {
           Object.keys(this.data).forEach(key => formData.append(key, this.data[key]))
         }
 
+        // TODO: support upload multiple files and upload manually
         if (typeof this.beforeUpload === 'function') {
           if (this.beforeUpload(file) === false) return
           else {
@@ -143,40 +150,42 @@
         const files = e.target.files
         if (!files || files.length < 1) return
 
+        const file = files[0]
         if (this.uploadType === 'formdata') {
-          return this.upload(files[0])
+          return this.upload(file)
         }
 
-        if (this.uploadType === 'base64') {
-          this.getBlobData(files[0], this.readType).then(res => {
+        if (file.type.toLowerCase() === 'image/jpeg') {
+          getBlobData(file, 'arraybuffer').then(arrayBuffer => {
+            return EXIF.readFromBinaryFile(arrayBuffer).Orientation
+          }).then(o => {
+            return getBitmapCanvas(file, o)
+          }).then(canvas => {
+            return canvas2DataURL(canvas, 'image/jpeg')
+          }).then(base64 => {
             this.afterRead && typeof this.afterRead === 'function' &&
-            this.afterRead(res, files[0])
+            this.afterRead(base64, file)
             this.readSucc = true
-            this.previewSrc = res
+            this.previewSrc = base64
 
-            this.upload(files[0], res)
-          }).catch(e => {
-            console.error(e)
+            this.upload(file, base64)
+          }).catch(error => {
+            console.error(error)
+            this.readSucc = false
+          })
+        } else {
+          getBlobData(file, 'dataurl').then(base64 => {
+            this.afterRead && typeof this.afterRead === 'function' &&
+            this.afterRead(base64, file)
+            this.readSucc = true
+            this.previewSrc = base64
+
+            this.upload(file, base64)
+          }).catch(error => {
+            console.error(error)
             this.readSucc = false
           })
         }
-      },
-      getBlobData (blob, type) {
-        return new Promise((resolve, reject) => {
-          const fr = new FileReader()
-          fr.onload = e => resolve(fr.result)
-          fr.onerror = e => reject(e)
-
-          switch (type) {
-            case 'arraybuffer':
-              return fr.readAsArrayBuffer(blob)
-            case 'text':
-              return fr.readAsText(blob)
-            case 'dataurl':
-            default:
-              return fr.readAsDataURL(blob)
-          }
-        })
       }
     }
   }

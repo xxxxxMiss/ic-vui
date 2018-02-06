@@ -1035,7 +1035,7 @@ EXIF.pretty = function(img) {
     return strPretty;
 }
 
-EXIF.readFromBinaryFile = function(file) {
+EXIF.readFromBinaryFile = function(file/*arraybuffer*/) {
     return findEXIFinJPEG(file);
 }
 

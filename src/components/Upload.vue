@@ -7,18 +7,21 @@
       name="photo"></ic-upload> -->
 
     <input type="file" name="photo" @change="handleChange">
-    <ic-upload :auto-upload="false" upload-type="base64"
-      read-type="arraybuffer" :after-read="afterRead"></ic-upload>
+    <ic-upload
+      :auto-upload="false"
+      :show-preview="true"
+      name="photo"
+      upload-type="base64"></ic-upload>
+    <img :src="src" alt="" ref="img">
   </div>
 </template>
 
 <script>
-  import EXIF from 'utils/exif'
-
   export default {
     data () {
       return {
-        url: 'http://neitui_bole.wmq.dev3.ifchange.com/resume/upload_photo'
+        url: 'http://neitui_bole.wmq.dev3.ifchange.com/resume/upload_photo',
+        src: ''
       }
     },
     methods: {
@@ -30,16 +33,7 @@
       },
       handleChange (e) {
         const file = e.target.files[0]
-        console.log(EXIF)
-        EXIF.readFromBinaryFile(file, function () {
-          const allMetadata = EXIF.getAllTags(this)
-          console.log(allMetadata)
-        })
-      },
-      afterRead (arraybuffer) {
-        console.log('======')
-        const f = EXIF.readFromBinaryFile(arraybuffer)
-        console.log(f)
+        console.log(file)
       }
     }
   }

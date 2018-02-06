@@ -268,11 +268,8 @@
       },
 
       onInfiniteScroll() {
-        if (this.checkBottomReached()) {
+        if (this.checkBottomReached() && !this.isInfiniteScrollEnd) {
           this.$emit('infinite-scroll')
-        }
-        if (this.isInfiniteScrollEnd) {
-          this.$off('infinite-scroll')
         }
       },
 

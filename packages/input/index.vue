@@ -12,12 +12,14 @@
       }
     ]">
     <slot name="prepend"></slot>
-    <div class="ic-input__inner">
+    <div class="ic-input__inner" @click.stop="$emit('click', $event)">
       <template v-if="type !== 'textarea'">
         <ic-icon v-if="prefixIcon"
           class="ic-icon-prefix"
           :name="prefixIcon"></ic-icon>
         <input class="ic-input__input"
+          :unselectable="unselectable"
+          :readonly="readonly"
           ref="input"
           @focus="handleFocus"
           @blur="handleBlur"
@@ -26,7 +28,7 @@
           :type="type"
           :autofocus="autofocus"
           v-bind="$attrs"
-          v-on="$listeners">
+          >
         <ic-icon v-if="suffixIcon"
           :name="suffixIcon"
           class="ic-icon-suffix"
@@ -54,7 +56,8 @@
           ref="textarea"
           :style="textareaStyle"
           v-bind="$attrs"
-          v-on="$listeners"
+          :unselectable="unselectable"
+          :readonly="readonly"
         ></textarea>
         <div
           ref="mirror"
@@ -122,7 +125,11 @@
         type: Boolean,
         default: false
       },
-      errorMsg: String
+      errorMsg: String,
+      readonly: {
+        type: Boolean,
+        default: false
+      }
     },
     computed: {
       currentValue: {
@@ -147,6 +154,9 @@
               ? '50px'
               : '15px'
         }
+      },
+      unselectable () {
+        return this.readonly ? 'on' : 'off'
       }
     },
     data () {
@@ -180,6 +190,8 @@
       },
       handleFocus (e) {
         this.isFocus = true
+        // fix IOS `readonly`
+        if (this.readonly) e.target.blur()
         this.$emit('focus', e)
       },
       handleBlur (e) {

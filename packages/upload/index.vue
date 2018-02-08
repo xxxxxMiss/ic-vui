@@ -155,7 +155,7 @@
           return this.upload(file)
         }
 
-        if (file.type.toLowerCase() === 'image/jpeg') {
+        if (/image\/jpe?g/i.test(file.type)) {
           getBlobData(file, 'arraybuffer').then(arrayBuffer => {
             return EXIF.readFromBinaryFile(arrayBuffer).Orientation
           }).then(o => {

@@ -8,7 +8,10 @@
       placeholder="填写项目内容、你承担的责任、表现如何、项目成果等"></ic-input>
 
     <h3>默认为中等大小的输入框</h3>
-    <ic-input clearable
+    <ic-input
+      @click="handleClick"
+      readonly
+      clearable
       v-model="phone"
       name="phone"
       placeholder="请输入手机号"></ic-input>
@@ -111,6 +114,9 @@
           this.type = 'password'
           this.suffixIcon = 'eyes-closed'
         }
+      },
+      handleClick (e) {
+        console.log(e)
       },
       timerClick (e) {
         console.log('do something')

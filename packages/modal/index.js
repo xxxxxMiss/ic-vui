@@ -27,7 +27,7 @@ const defaults = {
   cancelButtonText: '取消',
   beforeClose: null,
   dangerouslyUseHTMLString: false,
-  center: false,
+  center: true,
   roundButton: false
 }
 

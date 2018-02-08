@@ -102,11 +102,6 @@ export function rotateImage (orientation, imageBitmap) {
   const ctx = canvas.getContext('2d')
 
   switch (orientation) {
-    case 1: // 0
-      canvas.width = width
-      canvas.height = height
-      ctx.drawImage(imageBitmap, 0, 0)
-      break
     case 3: // 180
       canvas.width = width
       canvas.height = height
@@ -116,15 +111,20 @@ export function rotateImage (orientation, imageBitmap) {
     case 6: // 90
       canvas.width = height
       canvas.height = width
-      ctx.rotate(Math.PI * 270 / 180)
-      ctx.drawImage(imageBitmap, -width, 0)
+      ctx.rotate(Math.PI * 90 / 180)
+      ctx.drawImage(imageBitmap, 0, -height)
       break
     case 8: // -90
       canvas.width = height
       canvas.height = width
-      ctx.rotate(Math.PI * 90 / 180)
-      ctx.drawImage(imageBitmap, 0, -height)
+      ctx.rotate(Math.PI * 270 / 180)
+      ctx.drawImage(imageBitmap, -width, 0)
       break
+    case 1: // 0
+    default:
+      canvas.width = width
+      canvas.height = height
+      ctx.drawImage(imageBitmap, 0, 0)
   }
   return canvas
 }

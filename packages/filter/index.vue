@@ -68,10 +68,13 @@
     },
     watch: {
       value (newVal) {
+        const pullEl = document.querySelector('.ic-pull__scroller')
         if (newVal === '') {
           document.body.style.overflowY = 'auto'
+          pullEl && (pullEl.style.overflowY = 'auto')
         } else {
           document.body.style.overflowY = 'hidden'
+          pullEl && (pullEl.style.overflowY = 'hidden')
         }
       }
     },

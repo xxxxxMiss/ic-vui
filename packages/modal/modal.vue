@@ -63,8 +63,8 @@
         default: true
       },
       center: {
-        default: false,
-        type: Boolean
+        type: Boolean,
+        default: true
       },
       roundButton: {
         default: false,
@@ -101,7 +101,7 @@
     watch: {
       inputValue: {
         immediate: false,
-        handler(val) {
+        handler (val, oldVal) {
           this.$nextTick(_ => {
             if (this.$type === 'prompt' && val !== null) {
               if (this.validate()) {
@@ -142,7 +142,7 @@
           })
         }
       },
-      doClose() {
+      doClose () {
         if (!this.visible) return
         this.visible = false
         this._closing = true
@@ -164,13 +164,13 @@
         })
       },
 
-      handleWrapperClick() {
+      handleWrapperClick () {
         if (this.closeOnClickModal) {
           this.handleAction('cancel')
         }
       },
 
-      handleAction(action) {
+      handleAction (action) {
         if (this.$type === 'prompt' && action === 'confirm' && !this.validate()) {
           return
         }
@@ -183,7 +183,7 @@
         }
       },
 
-      validate() {
+      validate () {
         if (this.$type === 'prompt') {
           var inputPattern = this.inputPattern
           if (inputPattern && !inputPattern.test(this.inputValue || '')) {
@@ -202,7 +202,7 @@
         }
         return true
       },
-      getInputElement() {
+      getInputElement () {
         const inputRefs = this.$refs.input.$refs
         return inputRefs.input || inputRefs.textarea
       }

@@ -39,7 +39,8 @@
       },
       showPrompt () {
         this.$prompt('', '标题', {
-          confirmButtonDisabled: false
+          confirmButtonDisabled: false,
+          inputPlaceholder: '请输入技能'
         }).then(({ value }) => {
           console.log('可以使用promise接收回调')
           console.log('input输入框的值：', value)
@@ -47,7 +48,7 @@
       },
       showParams () {
         this.$prompt('这是prompt弹窗的内容', '标题', {
-          center: false,
+          center: true,
           confirmButtonText: '提交',
           showClose: false,
           inputValue: 3,

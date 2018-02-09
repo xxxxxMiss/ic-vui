@@ -2,8 +2,9 @@
   <div class="ic-picker" :class="{ 'ic-picker--3d': rotateEffect }">
     <div class="ic-picker__toolbar" v-if="showToolbar">
       <slot>
-        <!-- <ic-button text @click="handleCancel">取消</ic-button>
-        <ic-button text @click="handleOk">确定</ic-button> -->
+        <ic-button text @click="handleCancel">取消</ic-button>
+        <div class="ic-picker__title" v-if="title">{{ title }}</div>
+        <ic-button text @click="handleConfirm">确定</ic-button>
       </slot>
     </div>
     <div class="ic-picker__items">
@@ -58,7 +59,8 @@
       itemHeight: {
         type: Number,
         default: 36
-      }
+      },
+      title: String
     },
     computed: {
       // get every item default value

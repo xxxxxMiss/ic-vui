@@ -1,6 +1,7 @@
 @import 'common/var'
 @import 'mixin/border'
 @import 'mixin/center'
+@import 'mixin/border'
 
 $picker-item-height = 36px
 
@@ -9,10 +10,18 @@ $picker-item-height = 36px
     overflow hidden
 
     &__toolbar
+      position relative
       display flex
       justify-content space-between
       align-items center
       height 40px
+      &:after
+        content ''
+        border-retina()
+    &__title
+      font-weight 600
+    .btn
+      color $primary
 
     &__items
       position relative
@@ -78,21 +87,21 @@ $picker-item-height = 36px
       &--far
         pointer-events none
       &--selected
-        color $black
+        color $primary
+        font-weight 600
         transform translate3d(0, 0, 0) rotateX(0)
 
     &--3d &__items
       overflow hidden
       perspective 700px
 
-    &--3d
-      ^[0]__item
-      ^[0]__slot
-      ^[0]__wrapper
-        transform-style preserve-3d
-      ^[0]__slot
-        overflow visible
-      ^[0]__item
-        transform-origin center center
-        backface-visibility hidden
-        transition-timing-function ease-out
+    &--3d &__slot
+    &--3d &__item
+    &--3d &__wrapper
+      transform-style preserve-3d
+    &--3d &__slot
+      overflow visible
+    &--3d &__item
+      transform-origin center center
+      backface-visibility hidden
+      transition-timing-function ease-out

@@ -1,13 +1,13 @@
 <template>
   <div class="demo-datetime-picker">
-    <ic-input @click="showPopup"
+    <ic-input @click="showPicker1"
       placeholder="请选择起始时间"
       v-model="date"
       readonly
       suffix-icon="go-large"
       prefix-icon="resume-education"
     ></ic-input>
-    <ic-input @click="visible2 = true"
+    <ic-input @click="showPicker2"
       placeholder="请选择起始时间"
       v-model="date2"
       readonly
@@ -16,20 +16,23 @@
     ></ic-input>
 
 
-    <ic-popup :visible.sync="visible">
-      <ic-datetime-picker rotate-effect
-        :start-date="startDate"
-        :end-date="endDate"
-        v-model="selectedDate"
-        type="range-date"></ic-datetime-picker>
+    <ic-datetime-picker
+      ref="picker1"
+      @confirm="handleConfirm"
+      :start-date="startDate"
+      :end-date="endDate"
+      v-model="selectedDate"
+      title="请选择时间范围"
+      type="range-date"></ic-datetime-picker>
 
-    </ic-popup>
-    <ic-popup :visible.sync="visible2">
-      <ic-datetime-picker class="picker-hidden-date"
-        rotate-effect
-        v-model="selectedDate2"
-        type="date"></ic-datetime-picker>
-    </ic-popup>
+    <ic-datetime-picker
+      rotate-effect
+      ref="picker2"
+      class="picker-hidden-date"
+      v-model="selectedDate2"
+      title="选择日期"
+      @confirm="handleConfirm2"
+      type="date"></ic-datetime-picker>
   </div>
 </template>
 
@@ -55,12 +58,26 @@
       selectedDate2 (newVal) {
         const year = newVal.getFullYear()
         const month = newVal.getMonth() + 1
-        this.date2 = `${year}.${month}`
+        // this.date2 = `${year}.${month}`
+        console.log('watch: ', year)
+        console.log('watch: ', month)
       }
     },
     methods: {
-      showPopup () {
-        this.visible = true
+      showPicker1 () {
+        this.$refs.picker1.open()
+      },
+      showPicker2 () {
+        this.$refs.picker2.open()
+      },
+      handleConfirm (value) {
+        console.log(value)
+      },
+      handleConfirm2 (value2) {
+        const year = value2.getFullYear()
+        const month = value2.getMonth() + 1
+        console.log(year)
+        console.log(month)
       }
     }
   }

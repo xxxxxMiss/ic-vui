@@ -29,7 +29,7 @@
     <div class="ic-location__bar"
       :class="{ 'ic-location__bar--active': barActive }"
       @click="handleClickBar"
-      @touchstart="onTouchStart"
+      @touchstart.prevent="onTouchStart"
       @touchmove.prevent="onTouchMove"
       @touchend="onTouchEnd">
       <div class="ic-location__letter"

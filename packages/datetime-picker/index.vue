@@ -1,11 +1,17 @@
 <template>
-  <ic-picker
-    :rotate-effect="rotateEffect"
-    :items="dateSlots"
-    @change="onChange"
-    :visible-item-count="visibleItemCount"
-    ref="picker">
-  </ic-picker>
+  <ic-popup :visible.sync="visible">
+    <ic-picker
+      :rotate-effect="rotateEffect"
+      :items="dateSlots"
+      @change="onChange"
+      :show-toolbar="true"
+      :visible-item-count="visibleItemCount"
+      ref="picker">
+      <ic-button text @click="visible = false; $emit('cancle')">取消</ic-button>
+      <div class="ic-picker__title" v-if="title">{{ title }}</div>
+      <ic-button text @click="confirm">确定</ic-button>
+    </ic-picker>
+  </ic-popup>
 </template>
 
 <script>
@@ -85,7 +91,8 @@
       defaultValue: {
         type: [String, Array],
         default: ''
-      }
+      },
+      title: String
     },
     data() {
       return {
@@ -221,13 +228,16 @@
       },
 
       onChange(picker) {
-        let values = picker.$children.filter(child => child.currentValue !== undefined).map(child => child.currentValue)
+        let values = picker.$children
+          .filter(child => child.$options.name === 'ic-picker-column')
+          .filter(child => child.currentValue !== undefined).map(child => child.currentValue)
         if (this.selfTriggered) {
           this.selfTriggered = false
           return
         }
         if (values.length !== 0) {
           this.currentValue = this.getValue(values)
+          console.log(this.currentValue)
           this.handleValueChange()
         }
       },
@@ -337,7 +347,10 @@
             setSlotValue(3, values[1])
           }
         }
-        ;[].forEach.call(this.$refs.picker.$children, child => child.doOnValueChange())
+        ;[].forEach.call(
+          this.$refs.picker.$children.filter(child => child.$options.name === 'ic-picker-column'),
+          child => child.doOnValueChange()
+        )
       },
 
       rimDetect(result, rim) {

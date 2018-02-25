@@ -1,4 +1,5 @@
 import { createCanvas } from './util'
+import EXIF from 'utils/exif'
 /**
  * 获取blob中的数据，这个blob对象的来源可以是:
  * ①<input />元素，DataTransfer, mozGetFile() on HTMLCanvasElement
@@ -11,13 +12,9 @@ export function getBlobData (blob, type = 'dataurl') {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader()
 
-    fileReader.onload = function (e) {
-      resolve(fileReader.result)
-    }
+    fileReader.onload = e => resolve(fileReader.result)
 
-    fileReader.onerror = function (e) {
-      reject(e)
-    }
+    fileReader.onerror = error => reject(error)
 
     switch (type) {
       case 'arraybuffer':
@@ -40,27 +37,38 @@ export function canvas2DataURL (canvas, mimeType = 'image/png', quality = 0.92) 
 }
 
 /**
- * 读取本地的文件的内容转化为base64显示在页面上，并返回base64的结果的promise
+ * return a promise resolve to base64 from a file object
  * @param  {[type]} input [description]
  * @return {[type]}       [description]
  */
-export function file2DataURL (input) {
-  if (typeof input === 'string') {
-    input = document.getElementById(input)
-  }
+export function file2DataURL (file) {
+  return new Promise((resolve, reject) => {
+    function drawImage (image) {
+      const canvas = createCanvas()
+      const ctx = canvas.getContext('2d')
+      // reset canvas default size(w: 300, h: 150)
+      canvas.width = image.naturalWidth || image.width
+      canvas.height = image.naturalHeight || image.height
+      ctx.drawImage(image, 0, 0)
+      return canvas
+    }
 
-  if (!input ||
-    (input && !input.nodeType) ||
-    (input && input.nodeType && input.nodeType !== 1)) return
-
-  input.addEventListener('change', (e) => {
-    const files = e.target.files
-
-    if (files && files.length > 0) {
-      return getBlobData(files[0]).then(result => {
-        input.src = result
-        return result
-      })
+    // createImageBitmap API not compatible with IOS11
+    if (window.createImageBitmap) {
+      createImageBitmap(file).then(bitmap => {
+        const canvas = drawImage(bitmap)
+        resolve(canvas.toDataURL(file.type))
+      }).catch(error => reject(error))
+    } else {
+      const objUrl = URL.createObjectURL(file)
+      const image = new Image()
+      image.src = objUrl
+      image.onload = e => {
+        const canvas = drawImage(image)
+        resolve(canvas.toDataURL(file.type))
+        URL.revokeObjectURL(objUrl)
+      }
+      image.onerror = error => reject(error)
     }
   })
 }
@@ -97,7 +105,8 @@ export function image2Canvas (image, canvas) {
 }
 
 export function rotateImage (orientation, imageBitmap) {
-  const { width, height } = imageBitmap
+  const width = imageBitmap.naturalWidth
+  const height = imageBitmap.naturalHeight
   const canvas = createCanvas()
   const ctx = canvas.getContext('2d')
 
@@ -129,11 +138,23 @@ export function rotateImage (orientation, imageBitmap) {
   return canvas
 }
 
-export function getBitmapCanvas (image, orientation) {
+/**
+ * get a correct base64 from a inverted image on some platforms(eg: xiaomi, ios)
+ * @param  {[type]} file [description]
+ * @return {[type]}      [description]
+ */
+export function getCorrectBase64 (file) {
   return new Promise((resolve, reject) => {
-    createImageBitmap(image)
-      .then(imageBitmap => {
-        resolve(rotateImage(orientation, imageBitmap))
-      }).catch(error => reject(error))
+    EXIF.getData(file, function () {
+      const Orientation = EXIF.getTag(this, 'Orientation')
+      const objUrl = URL.createObjectURL(file)
+      const image = new Image()
+      image.src = objUrl
+      image.onload = e => {
+        resolve(rotateImage(Orientation, image).toDataURL(file.type))
+        URL.revokeObjectURL(objUrl)
+      }
+      image.onerror = error => reject(error)
+    })
   })
 }

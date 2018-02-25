@@ -16,12 +16,7 @@
 </template>
 
 <script>
-  import {
-    getBlobData,
-    getBitmapCanvas,
-    canvas2DataURL
-  } from 'utils/blob'
-  import EXIF from 'utils/exif'
+  import { getCorrectBase64, file2DataURL } from 'utils/blob'
 
   export default {
     name: 'ic-upload',
@@ -156,13 +151,7 @@
         }
 
         if (/image\/jpe?g/i.test(file.type)) {
-          getBlobData(file, 'arraybuffer').then(arrayBuffer => {
-            return EXIF.readFromBinaryFile(arrayBuffer).Orientation
-          }).then(o => {
-            return getBitmapCanvas(file, o)
-          }).then(canvas => {
-            return canvas2DataURL(canvas, 'image/jpeg')
-          }).then(base64 => {
+          getCorrectBase64(file).then(base64 => {
             this.afterRead && typeof this.afterRead === 'function' &&
             this.afterRead(base64, file)
             this.readSucc = true
@@ -174,7 +163,7 @@
             this.readSucc = false
           })
         } else {
-          getBlobData(file, 'dataurl').then(base64 => {
+          file2DataURL(file).then(base64 => {
             this.afterRead && typeof this.afterRead === 'function' &&
             this.afterRead(base64, file)
             this.readSucc = true

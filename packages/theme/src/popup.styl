@@ -3,7 +3,7 @@
 +prefix-classes($prefix-classes)
   .popup
     &__content
-      position fixed
+      position absolute
       z-index: $z-index['popup']
       left 0
       max-height 60%
@@ -15,7 +15,7 @@
       transition bottom .3s
 
     &__backdrop
-      position fixed
+      position absolute
       z-index: ($z-index['popup'] - 1)
       top 100%
       left 0

@@ -129,7 +129,8 @@
       readonly: {
         type: Boolean,
         default: false
-      }
+      },
+      placeholder: String
     },
     computed: {
       currentValue: {

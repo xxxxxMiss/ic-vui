@@ -26,6 +26,9 @@
       type="range-date"></ic-datetime-picker>
 
     <ic-datetime-picker
+      year-format="{value} 年"
+      month-format="{value} 月"
+      date-format="{value} 日"
       rotate-effect
       ref="picker2"
       class="picker-hidden-date"
@@ -45,7 +48,7 @@
         date: '',
         date2: '',
         selectedDate: '',
-        selectedDate2: '',
+        selectedDate2: '2017-11',
         startDate: new Date(1950, 0, 1),
         endDate: new Date()
       }

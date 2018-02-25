@@ -15,3 +15,5 @@ yarn-error.log*
 *.sln
 lib/*
 packages/theme/lib/*
+
+package-lock.json

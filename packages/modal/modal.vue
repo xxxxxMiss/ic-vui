@@ -100,10 +100,9 @@
     },
     watch: {
       inputValue: {
-        immediate: false,
         handler (val, oldVal) {
           this.$nextTick(_ => {
-            if (this.$type === 'prompt' && val !== null) {
+            if (this.$type === 'prompt' && oldVal !== null) {
               if (this.validate()) {
                 this.confirmButtonDisabled = false
               } else {

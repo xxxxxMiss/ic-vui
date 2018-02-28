@@ -26,10 +26,6 @@
       type="range-date"></ic-datetime-picker>
 
     <ic-datetime-picker
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      rotate-effect
       ref="picker2"
       class="picker-hidden-date"
       v-model="selectedDate2"
@@ -47,8 +43,8 @@
         visible2: false,
         date: '',
         date2: '',
-        selectedDate: '',
-        selectedDate2: '2017-11',
+        selectedDate: '2017.09-2018.07',
+        selectedDate2: '2017.01',
         startDate: new Date(1950, 0, 1),
         endDate: new Date()
       }
@@ -57,13 +53,6 @@
       selectedDate (newVal) {
         console.log('newVal: ', newVal)
         this.date = newVal.join('-')
-      },
-      selectedDate2 (newVal) {
-        const year = newVal.getFullYear()
-        const month = newVal.getMonth() + 1
-        // this.date2 = `${year}.${month}`
-        console.log('watch: ', year)
-        console.log('watch: ', month)
       }
     },
     methods: {
@@ -77,10 +66,13 @@
         console.log(value)
       },
       handleConfirm2 (value2) {
-        const year = value2.getFullYear()
-        const month = value2.getMonth() + 1
-        console.log(year)
-        console.log(month)
+        if (typeof value2 === 'string') {
+          this.date2 = value2
+        } else {
+          const year = value2.getFullYear()
+          const month = value2.getMonth() + 1
+          this.date2 = [year, month].join('.')
+        }
       }
     }
   }

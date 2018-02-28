@@ -5,14 +5,18 @@
       'background-color': theme,
       'color': color
     }">
-    <div class="ic-header__left" @click="clickLeft">
-      <ic-icon :name="leftIcon"></ic-icon>
-      <span v-if="leftText">{{leftText}}</span>
+    <div v-if="leftText || leftIcon"
+      class="ic-header__left"
+      @click="clickLeft">
+      <ic-icon v-if="leftIcon" :name="leftIcon"></ic-icon>
+      <span v-if="leftText">{{ leftText }}</span>
     </div>
-    <div class="ic-header__title">
-      {{title}}
+    <div v-if="title"
+      class="ic-header__title">
+      {{ title }}
     </div>
-    <div class="ic-header__right">
+    <div v-if="rightIcon || rightText"
+      class="ic-header__right">
       <template v-if="rightIcon">
         <ic-icon
           v-for="(val, index) in rightOption"
@@ -22,7 +26,7 @@
         ></ic-icon>
       </template>
       <span v-if="rightText"
-        @click="clickRight">{{rightText}}</span>
+        @click="clickRight">{{ rightText }}</span>
     </div>
   </header>
 </template>

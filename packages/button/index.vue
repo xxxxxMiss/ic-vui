@@ -29,6 +29,8 @@
 </template>
 
 <script>
+  import IcIcon from '../icon'
+
   export default {
     name: 'ic-button',
 
@@ -39,7 +41,7 @@
       },
       size: {
         type: String,
-        default: 'normal'
+        default: 'normal' // large, small, mini
       },
       round: {
         type: Boolean,
@@ -109,6 +111,7 @@
         }
         steps()
       }
-    }
+    },
+    components: { IcIcon }
   }
 </script>

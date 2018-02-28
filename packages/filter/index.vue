@@ -76,6 +76,8 @@
           document.body.style.overflowY = 'hidden'
           pullEl && (pullEl.style.overflowY = 'hidden')
         }
+        // caution: (0 != '' => false, 0 !== '' => true)
+        this.$emit('visible-change', newVal !== '')
       }
     },
     methods: {

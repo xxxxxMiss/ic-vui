@@ -37,7 +37,7 @@
       },
       type: {
         type: String,
-        default: 'datetime'
+        default: 'datetime' // time, date, single-date, range-date
       },
       startDate: {
         type: Date,
@@ -88,13 +88,15 @@
         default: false
       },
       value: null,
-      defaultValue: {
-        type: [String, Array],
-        default: ''
-      },
       title: String
     },
     data() {
+      let defaultValue = []
+      if (Array.isArray(this.value)) {
+        defaultValue = this.value
+      } else {
+        defaultValue = this.value.split(/\.|\/|-/)
+      }
       return {
         visible: false,
         startYear: null,
@@ -109,10 +111,12 @@
         shortMonthDates: [],
         longMonthDates: [],
         febDates: [],
-        leapFebDates: []
+        leapFebDates: [],
+        defaultValue
       }
     },
     computed: {
+      // 边界定义
       rims() {
         if (!this.currentValue) return {
           year: [], month: [], date: [], hour: [], min: []
@@ -143,6 +147,8 @@
         } else if (this.type === 'date') {
           return 'YMD'
         } else if (this.type === 'range-date') {
+          return 'YMYM'
+        } else if (this.type === 'single-date') {
           return 'YM'
         } else {
           return 'YMDHm'
@@ -171,7 +177,7 @@
       close() {
         this.visible = false
       },
-
+      // 闰年
       isLeapYear(year) {
         return (year % 400 === 0) || (year % 100 !== 0 && year % 4 === 0)
       },
@@ -197,7 +203,7 @@
         }
         return parseInt(formattedValue, 10)
       },
-
+      // get selected values
       getValue(values) {
         let value
         if (this.type === 'time') {
@@ -237,7 +243,6 @@
         }
         if (values.length !== 0) {
           this.currentValue = this.getValue(values)
-          console.log(this.currentValue)
           this.handleValueChange()
         }
       },
@@ -254,10 +259,13 @@
         return values
       },
 
-      pushSlots(slots, type, start, end) {
+      pushSlots(slots, type, start, end, defaultValue) {
+        const values = this.fillValues(type, start, end)
+        const defaultIndex = values.indexOf(defaultValue)
         slots.push({
           flex: 1,
-          values: this.fillValues(type, start, end)
+          values,
+          defaultIndex
         })
       },
 
@@ -271,9 +279,14 @@
           m: this.rims.min
         }
         let typesArr = this.typeStr.split('')
-        typesArr.forEach(type => {
+        typesArr.forEach((type, index) => {
           if (INTERVAL_MAP[type]) {
-            this.pushSlots.apply(null, [dateSlots, type].concat(INTERVAL_MAP[type]))
+            this.pushSlots.apply(
+              null,
+              [dateSlots, type].concat(
+                INTERVAL_MAP[type], this.defaultValue[index]
+              )
+            )
           }
         })
         if (this.typeStr === 'Hm') {
@@ -282,8 +295,8 @@
             content: ':'
           })
         }
-        if (this.typeStr === 'YM') {
-          ;[].push.apply(dateSlots, dateSlots)
+        if (this.typeStr === 'YMYM') {
+          // ;[].push.apply(dateSlots, dateSlots)
           dateSlots.splice(2, 0, {
             divider: true,
             content: '-'
@@ -377,7 +390,9 @@
 
       getYear(value) {
         value = Array.isArray(value) ? value[0] : value
-        const a = this.isDateString(value) ? value.split(' ')[0].split(/-|\/|\./)[0] : value.getFullYear()
+        const a = this.isDateString(value) ? value.split(' ')[0].split(/-|\/|\./)[0] :
+
+        value.getFullYear()
       },
 
       getMonth(value) {

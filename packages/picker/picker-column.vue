@@ -61,6 +61,7 @@
         type: Number,
         default: 5
       },
+      // when values is an array Object, which prop used displayed
       valueKey: String,
       rotateEffect: {
         type: Boolean,
@@ -131,7 +132,7 @@
       contentHeight() {
         return this.itemHeight * this.visibleItemCount
       },
-      valueIndex() {
+      valueIndex() { // the index of currentValue in values
         var valueKey = this.valueKey
         if (this.currentValue instanceof Object) {
           for (var i = 0, len = this.mutatingValues.length; i < len;  i++) {
@@ -161,10 +162,10 @@
 
     methods: {
       value2Translate (value) {
-        var values = this.mutatingValues
-        var valueIndex = values.indexOf(value)
-        var offset = Math.floor(this.visibleItemCount / 2)
-        var itemHeight = this.itemHeight
+        const values = this.mutatingValues
+        const valueIndex = values.indexOf(value)
+        const offset = Math.floor(this.visibleItemCount / 2)
+        const itemHeight = this.itemHeight
 
         if (valueIndex !== -1) {
           return (valueIndex - offset) * -itemHeight
@@ -173,7 +174,7 @@
 
       translate2Value (translate) {
         const itemHeight = this.itemHeight
-        // get a int translate of itemHeight
+        // get a int translate
         translate = Math.round(translate / itemHeight) * itemHeight
         const index = -(translate - Math.floor(this.visibleItemCount / 2) * itemHeight) / itemHeight
 
@@ -231,10 +232,10 @@
       },
 
       initEvents () {
-        var el = this.$refs.wrapper
-        var dragState = {}
+        const el = this.$refs.wrapper
+        let dragState = {}
 
-        var velocityTranslate, prevTranslate, pickerItems
+        let velocityTranslate, prevTranslate, pickerItems
 
         draggable(el, {
           start: (event) => {
@@ -273,12 +274,12 @@
           end: (event) => {
             this.dragging = false
 
-            var momentumRatio = 7
-            var currentTranslate = translateUtil.getElementTranslate(el).top
-            var duration = new Date() - dragState.start
+            const momentumRatio = 7
+            let currentTranslate = translateUtil.getElementTranslate(el).top
+            const duration = new Date() - dragState.start
             let distance = Math.abs(dragState.startTranslateTop - currentTranslate)
-            var itemHeight = this.itemHeight
-            var visibleItemCount = this.visibleItemCount
+            const itemHeight = this.itemHeight
+            const visibleItemCount = this.visibleItemCount
 
             let rect, offset
             if (distance < 6) {

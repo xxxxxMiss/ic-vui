@@ -63,7 +63,7 @@
       title: String
     },
     computed: {
-      // get every item default value
+      // get values except divider
       values: {
         get () {
           const values = []

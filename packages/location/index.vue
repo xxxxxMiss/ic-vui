@@ -41,13 +41,11 @@
         </template>
       </div>
     </div>
-    <transition name="touched-fade">
-      <div class="ic-location__touched"
-        :class="[ 'ic-location__touched--' + touchedType ]"
-        v-show="showTouched && touchedLetter">
-        {{ touchedLetter[0] }}
-      </div>
-    </transition>
+    <div class="ic-location__touched"
+      :class="[ 'ic-location__touched--' + touchedType ]"
+      v-show="showTouched && touchedLetter">
+      {{ touchedLetter[0] }}
+    </div>
   </div>
 </template>
 
@@ -126,7 +124,7 @@
         this.timer = setTimeout(_ => {
           this.touchedLetter = ''
           this.barActive = false
-        }, 500)
+        }, 300)
       },
       handleClickBar (e) {
         this.onTouchStart(e)

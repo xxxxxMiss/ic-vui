@@ -8,6 +8,11 @@ module.exports = {
   },
   env: {
     browser: true,
+    mocha: true
+  },
+  globals: {
+    expect: true,
+    sinon: true
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',
@@ -17,6 +22,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'no-unused-expressions': 'off',
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development

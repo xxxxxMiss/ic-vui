@@ -1,6 +1,8 @@
 <template>
   <transition name="loading-fade">
-    <div class="ic-loading" v-show="visible">
+    <div @touchmove.prevent="() => {}"
+      class="ic-loading"
+      v-show="visible">
       <div class="ic-loading__inner">
         <slot>
           <ic-spinner

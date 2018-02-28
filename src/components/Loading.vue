@@ -20,5 +20,6 @@
 </script>
 
 <style lang="stylus">
-
+  .demo-loading
+    height 1000px
 </style>

@@ -1,6 +1,7 @@
 @import 'common/var'
 @import 'mixin/center'
 
+$ghost-distance = 60px
 +prefix-classes($prefix-classes)
   .dialog
     position fixed
@@ -16,7 +17,6 @@
       top 50%
       margin 0 auto
       background-color $white
-      overflow hidden
 
     &--round &__wrapper
       border-radius 8px
@@ -41,9 +41,63 @@
       padding 0 $padding-x
 
     &__footer
-      position absolute
-      left 0
-      bottom 0
+      // position absolute
+      // left 0
+      // bottom 0
       width 100%
       padding $padding-x
       text-align right
+
+    .btn
+      &--primary:active
+        background-color $primary
+      &--default:active
+        background-color $white
+
+    &__ghost
+      width 30px
+      height @width
+      border 1px solid $white
+      border-radius 50%
+      text-align center
+      color $white
+      &--bottom
+        center-x()
+        bottom -($ghost-distance)
+      &--bottom-end
+        position absolute
+        right 0
+        bottom -($ghost-distance)
+      &--bottom&--line
+      &--bottom-end&--line
+        &:after
+          content ''
+          center-x()
+          width 1px
+          height ($ghost-distance / 2)
+          top -($ghost-distance / 2)
+          background-color currentColor
+
+      &--top
+        center-x()
+        top -($ghost-distance)
+      &--top-end
+        position absolute
+        right 0
+        top -($ghost-distance)
+      &--top&--line
+      &--top-end&--line
+        &:after
+          content ''
+          center-x()
+          width 1px
+          height ($ghost-distance / 2)
+          top ($ghost-distance / 2)
+          background-color currentColor
+
+
+
+.{$prefix-classes}dialog__ghost .glyph__close
+  position relative
+  color $white
+  top 4px

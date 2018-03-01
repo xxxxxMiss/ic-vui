@@ -13,7 +13,7 @@
           :class="{ 'ic-dialog__header--left-close': isLeftClose }">
           <slot name="header">
             <i class="glyph__close" v-if="showClose"
-              @click.prevent="close"></i>
+              @click.stop="close"></i>
             <span v-if="title">{{title}}</span>
           </slot>
         </div>
@@ -22,6 +22,15 @@
         </div>
         <div class="ic-dialog__footer" v-if="$slots.footer">
           <slot name="footer"></slot>
+        </div>
+        <div class="ic-dialog__ghost"
+          :class="[
+            'ic-dialog__ghost--' + ghostPosition,
+            { 'ic-dialog__ghost--line': showGhostLine }
+          ]"
+          v-if="showGhost"
+          @click.stop="$emit('update:visible', false)">
+          <i class="glyph__close"></i>
         </div>
       </div>
     </div>
@@ -59,6 +68,18 @@
         default: true
       },
       isLeftClose: {
+        type: Boolean,
+        default: false
+      },
+      showGhost: {
+        type: Boolean,
+        default: false
+      },
+      ghostPosition: {
+        type: String,
+        default: 'bottom' // bottom-end, top, top-end
+      },
+      showGhostLine: {
         type: Boolean,
         default: false
       }

@@ -10,6 +10,9 @@
 
     <ic-button type="success" @click="visible2 = true">自定义dialog大小</ic-button>
     <ic-dialog height="37%" width="80%"
+      show-ghost-line
+      show-ghost
+      ghost-position="top-end"
       title="自定义标题"
       :show-close="false"
       :close-on-click-mask="false"

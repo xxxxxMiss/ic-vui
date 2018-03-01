@@ -32,7 +32,7 @@ import IcTimeline from './timeline'
 import IcToast from './toast'
 import IcUpload from './upload'
 
-const version = '0.0.9449'
+const version = '0.0.9451'
 const components = [
   IcAvatar,
   IcBadge,

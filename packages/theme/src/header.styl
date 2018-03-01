@@ -1,6 +1,7 @@
 @import 'common/var'
 @import 'mixin/ellipsis'
 @import 'mixin/border'
+@import 'mixin/center'
 
 +prefix-classes($prefix-classes)
   .header
@@ -9,35 +10,36 @@
     left 0
     top 0
     width 100%
-    display flex
-    align-items center
     background-color $white
     height $header-height
+    line-height $header-height
     padding 0 $padding-x
     &--divider:after
       border-retina($gray-average-dark)
 
     &__left
-      flex 1
+      center-y()
+      max-width 65px
+      min-width 40px
       display flex
       align-items center
 
     &__title
-      flex 3
+      margin 0 80px
       font-size $font-size-xlarge
       font-weight bold
       text-align center
       ellipsis()
 
     &__right
-      flex 1
+      center-y()
+      right $padding-x
+      max-width 65px
       display flex
       justify-content flex-end
       align-items center
       text-align right
       font-size $font-size-medium
-      span
-        padding 5px 0 5px 2px
 
     .icon
       font-size $font-size-xlarge

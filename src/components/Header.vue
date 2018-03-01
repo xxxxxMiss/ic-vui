@@ -4,19 +4,18 @@
       @click-left="clickIcon"
       @click-right="clickRight"
       left-icon="titlebar-back"
-      title="内推职位"
+      title="内推职位当标题很长的时候的显示当标题很长的时候的显示"
       :right-icon="['titlebar-share', 'titlebar-search']"></ic-header>
 
     <ic-header
-      left-icon="arrow-left"
+      left-icon="titlebar-back"
       right-text="预览"
       title="内推职位"
       ></ic-header>
 
     <ic-header
-      left-icon="arrow-left"
       right-text="预览"
-      title="当标题很长的时候的显示"
+      title="当标题很长的时候的显示当标题很长的时候的显示"
       ></ic-header>
 
     <ic-header

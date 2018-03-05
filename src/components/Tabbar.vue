@@ -3,6 +3,7 @@
     <ic-tabbar v-model="defaultActive"
       @change="handleChange">
       <ic-tabbar-item v-for="(item, index) in bars"
+        active-text-color="#008C58"
         :name="index"
         :route="item.path"
         :key="index"

@@ -1,8 +1,8 @@
 <template>
   <div class="demo-checkbox">
     <ul>
-      <li><ic-checkbox v-model="foo">备选项</ic-checkbox></li>
-      <li><ic-checkbox v-model="bar"></ic-checkbox></li>
+      <li><ic-checkbox>备选项</ic-checkbox></li>
+      <li><ic-checkbox v-model="bar">value不为boolean值</ic-checkbox></li>
       <li><ic-checkbox v-model="trusly" disabled>选中禁用</ic-checkbox></li>
       <li><ic-checkbox v-model="falsly" disabled>未选中禁用</ic-checkbox></li>
       <li><ic-checkbox v-model="foo1" round>圆形</ic-checkbox></li>

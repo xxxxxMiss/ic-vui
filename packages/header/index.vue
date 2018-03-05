@@ -32,6 +32,8 @@
 </template>
 
 <script>
+  import IcIcon from '../icon'
+
   export default {
     name: 'ic-header',
 
@@ -68,6 +70,7 @@
       clickRight (e, index) {
         this.$emit('click-right', e, index)
       }
-    }
+    },
+    components: { IcIcon }
   }
 </script>

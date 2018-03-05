@@ -4,6 +4,7 @@
       :show-divider="false"
       @change="changeTabItem"
       item-width="124px"
+      active-text-color="#008C58"
     >
       <ic-tab-item v-for="(val, index) in tabs"
         :key="index"

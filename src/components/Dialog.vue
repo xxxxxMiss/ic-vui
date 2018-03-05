@@ -5,7 +5,8 @@
       is-left-close
       title="选择所在城市">
      <ic-location :data="cities"
-       @item-click="clickItem"></ic-location>
+        show-touched
+        @item-click="clickItem"></ic-location>
     </ic-dialog>
 
     <ic-button type="success" @click="visible2 = true">自定义dialog大小</ic-button>

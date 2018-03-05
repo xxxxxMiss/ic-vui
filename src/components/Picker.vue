@@ -5,14 +5,14 @@
       @change="changeValue"
       :items="items"></ic-picker>
 
-    <!-- <ic-picker
+    <ic-picker
       @cancel="handleCancel"
       @confirm="handleConfirm"
       show-toolbar
       rotate-effect
       value-key="key"
       @change="changeValue1"
-      :items="items1"></ic-picker> -->
+      :items="items1"></ic-picker>
   </div>
 </template>
 

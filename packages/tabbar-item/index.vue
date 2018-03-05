@@ -1,14 +1,14 @@
 <template>
   <li class="ic-tabbar__item"
     :class="{
-      'ic-tabbar__item--active': name === tabbar.value
+      'ic-tabbar__item--active': isActive
     }"
     @click="clickItem">
-    <router-link :to="route">
+    <router-link :to="route" :style="style">
       <slot>
-        <ic-icon :name="icon"></ic-icon>
+        <ic-icon :name="icon" :style="style"></ic-icon>
       </slot>
-      <div class="ic-tabbar__text">{{text}}</div>
+      <div class="ic-tabbar__text">{{ text }}</div>
     </router-link>
   </li>
 </template>
@@ -24,7 +24,19 @@
       icon: String,
       text: String,
       route: [String, Object],
-      name: [String, Number]
+      name: [String, Number],
+      textColor: String,
+      activeTextColor: String
+    },
+    computed: {
+      isActive () {
+        return this.name === this.tabbar.value
+      },
+      style () {
+        return {
+          color: this.isActive ? this.activeTextColor : this.textColor
+        }
+      }
     },
     inject: ['tabbar'],
     methods: {

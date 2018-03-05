@@ -6,7 +6,10 @@
   }">
     <div class="ic-tab__inner">
       <div class="ic-tab__item"
-        :style="itemStyle"
+        :style="{
+          width: itemWidth ? itemWidth : `${100 / children.length}%`,
+          color: index === currentActive ? activeTextColor: ''
+        }"
         :class="{
           'ic-tab__item--active': index === currentActive
         }"
@@ -44,18 +47,12 @@
         type: String,
         default: 'disperse' // line
       },
-      itemWidth: String
+      itemWidth: String,
+      activeTextColor: String
     },
     computed: {
       isDisperse () {
         return this.cursorType === 'disperse'
-      },
-      itemStyle () {
-        return {
-          width: this.itemWidth
-            ? this.itemWidth
-            : `${100 / this.children.length}%`
-        }
       }
     },
     data () {

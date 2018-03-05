@@ -52,13 +52,15 @@
     },
     methods: {
       click (e) {
-        this.$emit('input', e.target.checked)
+        this.$emit('input', !this.checked)
         this.dispatch('ic-checkbox-group', 'update:actives', this.originalValue)
       }
     },
     created () {
       const parent = findParentByName(this, 'ic-checkbox-group')
-      this.checked = parent && parent.values.indexOf(this.value) > -1
+      if (parent) {
+        this.checked = parent.values.indexOf(this.value) > -1
+      }
     }
   }
 </script>

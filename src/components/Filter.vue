@@ -1,6 +1,8 @@
 <template>
   <div class="demo-filter">
-    <ic-filter :data="res" v-model="currentActive"></ic-filter>
+    <ic-filter :data="res" 
+      @item-click="handleClick"
+      v-model="currentActive"></ic-filter>
   </div>
 </template>
 
@@ -56,9 +58,9 @@
       }
     },
     methods: {
-      handleClick (item, index) {
+      handleClick ({item, headerIndex, itemIndex}) {
         console.log(item)
-        console.log(index)
+        console.log(headerIndex)
       }
     }
   }

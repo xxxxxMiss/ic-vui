@@ -1,6 +1,8 @@
 <template>
   <div class="demo-filter">
-    <ic-filter :data="res" v-model="currentActive"></ic-filter>
+    <ic-filter active-text-color="#008C58"
+      active-checked-color="#4E6B7C"
+      :data="res" v-model="currentActive"></ic-filter>
   </div>
 </template>
 

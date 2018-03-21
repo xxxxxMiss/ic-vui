@@ -1,5 +1,6 @@
 <template>
-  <i class="ic-icon" :class="`icon-${name}`" v-on="$listeners">
+  <i class="ic-icon" :class="`icon-${name}`" v-on="$listeners"
+    :style="{ color }">
     <slot></slot>
   </i>
 </template>
@@ -9,7 +10,8 @@ export default {
   name: 'ic-icon',
 
   props: {
-    name: String
+    name: String,
+    color: String
   }
 };
 </script>

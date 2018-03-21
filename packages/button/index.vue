@@ -10,7 +10,7 @@
         'ic-btn--text': text
       }
     ]"
-    :disabled="disabled"
+    :disabled="isDisabled"
     @click="onClick">
     <span class="ic-btn__text">
       <ic-icon
@@ -37,7 +37,7 @@
     props: {
       type: {
         type: String,
-        default: 'default'
+        default: 'default' // sucess, info, danger, primary
       },
       size: {
         type: String,
@@ -81,6 +81,14 @@
       }
     },
     computed: {
+      isDisabled: {
+        set (v) {
+          this.$emit('input', v)
+        },
+        get () {
+          return this.disabled
+        }
+      },
       timerText () {
         return this.n === 0 ? this.end : `${this.n}s`
       }

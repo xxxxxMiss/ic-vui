@@ -2,7 +2,10 @@
   <div class="ic-filter">
     <div class="ic-filter__header">
       <div class="ic-filter__header-item"
-        :style="{ width: (100 / innerHeaders.length) + '%' }"
+        :style="{
+          width: (100 / innerHeaders.length) + '%',
+          color: currentIndex === index ? activeTextColor : ''
+        }"
         :class="{
           'ic-filter__header-item--active': currentIndex === index
         }"
@@ -10,11 +13,11 @@
         :key="index"
         @click="clickHeaderItem(index, val)">
         <span class="ic-filter__header-text">{{ val }}</span>
-        <ic-icon name="arrow-down"></ic-icon>
+        <ic-icon name="arrow-down" :color="currentIndex === index ? activeTextColor : '' "></ic-icon>
       </div>
     </div>
-    <transition-group name="modal-fade">
-      <div class="ic-filter__content"
+    <transition-group name="modal-fade" tag="ul">
+      <li class="ic-filter__content"
         v-show="currentIndex === index"
         v-for="(item, index) in data"
         :key="index"
@@ -26,19 +29,24 @@
             @click.stop="clickPanelItem(child, idx, index)"
           >
             <div class="ic-filter__row"
+              :style="{ color: currentPanelIndexs[currentIndex] === idx ? activeTextColor : '' }"
               :class="{
                 'ic-filter__row--active': currentPanelIndexs[currentIndex] === idx
               }">
-              <ic-icon v-if="child.icon" :name="child.icon"></ic-icon>
+              <ic-icon v-if="child.icon" :name="child.icon"
+                :color="currentPanelIndexs[currentIndex] === idx ? activeTextColor : '' "></ic-icon>
               {{ child[item.labelKey] }}
             </div>
-            <i class="ic-filter__checkbox glyph__checkbox--primary"
-              :style="{
-                'display': currentPanelIndexs[currentIndex] === idx ? 'inline-block' : 'none'
-              }"></i>
+            <slot name="checked">
+              <i class="ic-filter__checkbox glyph__checkbox--primary"
+                :style="{
+                  backgroundColor: currentPanelIndexs[currentIndex] === idx ? activeCheckedColor : '',
+                  display: currentPanelIndexs[currentIndex] === idx ? 'inline-block' : 'none'
+                }"></i>
+            </slot>
           </div>
         </div>
-      </div>
+      </li>
     </transition-group>
   </div>
 </template>
@@ -56,7 +64,9 @@
       closeOnClickMask: {
         type: Boolean,
         default: true
-      }
+      },
+      activeTextColor: String,
+      activeCheckedColor: String
     },
     data () {
       const headers = this.data.map(item => item.text)

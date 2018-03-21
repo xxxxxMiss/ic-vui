@@ -32,7 +32,8 @@ $ghost-distance = 60px
       font-weight bold
       text-align center
       i
-        position absolute
+        center-y()
+        transform translateY(-50%) rotate(45deg)
         left $padding-x
       &--left-close i
         left $padding-x
@@ -41,9 +42,6 @@ $ghost-distance = 60px
       padding 0 $padding-x
 
     &__footer
-      // position absolute
-      // left 0
-      // bottom 0
       width 100%
       padding $padding-x
       text-align right

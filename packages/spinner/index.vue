@@ -30,6 +30,7 @@
       class="ic-spinner__inner">
       <i v-for="(val, index) in ['top', 'right', 'bottom', 'left']"
         :class="[ 'ic-spinner--' + val ]"
+        :key="index"
         :style="{
           'background-color': colors[index]
         }"></i>

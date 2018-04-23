@@ -15,6 +15,7 @@
       show-ghost
       ghost-position="top-end"
       title="自定义标题"
+      @ghost-close="handleGhostclose"
       :show-close="false"
       :close-on-click-mask="false"
       :visible.sync="visible2">
@@ -247,6 +248,9 @@
       clickItem (item, index) {
         console.log(item)
         console.log(index)
+      },
+      handleGhostclose () {
+        console.log('ghost has closed...')
       }
     }
   }

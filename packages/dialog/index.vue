@@ -10,7 +10,10 @@
         ref="wrapper"
         :style="{ width, height, 'margin-top': marginTop }">
         <div class="ic-dialog__header"
-          :class="{ 'ic-dialog__header--left-close': isLeftClose }">
+          :class="{
+            'ic-dialog__header--left-close': isLeftClose,
+            'ic-dialog__header--divider': showHeaderDivider
+          }">
           <slot name="header">
             <i class="glyph__close" v-if="showClose"
               @click.stop="close"></i>
@@ -29,7 +32,7 @@
             { 'ic-dialog__ghost--line': showGhostLine }
           ]"
           v-if="showGhost"
-          @click.stop="$emit('update:visible', false)">
+          @click.stop="closeGhost">
           <i class="glyph__close"></i>
         </div>
       </div>
@@ -82,6 +85,10 @@
       showGhostLine: {
         type: Boolean,
         default: false
+      },
+      showHeaderDivider: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
@@ -111,6 +118,10 @@
       },
       close () {
         this.showClose && this.$emit('update:visible', false)
+      },
+      closeGhost () {
+        this.$emit('update:visible', false)
+        this.$emit('ghost-close')
       }
     }
   }

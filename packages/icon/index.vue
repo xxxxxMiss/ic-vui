@@ -1,6 +1,7 @@
 <template>
-  <i class="ic-icon" :class="`icon-${name}`" v-on="$listeners"
-    :style="{ color }">
+  <i class="ic-icon" :class="['icon-' + name]"
+    :style="{ color: color || '' }"
+    v-on="$listeners">
     <slot></slot>
   </i>
 </template>
@@ -13,5 +14,5 @@ export default {
     name: String,
     color: String
   }
-};
+}
 </script>

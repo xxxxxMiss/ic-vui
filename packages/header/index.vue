@@ -13,7 +13,7 @@
     </div>
     <div v-if="title"
       class="ic-header__title">
-      {{ title }}
+      <slot name="title">{{ title }}</slot>
     </div>
     <div v-if="rightIcon || rightText"
       class="ic-header__right">

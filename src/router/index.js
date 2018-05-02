@@ -142,6 +142,10 @@ export default new Router({
     {
       path: '/datetime-picker',
       component: DatetimePicker
+    },
+    {
+      path: '/progress',
+      component: Progress
     }
   ]
 })

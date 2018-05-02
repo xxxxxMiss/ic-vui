@@ -11,9 +11,8 @@
       <ic-icon v-if="leftIcon" :name="leftIcon"></ic-icon>
       <span v-if="leftText">{{ leftText }}</span>
     </div>
-    <div v-if="title"
-      class="ic-header__title">
-      {{ title }}
+    <div v-if="title" class="ic-header__title">
+      <slot name="title">{{ title }}</slot>
     </div>
     <div v-if="rightIcon || rightText"
       class="ic-header__right">

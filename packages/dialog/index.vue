@@ -9,7 +9,8 @@
       <div class="ic-dialog__wrapper"
         ref="wrapper"
         :style="{ width, height, 'margin-top': marginTop }">
-        <div class="ic-dialog__header"
+        <div v-if="showHeader"
+          class="ic-dialog__header"
           :class="{
             'ic-dialog__header--left-close': isLeftClose,
             'ic-dialog__header--divider': showHeaderDivider
@@ -89,6 +90,10 @@
       showHeaderDivider: {
         type: Boolean,
         default: false
+      },
+      showHeader: {
+        type: Boolean,
+        default: true
       }
     },
     computed: {

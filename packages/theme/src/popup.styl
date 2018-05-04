@@ -5,14 +5,12 @@
     &__content
       position fixed
       z-index: $z-index['popup']
-      left 0
       max-height 60%
-      bottom -100%
       width 100%
       overflow hidden
       overflow-y auto
       background-color $white
-      transition bottom .3s
+      transition .3s
 
     &__backdrop
       position fixed
@@ -23,7 +21,24 @@
       width 100%
       background-color rgba(0, 0, 0, .4)
 
-    &--visible &__content
-      bottom 0
     &--visible &__backdrop
       top 0
+
+    &--top &__content
+      top -100%
+    &--left &__content
+      left -100%
+      bottom 0
+    &--right &__content
+      right -100%
+      bottom 0
+    &--bottom &__content
+      bottom -100%
+    &--visible&--top &__content
+      top 0
+    &--visible&--left &__content
+      left 0
+    &--visible&--right &__content
+      right 0
+    &--visible&--bottom &__content
+      bottom 0

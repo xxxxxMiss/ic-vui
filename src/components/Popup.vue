@@ -7,7 +7,7 @@
       suffix-icon="go-large"
       prefix-icon="resume-education"
     ></ic-input>
-    <ic-popup :visible.sync="visible">
+    <ic-popup :visible.sync="visible" direction="right">
       <ic-picker rotate-effect
         @change="changeValue1"
         :items="items1"></ic-picker>

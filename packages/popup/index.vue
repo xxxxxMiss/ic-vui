@@ -1,8 +1,9 @@
 <template>
   <div class="ic-popup"
-    :class="{
-      'ic-popup--visible': visible
-    }"
+    :class="[
+      'ic-popup--' + direction,
+      { 'ic-popup--visible': visible }
+    ]"
   >
     <div @click.self="close"
       class="ic-popup__backdrop"></div>
@@ -20,6 +21,11 @@
       visible: {
         type: Boolean,
         default: false
+      },
+      direction: {
+        type: String,
+        default: 'bottom',
+        validator: val => ['top', 'right', 'bottom', 'left'].indexOf(val) > -1
       }
     },
     methods: {

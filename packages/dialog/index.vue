@@ -119,10 +119,16 @@
     },
     methods: {
       handleMaskClose () {
-        this.closeOnClickMask && this.$emit('update:visible', false)
+        if (this.closeOnClickMask) {
+          this.$emit('update:visible', false)
+          this.$emit('close')
+        }
       },
       close () {
-        this.showClose && this.$emit('update:visible', false)
+        if (this.showClose) {
+          this.$emit('update:visible', false)
+          this.$emit('close')
+        }
       },
       closeGhost () {
         this.$emit('update:visible', false)

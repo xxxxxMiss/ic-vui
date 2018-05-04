@@ -30,6 +30,7 @@ import DatetimePicker from '../components/DatetimePicker'
 import Pull from '../components/Pull'
 import Upload from '../components/Upload'
 import Popup from '../components/Popup'
+import Progress from '../components/Progress'
 
 Vue.use(Router)
 

@@ -1,6 +1,8 @@
 <template>
   <div class="demo-pull">
     <ic-pull @infinite-scroll="loadData"
+    :currentPage="page"
+    :total="50"
     >
       <div class="pull-item"
         v-for="(val, index) in list" :key="index">
@@ -14,13 +16,15 @@
   export default {
     data () {
       return {
-        list: []
+        list: [],
+        page: 1
       }
     },
     methods: {
       loadData () {
         setTimeout(_ => {
           this.supplyData()
+          this.page++
         }, 2000)
       },
       supplyData () {

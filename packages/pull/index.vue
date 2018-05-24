@@ -13,13 +13,11 @@
     <div class="ic-pull__scroller">
       <slot></slot>
       <div class="ic-pull__infinite-loading">
-        <template v-if="!topLoadMethod && !bottomLoadMethod && !isInfiniteScrollEnd">
-          <ic-spinner type="gradient" size="small"></ic-spinner>
-          <span>{{ infiniteScrollLoadingText }}</span>
-        </template>
-        <span v-else-if="isInfiniteScrollEnd">
-          {{ infiniteScrollEndText }}
-        </span>
+        <ic-spinner
+          v-if="!topLoadMethod && !bottomLoadMethod && !isInfiniteEnd"
+          type="gradient"
+          size="small"></ic-spinner>
+        <span> {{ infiniteScrollText }} </span>
       </div>
     </div>
     <div v-if="bottomLoadMethod"
@@ -121,7 +119,7 @@
       },
       pageCount: {
         type: Number,
-        default 1
+        default: 1
       }
     },
     data() {

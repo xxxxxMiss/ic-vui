@@ -1,18 +1,18 @@
 <template>
   <div class="demo-upload">
-    <!-- <ic-upload
+    <ic-upload
       :on-success="handleSuccess"
       :on-error="handleError"
       :url="url"
-      name="photo"></ic-upload> -->
+      name="photo"></ic-upload>
 
     <input type="file" name="photo" @change="handleChange">
-    <ic-upload
+    <!-- <ic-upload
       :auto-upload="false"
       :show-preview="true"
       name="photo"
       upload-type="base64"></ic-upload>
-    <img :src="src" alt="" ref="img">
+    <img :src="src" alt="" ref="img"> -->
   </div>
 </template>
 
@@ -20,7 +20,7 @@
   export default {
     data () {
       return {
-        url: 'http://neitui_bole.wmq.dev3.ifchange.com/resume/upload_photo',
+        url: 'http://test.dev.cheng95.com/42.php',
         src: ''
       }
     },

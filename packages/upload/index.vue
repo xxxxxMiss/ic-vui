@@ -1,5 +1,5 @@
 <template>
-  <form class="ic-upload">
+  <form class="ic-upload" enctype="multipart/form-data">
     <slot>
       <span class="ic-upload__wrapper">
         <ic-icon v-if="icon && !usePreview" :name="icon"></ic-icon>

@@ -32,7 +32,7 @@
       <ic-button text>文本按钮</ic-button>
       <ic-button text timer
         end-text='重新发送'
-        @timer-end="timerEnd"></ic-button>
+        @timer-end="timerEnd">获取验证码</ic-button>
     </p>
 
     <p>

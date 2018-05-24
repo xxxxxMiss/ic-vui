@@ -13,6 +13,8 @@
     <ic-icon name="Job-reward"></ic-icon>
     <ic-icon name="resume-certificate"></ic-icon>
     <ic-icon name="resume-skills"></ic-icon>
+    <ic-icon name="edit"></ic-icon>
+    <ic-icon name="form-relationship"></ic-icon>
   </div>
 </template>
 
@@ -32,6 +34,8 @@
       animation-delay 3s
     .icon-resume-skills
       animation-delay 4s
+    .icon-edit
+      animation-delay 5s
   @keyframes move
     0%
       opacity 0

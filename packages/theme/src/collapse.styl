@@ -46,23 +46,21 @@
     &__panel
       padding 20px $padding-x 0
 
+
+
 .collapse-enter-active
-  animation collapse-fade-in .2s
+  animation collapse-fade-in .3s
 .collapse-leave-active
-  animation collapse-fade-out .2s
+  animation collapse-fade-out .3s
 
 @keyframes collapse-fade-in
   0%
-    transform: translate3d(0, -20px, 0)
-    opacity: 0
+    max-height 0
   100%
-    transform: translate3d(0, 0, 0)
-    opacity: 1
+    max-height 200px
 
 @keyframes collapse-fade-out
   0%
-    transform: translate3d(0, 0, 0)
-    opacity: 1
+    max-height 200px
   100%
-    transform: translate3d(0, -20px, 0)
-    opacity: 0
+    max-height 0

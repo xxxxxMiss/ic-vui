@@ -106,6 +106,22 @@
       isInfiniteScrollEnd: {
         type: Boolean,
         default: false
+      },
+      currentPage: {
+        type: Number,
+        default: 1
+      },
+      pageSize: {
+        type: Number,
+        default: 10
+      },
+      total: {
+        type: Number,
+        default: 0
+      },
+      pageCount: {
+        type: Number,
+        default 1
       }
     },
     data() {
@@ -125,7 +141,7 @@
         throttleEmitTopPull: null,
         throttleEmitBottomPull: null,
         throttleEmitScroll: null,
-        throttleOnInfiniteScroll: null
+        throttleOnInfiniteScroll: null,
       }
     },
     computed: {
@@ -134,6 +150,14 @@
       },
       _bottomConfig: function () {
         return Object.assign({}, BOTTOM_DEFAULT_CONFIG, this.bottomConfig)
+      },
+      isInfiniteEnd () {
+        return this.pageSize * this.currentPage >= this.total
+      },
+      infiniteScrollText () {
+        return this.isInfiniteEnd
+          ? this.infiniteScrollEndText
+          : this.infiniteScrollLoadingText
       }
     },
     watch: {

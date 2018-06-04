@@ -71,6 +71,10 @@
         type: Boolean,
         default: false
       },
+      timerCount: {
+        type: Number,
+        default: 59
+      },
       startText: {
         type: String,
         default: '获取验证码'
@@ -84,7 +88,7 @@
     },
     data () {
       return {
-        n: 5,
+        n: this.timerCount,
         end: this.endText,
         timerID: null,
         isDisabled: this.disabled
@@ -118,7 +122,7 @@
         ;(this.timer || this.autoTimer) && this.count()
       },
       count () {
-        this.n = 5
+        this.n = this.timerCount
         this.isDisabled = true
         const steps = () => {
           if (this.n === 0) {

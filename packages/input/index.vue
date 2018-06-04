@@ -43,6 +43,7 @@
         <ic-button v-if="timer || autoTimer"
           text
           timer
+          :timer-count="timerCount"
           :auto-timer="autoTimer"
           @timer-end="timerEnd"
           @click="timerClick"></ic-button>
@@ -112,6 +113,10 @@
       autoTimer: {
         type: Boolean,
         default: false
+      },
+      timerCount: {
+        type: Number,
+        default: 59
       },
       timerEnd: {
         type: Function,

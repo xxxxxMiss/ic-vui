@@ -30,7 +30,9 @@
 
     <p>
       <ic-button text>文本按钮</ic-button>
-      <ic-button text timer
+      <ic-button text
+        :auto-timer="autoTimer"
+        timer-text="获取验证码"
         end-text='重新发送'
         @timer-end="timerEnd">获取验证码</ic-button>
     </p>
@@ -73,10 +75,18 @@
 
 <script>
   export default {
+    data () {
+      return {
+        autoTimer: false
+      }
+    },
     methods: {
       timerEnd () {
         console.log('计时器结束')
       }
+    },
+    mounted () {
+      this.autoTimer = true
     }
   }
 </script>

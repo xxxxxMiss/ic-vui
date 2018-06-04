@@ -31,9 +31,6 @@ $colors = {
       transform-origin left top
       border-radius inherit
 
-    &--text:after
-      display none
-
     &__text
       display flex
       align-items center
@@ -63,7 +60,13 @@ $colors = {
         &:after
           border none
         &:active, &[disabled]
-          background-color: lighten(value, 62%)
+          background-color lighten(value, 62%)
+
+    &--text
+      &:after
+        display none
+      &[active],&[disabled]
+        background-color transparent
 
     &--large
       padding 12px 24px

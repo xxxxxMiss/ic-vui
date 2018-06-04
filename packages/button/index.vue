@@ -67,6 +67,14 @@
         type: Boolean,
         default: false
       },
+      autoTimer: {
+        type: Boolean,
+        default: false
+      },
+      startText: {
+        type: String,
+        default: '获取验证码'
+      },
       endText: {
         type: String,
         default: '重新发送'
@@ -76,27 +84,31 @@
     },
     data () {
       return {
-        n: 60,
-        end: this.endText
+        n: 5,
+        end: this.endText,
+        timerID: null,
+        isDisabled: this.disabled
       }
     },
     computed: {
-      isDisabled: {
-        set (v) {
-          this.$emit('input', v)
-        },
-        get () {
-          return this.disabled
-        }
-      },
       timerText () {
-        return this.n === 0 ? this.end : `${this.n}s`
+        return this.timerID === null
+            ? this.startText
+            : this.n === 0 ? this.end : `${this.n}s`
       }
     },
     watch: {
       n (newVal) {
         if (newVal === 0) {
           this.$emit('timer-end')
+        }
+      },
+      disabled (newVal) {
+        this.isDisabled = newVal
+      },
+      autoTimer (newVal) {
+        if (newVal) {
+          this.count()
         }
       }
     },
@@ -106,16 +118,18 @@
         this.timer && this.count()
       },
       count () {
-        this.n = 60
+        this.n = 5
+        this.isDisabled = true
         const steps = () => {
-          const timer = setTimeout(_ => {
-            if (this.n === 0) {
-              clearTimeout(timer)
-            } else {
+          if (this.n === 0) {
+            clearTimeout(this.timerID)
+            this.isDisabled = false
+          } else {
+            this.timerID = setTimeout(_ => {
               this.n--
               steps()
-            }
-          }, 1000)
+            }, 1000)
+          }
         }
         steps()
       }

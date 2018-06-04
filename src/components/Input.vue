@@ -50,7 +50,7 @@
 
     <h3>带有计时器的输入框</h3>
     <ic-input
-      timer
+      :auto-timer="autoTimer"
       v-model="value"
       @timer-click="timerClick"
       :timer-end="showEnd"
@@ -86,7 +86,8 @@
         skill: '',
         phone: '',
         email: '',
-        errors: null
+        errors: null,
+        autoTimer: false
       }
     },
     computed: {
@@ -151,6 +152,9 @@
         phone: { max: 11 }
       })
       this.$set(this, 'errors', this.validator.errors)
+    },
+    mounted () {
+      this.autoTimer = true
     }
   }
 </script>

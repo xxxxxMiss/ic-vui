@@ -6,7 +6,7 @@
         'ic-input--round': round,
         'ic-input--prefix': prefixIcon,
         'ic-input--suffix': suffixIcon || clearable,
-        'ic-input--timer': timer,
+        'ic-input--timer': timer || autoTimer,
         'ic-input--error': showError,
         'ic-input--focus': isFocus
       }
@@ -40,9 +40,10 @@
           name="clean"
           class="ic-icon-suffix"
           @click.stop="onClear"></ic-icon>
-        <ic-button v-if="timer"
-          timer
+        <ic-button v-if="timer || autoTimer"
           text
+          timer
+          :auto-timer="autoTimer"
           @timer-end="timerEnd"
           @click="timerClick"></ic-button>
       </template>
@@ -95,10 +96,6 @@
         type: Boolean,
         default: false
       },
-      timer: {
-        type: Boolean,
-        default: false
-      },
       value: {},
       autofocus: {
         type: Boolean,
@@ -109,6 +106,10 @@
         default: 'text'
       },
       timer: {
+        type: Boolean,
+        default: false
+      },
+      autoTimer: {
         type: Boolean,
         default: false
       },

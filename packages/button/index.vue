@@ -115,7 +115,7 @@
     methods: {
       onClick (e) {
         this.$emit('click', e)
-        this.timer && this.count()
+        ;(this.timer || this.autoTimer) && this.count()
       },
       count () {
         this.n = 5
@@ -133,6 +133,9 @@
         }
         steps()
       }
+    },
+    mounted () {
+      this.autoTimer && this.count()
     },
     components: { IcIcon }
   }

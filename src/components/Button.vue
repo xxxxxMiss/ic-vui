@@ -32,9 +32,8 @@
       <ic-button text>文本按钮</ic-button>
       <ic-button text
         :auto-timer="autoTimer"
-        timer-text="获取验证码"
         end-text='重新发送'
-        @timer-end="timerEnd">获取验证码</ic-button>
+        @timer-end="timerEnd"></ic-button>
     </p>
 
     <p>

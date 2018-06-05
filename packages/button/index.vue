@@ -118,15 +118,21 @@
       }
     },
     methods: {
+      isValid () {
+        return typeof this.beforeTimer === 'function' && this.beforeTimer()
+      },
       onClick (e) {
-        this.$emit('click', e)
+        if (this.timer || this.autoTimer) {
+          if (this.isValid()) {
+            this.$emit('click', e)
+          }
+        } else {
+          this.$emit('click', e)
+        }
         ;(this.timer || this.autoTimer) && this.count()
       },
       count () {
-        if (typeof this.beforeTimer === 'function' &&
-            !this.beforeTimer()) {
-          return false
-        }
+        if (!this.isValid()) return false
         this.n = this.timerCount
         this.isDisabled = true
         const steps = () => {

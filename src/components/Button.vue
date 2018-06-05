@@ -31,7 +31,9 @@
     <p>
       <ic-button text>文本按钮</ic-button>
       <ic-button text
-        :auto-timer="autoTimer"
+        :before-timer="beforeTimer"
+        timer
+        timer-text="获取验证码"
         end-text='重新发送'
         @timer-end="timerEnd"></ic-button>
     </p>
@@ -82,6 +84,11 @@
     methods: {
       timerEnd () {
         console.log('计时器结束')
+      },
+      beforeTimer () {
+        // some validations
+        this.$toast('输入不合法')
+        return false
       }
     },
     mounted () {

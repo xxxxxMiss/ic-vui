@@ -75,6 +75,7 @@
         type: Number,
         default: 59
       },
+      beforeTimer: Function,
       startText: {
         type: String,
         default: '获取验证码'
@@ -122,6 +123,10 @@
         ;(this.timer || this.autoTimer) && this.count()
       },
       count () {
+        if (typeof this.beforeTimer === 'function' &&
+            !this.beforeTimer()) {
+          return false
+        }
         this.n = this.timerCount
         this.isDisabled = true
         const steps = () => {

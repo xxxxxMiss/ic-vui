@@ -50,7 +50,8 @@
 
     <h3>带有计时器的输入框</h3>
     <ic-input
-      :auto-timer="autoTimer"
+      timer
+      :before-timer="beforeTimer"
       v-model="value"
       @timer-click="timerClick"
       :timer-end="showEnd"
@@ -107,6 +108,11 @@
       }
     },
     methods: {
+      beforeTimer () {
+        // some validations
+        this.$toast('输入不合法')
+        return false
+      },
       changeType () {
         if (this.type === 'password') {
           this.type = 'text'

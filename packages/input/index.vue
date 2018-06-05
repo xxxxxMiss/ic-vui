@@ -43,6 +43,7 @@
         <ic-button v-if="timer || autoTimer"
           text
           timer
+          :before-timer="beforeTimer"
           :timer-count="timerCount"
           :auto-timer="autoTimer"
           @timer-end="timerEnd"
@@ -122,6 +123,7 @@
         type: Function,
         default: () => {}
       },
+      beforeTimer: Function,
       to: [String, Object],
       rows: {
         type: [String, Number],

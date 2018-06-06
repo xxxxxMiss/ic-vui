@@ -8,7 +8,7 @@
       >
       <div class="ic-dialog__wrapper"
         ref="wrapper"
-        :style="{ width, height, 'margin-top': marginTop }">
+        :style="{ width, height }">
         <div v-if="showHeader"
           class="ic-dialog__header"
           :class="{
@@ -100,21 +100,6 @@
       isRound () {
         return this.round &&
           (this.width !== '100%' || this.height !== '100%')
-      }
-    },
-    data () {
-      return {
-        marginTop: 'auto'
-      }
-    },
-    watch: {
-      visible (val) {
-        if (val) {
-          this.$nextTick(_ => {
-            const h = this.$refs.wrapper.offsetHeight
-            this.marginTop = `${-h / 2}px`
-          })
-        }
       }
     },
     methods: {

@@ -123,7 +123,9 @@
       },
       onClick (e) {
         if (this.timer || this.autoTimer) {
-          if (this.isValid()) {
+          if (typeof this.beforeTimer === 'function') {
+            this.beforeTimer() && this.$emit('click', e)
+          } else {
             this.$emit('click', e)
           }
         } else {

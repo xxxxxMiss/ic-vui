@@ -40,9 +40,12 @@
           name="clean"
           class="ic-icon-suffix"
           @click.stop="onClear"></ic-icon>
+          <!-- use $attrs & $listeners in the future -->
         <ic-button v-if="timer || autoTimer"
           text
           timer
+          :start-text="startText"
+          :end-text="endText"
           :before-timer="beforeTimer"
           :timer-count="timerCount"
           :auto-timer="autoTimer"
@@ -57,7 +60,7 @@
           @focus="handleFocus"
           @blur="handleBlur"
           @keyup.enter="$emit('keyup', $event)"
-          :rows="rows"
+          :rows="defaultRows"
           :autofocus="autofocus"
           ref="textarea"
           :style="textareaStyle"
@@ -123,6 +126,14 @@
         type: Function,
         default: () => {}
       },
+      startText: {
+        type: String,
+        default: '获取验证码'
+      },
+      endText: {
+        type: String,
+        default: '重新发送'
+      },
       beforeTimer: Function,
       to: [String, Object],
       rows: {
@@ -147,7 +158,7 @@
     computed: {
       currentValue: {
         set (v) {
-          this.resizeTextarea()
+          this.resizeTextarea(v)
           // https://github.com/vuejs/vue/issues/7042
           this.$nextTick(_ => this.$emit('input', v))
         },
@@ -175,19 +186,23 @@
     data () {
       return {
         textareaStyle: {},
-        isFocus: false
+        isFocus: false,
+        defaultRows: this.rows
       }
     },
     methods: {
-      resizeTextarea () {
-        if (this.type === 'textarea') {
-          const { mirror, textarea } = this.$refs
-          const mHeight = mirror.getBoundingClientRect().height
-          const tHeight = textarea.getBoundingClientRect().height
-          if (mHeight >= tHeight) {
-            this.textareaStyle.height = `${mHeight}px`
-          }
-        }
+      resizeTextarea (value) {
+        // if (this.type === 'textarea') {
+        //   const { mirror, textarea } = this.$refs
+        //   const mHeight = mirror.getBoundingClientRect().height
+        //   this.textareaStyle = {
+        //     height: `${mHeight}px`,
+        //     padding: '12px 15px'
+        //   }
+        // }
+        const length = value.split('\n').length
+        console.log('length: ', length)
+        this.defaultRows = length
       },
       onClear () {
         this.currentValue = ''

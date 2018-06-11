@@ -1,24 +1,23 @@
-## Button Props
+## Picker Props
 
-| 参数         |   说明         | 类型     | 默认值      | 备选值            |
+| prop         |   descripiton     | type     |  defaults  |   available   |
 | ----------- | ------------- | -------- | --------- | ---------------- |
 |             |               |           |          |                  |
 
-## Button Slots
+## Picker Slots
 
-|   name  |      说明       |
+|   name  |      descripiton       |
 |  ------  |    ---------   |
 |          |                |
 
-## Button Events
+## Picker Events
 
-|   事件名称   |    说明   |  回调参数  |
+|   event name   |    descripiton   |  parameters  |
 | -------    | --------- |  --------- |
 |            |           |            |
 
-## Button Methods
+## Picker Methods
 
-|  方法名  |   说明   |   参数   |
+|  method  |   descripiton   |  parameters   |
 | ------- | ------  |  ------  |
 |         |         |          |
-

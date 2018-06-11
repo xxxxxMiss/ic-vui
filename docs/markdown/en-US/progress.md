@@ -1,24 +1,23 @@
-## Button Props
+## Progress Props
 
-| 参数         |   说明         | 类型     | 默认值      | 备选值            |
+| prop         |   descripiton     | type     |  defaults  |   available   |
 | ----------- | ------------- | -------- | --------- | ---------------- |
 |             |               |           |          |                  |
 
-## Button Slots
+## Progress Slots
 
-|   name  |      说明       |
+|   name  |      descripiton       |
 |  ------  |    ---------   |
 |          |                |
 
-## Button Events
+## Progress Events
 
-|   事件名称   |    说明   |  回调参数  |
+|   event name   |    descripiton   |  parameters  |
 | -------    | --------- |  --------- |
 |            |           |            |
 
-## Button Methods
+## Progress Methods
 
-|  方法名  |   说明   |   参数   |
+|  method  |   descripiton   |  parameters   |
 | ------- | ------  |  ------  |
 |         |         |          |
-

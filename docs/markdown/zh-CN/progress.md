@@ -1,22 +1,22 @@
-## Button Props
+## Progress Props
 
 | 参数         |   说明         | 类型     | 默认值      | 备选值            |
 | ----------- | ------------- | -------- | --------- | ---------------- |
 |             |               |           |          |                  |
 
-## Button Slots
+## Progress Slots
 
 |   name  |      说明       |
 |  ------  |    ---------   |
 |          |                |
 
-## Button Events
+## Progress Events
 
 |   事件名称   |    说明   |  回调参数  |
 | -------    | --------- |  --------- |
 |            |           |            |
 
-## Button Methods
+## Progress Methods
 
 |  方法名  |   说明   |   参数   |
 | ------- | ------  |  ------  |

@@ -134,21 +134,29 @@
         ;(this.timer || this.autoTimer) && this.count()
       },
       count () {
-        if (!this.isValid()) return false
-        this.n = this.timerCount
-        this.isDisabled = true
-        const steps = () => {
-          if (this.n === 0) {
-            clearTimeout(this.timerID)
-            this.isDisabled = false
-          } else {
-            this.timerID = setTimeout(_ => {
-              this.n--
-              steps()
-            }, 1000)
+        const startUp = () => {
+          this.n = this.timerCount
+          this.isDisabled = true
+          const steps = () => {
+            if (this.n === 0) {
+              clearTimeout(this.timerID)
+              this.isDisabled = false
+            } else {
+              this.timerID = setTimeout(_ => {
+                this.n--
+                steps()
+              }, 1000)
+            }
           }
+          steps()
         }
-        steps()
+        if (typeof this.beforeTimer === 'function') {
+          if (this.beforeTimer()) {
+            startUp()
+          }
+        } else {
+          startUp()
+        }
       }
     },
     mounted () {

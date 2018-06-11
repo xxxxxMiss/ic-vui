@@ -3,6 +3,7 @@
     <h3>textarea文本域输入</h3>
     <ic-input type="textarea"
       :autosize="true"
+      :rows="2"
       @focus="onFocus"
       v-model="content"
       placeholder="填写项目内容、你承担的责任、表现如何、项目成果等"></ic-input>

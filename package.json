@@ -1,6 +1,6 @@
 {
   "name": "ic-vui",
-  "version": "0.0.9499",
+  "version": "0.0.9500",
   "description": "A Vue.js UI components lib",
   "main": "lib/ic-vui.js",
   "files": [
@@ -21,6 +21,9 @@
     "build:style-entry": "node build/bin/build-style-entry.js",
     "build:css": "gulp build --gulpfile packages/theme/gulpfile.js --color",
     "build:pages": "node build/build-dev-pages.js",
+    "build:docs": "node build/scripts/build-docs.js",
+    "docs:dev": "npx vuepress dev docs/markdown",
+    "docs:build": "npx vuepress build docs/markdown",
     "pub": "npm run build && npm publish --access=public"
   },
   "dependencies": {
@@ -38,6 +41,7 @@
     "@commitlint/cli": "^6.1.3",
     "@commitlint/config-conventional": "^6.1.3",
     "@vue/test-utils": "^1.0.0-beta.12",
+    "address": "^1.0.3",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
@@ -87,6 +91,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.2",
+    "lerna": "2.0.0-beta.37",
     "md5-file": "^3.2.3",
     "mocha": "^3.2.0",
     "node-notifier": "^5.1.2",
@@ -113,14 +118,14 @@
     "vue-sfc-compiler": "0.0.6",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
+    "vuepress": "^0.10.1",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0",
-    "lerna": "2.0.0-beta.37"
+    "webpack-merge": "^4.1.0"
   },
   "engines": {
-    "node": ">= 4.0.0",
+    "node": ">= 8.9.0",
     "npm": ">= 3.0.0"
   },
   "browserslist": [

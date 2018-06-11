@@ -114,6 +114,7 @@
         }
       },
       fetch (formData) {
+        const loading = this.$loading()
         fetch(this.url, {
           method: 'POST',
           headers: this.headers,
@@ -131,11 +132,13 @@
           }
         })
         .then(data => {
+          loading.close()
           if (typeof this.onSuccess === 'function') {
             this.onSuccess(data)
           }
         })
         .catch(e => {
+          loading.close()
           if (typeof this.onError === 'function') {
             this.onError(e)
           }

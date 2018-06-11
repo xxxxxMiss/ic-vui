@@ -150,6 +150,8 @@
         return Object.assign({}, BOTTOM_DEFAULT_CONFIG, this.bottomConfig)
       },
       isInfiniteEnd () {
+        console.log(`total: ${this.total}`)
+        console.log(`currentPage: ${this.currentPage}`)
         return this.pageSize * this.currentPage >= this.total
       },
       infiniteScrollText () {

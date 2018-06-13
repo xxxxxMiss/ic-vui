@@ -1,22 +1,22 @@
-## {{component}} Props
+## Header Props
 
 | 参数         |   说明         | 类型     | 默认值      | 备选值            |
 | ----------- | ------------- | -------- | --------- | ---------------- |
 | | | | | |
 
-## {{component}} Slots
+## Header Slots
 
 |   name  |      说明       |
 |  ------  |    ---------   |
 | | |
 
-## {{component}} Events
+## Header Events
 
 |   事件名称   |    说明   |  回调参数  |
 | -------    | --------- |  --------- |
 | | | |
 
-## {{component}} Methods
+## Header Methods
 
 |  方法名  |   说明   |   参数   |
 | ------- | ------  |  ------  |

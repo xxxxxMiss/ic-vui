@@ -1,6 +1,6 @@
 {
   "name": "ic-vui",
-  "version": "0.0.9500",
+  "version": "0.0.9502",
   "description": "A Vue.js UI components lib",
   "main": "lib/ic-vui.js",
   "files": [
@@ -22,8 +22,8 @@
     "build:css": "gulp build --gulpfile packages/theme/gulpfile.js --color",
     "build:pages": "node build/build-dev-pages.js",
     "build:docs": "node build/scripts/build-docs.js",
-    "docs:dev": "npx vuepress dev docs/markdown",
-    "docs:build": "npx vuepress build docs/markdown",
+    "docs:dev": "vuepress dev docs/markdown",
+    "docs:build": "vuepress build docs/markdown",
     "pub": "npm run build && npm publish --access=public"
   },
   "dependencies": {

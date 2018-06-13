@@ -1,23 +1,26 @@
-## {{component}} Props
+## Spinner Props
 
 | prop         |   descripiton     | type     |  defaults  |   available   |
 | ----------- | ------------- | -------- | --------- | ---------------- |
-| | | | | |
+| type | spinner type | string | default | crash-ball、circle、 gradient |
+| color | determine the appearance | string | - | - |
+| size | spinner size | string | medium | small |
 
-## {{component}} Slots
+
+## Spinner Slots
 
 |   name  |      descripiton       |
 |  ------  |    ---------   |
-| | |
+|          |                |
 
-## {{component}} Events
+## Spinner Events
 
 |   event name   |    descripiton   |  parameters  |
 | -------    | --------- |  --------- |
-| | | |
+|            |           |            |
 
-## {{component}} Methods
+## Spinner Methods
 
 |  method  |   descripiton   |  parameters   |
 | ------- | ------  |  ------  |
-| | | |
+|         |         |          |

@@ -47,7 +47,10 @@
       },
       title: String,
       leftText: String,
-      leftIcon: String,
+      leftIcon: {
+        type: String,
+        default: 'titlebar-back'
+      },
       rightIcon: [String, Array],
       rightText: String,
       showDivider: {

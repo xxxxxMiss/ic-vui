@@ -26,10 +26,6 @@
         type: String,
         default: 'default'
       },
-      size: {
-        type: String,
-        default: 'medium'
-      },
       color: {
         type: String,
         default: 'white'

@@ -13,7 +13,6 @@
     mixins: [emitter],
     props: {
       value: Array,
-      max: Number
     },
     data () {
       return {

@@ -51,13 +51,13 @@
           center: true,
           confirmButtonText: '提交',
           showClose: false,
-          inputValue: 3,
+          inputValue: '',
           callback (action, vm) {
             console.log('回确定调')
             console.log('prompt框的input的值：', vm.inputValue)
           },
           inputValidator (value) {
-            if (+value > 10) return true
+            if (+value > 10 || !value) return true
             Toast('校验失败，请重新输入')
             return false
           }

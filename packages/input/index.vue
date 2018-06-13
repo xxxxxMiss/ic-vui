@@ -192,17 +192,14 @@
     },
     methods: {
       resizeTextarea (value) {
-        // if (this.type === 'textarea') {
-        //   const { mirror, textarea } = this.$refs
-        //   const mHeight = mirror.getBoundingClientRect().height
-        //   this.textareaStyle = {
-        //     height: `${mHeight}px`,
-        //     padding: '12px 15px'
-        //   }
-        // }
-        const length = value.split('\n').length
-        console.log('length: ', length)
-        this.defaultRows = length
+        if (this.type === 'textarea') {
+          const { mirror, textarea } = this.$refs
+          const mHeight = mirror.getBoundingClientRect().height
+          this.textareaStyle = {
+            height: `${mHeight}px`,
+            padding: '12px 15px'
+          }
+        }
       },
       onClear () {
         this.currentValue = ''

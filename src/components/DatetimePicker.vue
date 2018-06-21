@@ -43,7 +43,7 @@
         visible2: false,
         date: '',
         date2: '',
-        selectedDate: '2017.09-2018.07',
+        selectedDate: '',
         selectedDate2: '2017.01',
         startDate: new Date(1950, 0, 1),
         endDate: new Date()
@@ -52,7 +52,7 @@
     watch: {
       selectedDate (newVal) {
         console.log('newVal: ', newVal)
-        this.date = newVal.join('-')
+        // this.date = newVal.join('-')
       }
     },
     methods: {
@@ -74,6 +74,11 @@
           this.date2 = [year, month].join('.')
         }
       }
+    },
+    created () {
+      setTimeout(() => {
+        this.selectedDate = '2000.09'
+      }, 5000)
     }
   }
 </script>

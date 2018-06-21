@@ -23,7 +23,7 @@
           ref="input"
           @focus="handleFocus"
           @blur="handleBlur"
-          @keyup.enter="$emit('keyup', $event)"
+          @keyup.enter="handleKeyup"
           :style="style"
           v-model="currentValue"
           :type="type"
@@ -59,7 +59,7 @@
           v-model="currentValue"
           @focus="handleFocus"
           @blur="handleBlur"
-          @keyup.enter="$emit('keyup', $event)"
+          @keyup.enter="handleKeyup"
           :rows="defaultRows"
           :autofocus="autofocus"
           ref="textarea"
@@ -222,6 +222,10 @@
       handleBlur (e) {
         this.isFocus = false
         this.$emit('blur', e)
+      },
+      handleKeyup (e) {
+        e.target.blur()
+        this.$emit('keyup', e)
       }
     }
   }

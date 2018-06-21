@@ -14,12 +14,12 @@
 <script>
   export default {
     data () {
-      const hostCity = require('mock/host-city.json')
-      const city = require('mock/city.json')
-      city['热'] = hostCity
-      const s = Object.keys(city).map(key => ({ title: key, children: city[key] }))
+      // const hostCity = require('mock/host-city.json')
+      // const city = require('mock/city.json')
+      // city['热'] = hostCity
+      // const s = Object.keys(city).map(key => ({ title: key, children: city[key] }))
       return {
-        city: s
+        city: []
       }
     },
     methods: {

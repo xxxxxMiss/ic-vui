@@ -11,9 +11,9 @@
     <h3>默认为中等大小的输入框</h3>
     <ic-input
       @click="handleClick"
-      readonly
       clearable
       v-model="phone"
+      @blur="validate"
       name="phone"
       placeholder="请输入手机号"></ic-input>
     <!-- <ic-input
@@ -32,7 +32,7 @@
     <ic-input
       v-model="keyword"
       type="search"
-      @focus="onFocus"
+
       @blur="handleBlur"
       round
       clearable
@@ -45,6 +45,7 @@
       :type="type"
       v-model="value"
       @click-suffix="changeType"
+      @focus="onFocus"
       placeholder="请输入密码"
       :suffix-icon="suffixIcon"
       prefix-icon="form-password"></ic-input>
@@ -74,6 +75,21 @@
 <script>
   import Toast from '../../packages/toast/index'
   import { Validator } from 'vee-validate'
+  import Joi from 'joi-browser'
+
+  const schema = Joi.object().keys({
+    oldVal: Joi.string().regex(/^[0-9a-zA-Z]$/),
+    newVal: Joi.ref('oldVal')
+  })
+  //
+  // const schema = Joi.object().keys({
+  //   a: Joi.string().min(2),
+  //   b: Joi.number().max(4)
+  // })
+
+  // const start = Joi.string().max(5)
+  // const end = Joi.string().required()
+  // const range = start.concat(end)
 
   export default {
     validator: null,
@@ -109,6 +125,13 @@
       }
     },
     methods: {
+      validate () {
+        const ret = Joi.validate({
+          oldVal: this.content,
+          newVal: this.phone
+        }, schema)
+        console.log(ret)
+      },
       beforeTimer () {
         // some validations
         this.$toast('输入不合法')

@@ -101,10 +101,6 @@
         type: String,
         default: '没有更多啦'
       },
-      isInfiniteScrollEnd: {
-        type: Boolean,
-        default: false
-      },
       currentPage: {
         type: Number,
         default: 1
@@ -150,8 +146,6 @@
         return Object.assign({}, BOTTOM_DEFAULT_CONFIG, this.bottomConfig)
       },
       isInfiniteEnd () {
-        console.log(`total: ${this.total}`)
-        console.log(`currentPage: ${this.currentPage}`)
         return this.pageSize * this.currentPage >= this.total
       },
       infiniteScrollText () {
@@ -292,7 +286,7 @@
       },
 
       onInfiniteScroll() {
-        if (this.checkBottomReached() && !this.isInfiniteScrollEnd) {
+        if (this.checkBottomReached() && !this.isInfiniteEnd) {
           this.$emit('infinite-scroll')
         }
       },

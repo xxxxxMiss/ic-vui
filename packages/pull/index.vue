@@ -146,7 +146,8 @@
         return Object.assign({}, BOTTOM_DEFAULT_CONFIG, this.bottomConfig)
       },
       isInfiniteEnd () {
-        return this.pageSize * this.currentPage >= this.total
+        // -1: because we execute currentPage++ after successfully fetch data
+        return this.pageSize * (this.currentPage - 1) >= this.total
       },
       infiniteScrollText () {
         return this.isInfiniteEnd

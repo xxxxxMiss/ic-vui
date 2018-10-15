@@ -158,7 +158,6 @@
     computed: {
       currentValue: {
         set (v) {
-          this.resizeTextarea(v)
           // https://github.com/vuejs/vue/issues/7042
           this.$nextTick(_ => this.$emit('input', v))
         },
@@ -191,16 +190,6 @@
       }
     },
     methods: {
-      resizeTextarea (value) {
-        if (this.type === 'textarea') {
-          const { mirror, textarea } = this.$refs
-          const mHeight = mirror.getBoundingClientRect().height
-          this.textareaStyle = {
-            height: `${mHeight}px`,
-            padding: '12px 15px'
-          }
-        }
-      },
       onClear () {
         this.currentValue = ''
       },

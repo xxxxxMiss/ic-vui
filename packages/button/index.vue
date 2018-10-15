@@ -124,14 +124,17 @@
       onClick (e) {
         if (this.timer || this.autoTimer) {
           if (typeof this.beforeTimer === 'function') {
-            this.beforeTimer() && this.$emit('click', e)
+            if (this.beforeTimer()) {
+              this.$emit('click', e)
+              this.count()
+            }
           } else {
             this.$emit('click', e)
+            this.count()
           }
         } else {
           this.$emit('click', e)
         }
-        ;(this.timer || this.autoTimer) && this.count()
       },
       count () {
         const startUp = () => {

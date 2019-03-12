@@ -63,17 +63,11 @@
           :rows="defaultRows"
           :autofocus="autofocus"
           ref="textarea"
-          :style="textareaStyle"
           :placeholder="placeholder"
           v-bind="$attrs"
           :unselectable="unselectable"
           :readonly="readonly"
         ></textarea>
-        <div
-          ref="mirror"
-          class="ic-input__textarea ic-textarea--mirror"
-          contenteditable
-        >{{ currentValue }}</div>
       </template>
     </div>
     <div v-show="errorMsg"
@@ -184,7 +178,6 @@
     },
     data () {
       return {
-        textareaStyle: {},
         isFocus: false,
         defaultRows: this.rows
       }

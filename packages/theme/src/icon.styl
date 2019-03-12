@@ -1,12 +1,12 @@
 @import 'common/var'
 
 @font-face {
-  font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?il4wrp');
-  src:  url('fonts/icomoon.eot?il4wrp#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?il4wrp') format('truetype'),
-    url('fonts/icomoon.woff?il4wrp') format('woff'),
-    url('fonts/icomoon.svg?il4wrp#icomoon') format('svg');
+  font-family: 'Wap_icon_font';
+  src:  url('fonts/Wap_icon_font.eot?o7ws4s');
+  src:  url('fonts/Wap_icon_font.eot?o7ws4s#iefix') format('embedded-opentype'),
+    url('fonts/Wap_icon_font.ttf?o7ws4s') format('truetype'),
+    url('fonts/Wap_icon_font.woff?o7ws4s') format('woff'),
+    url('fonts/Wap_icon_font.svg?o7ws4s#Wap_icon_font') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 +prefix-classes($prefix-classes)
   .icon
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'icomoon' !important
+    font-family: 'Wap_icon_font' !important
     speak: none
     font-style: normal
     font-weight: normal
@@ -25,6 +25,21 @@
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
 
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Wap_icon_font' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .icon-arrow-down:before {
   content: "\e900";
 }
@@ -33,6 +48,15 @@
 }
 .icon-time:before {
   content: "\e902";
+}
+.icon-return-to-top:before {
+  content: "\e953";
+}
+.icon-Job-member:before {
+  content: "\e950";
+}
+.icon-Job-department:before {
+  content: "\e951";
 }
 .icon-edit:before {
   content: "\e93b";
@@ -114,6 +138,36 @@
 }
 .icon-urgent-job:before {
   content: "\e91a";
+}
+.icon-deliver:before {
+  content: "\e946";
+}
+.icon-Entry:before {
+  content: "\e947";
+}
+.icon-interview:before {
+  content: "\e948";
+}
+.icon-offer:before {
+  content: "\e949";
+}
+.icon-screen:before {
+  content: "\e94a";
+}
+.icon-form-state:before {
+  content: "\e955";
+}
+.icon-form-QQ:before {
+  content: "\e954";
+}
+.icon-form-wechat:before {
+  content: "\e952";
+}
+.icon-titlebar-home:before {
+  content: "\e94c";
+}
+.icon-folder:before {
+  content: "\e94b";
 }
 .icon-QR_Code:before {
   content: "\e944";
@@ -216,6 +270,15 @@
 }
 .icon-titlebar-share:before {
   content: "\e93a";
+}
+.icon-share-forward:before {
+  content: "\e94d";
+}
+.icon-share-Long_picture:before {
+  content: "\e94e";
+}
+.icon-share-picture:before {
+  content: "\e94f";
 }
 .icon-nav-job:before {
   content: "\e93c";

@@ -182,6 +182,7 @@
         phone: { max: 11 }
       })
       this.$set(this, 'errors', this.validator.errors)
+      this.content = Date.parse('2018/09/00')
     },
     mounted () {
       this.autoTimer = true
